@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.friendsystem.mapper.AttentionPeopleMapper" >
+  <resultMap id="BaseResultMap" type="com.friendsystem.pojo.AttentionPeople" >
+    <id column="attention_people_id" property="attentionPeopleId" jdbcType="VARCHAR" />
+    <result column="attention_people_user_one" property="attentionPeopleUserOne" jdbcType="VARCHAR" />
+    <result column="attention_people_user_two" property="attentionPeopleUserTwo" jdbcType="VARCHAR" />
+    <result column="attention_people_createtime" property="attentionPeopleCreatetime" jdbcType="VARCHAR" />
+    <result column="attention_people_modifytime" property="attentionPeopleModifytime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    attention_people_id, attention_people_user_one, attention_people_user_two, attention_people_createtime, 
+    attention_people_modifytime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.friendsystem.pojo.AttentionPeopleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from attention_people
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from attention_people
+    where attention_people_id = #{attentionPeopleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from attention_people
+    where attention_people_id = #{attentionPeopleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.friendsystem.pojo.AttentionPeopleExample" >
+    delete from attention_people
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.friendsystem.pojo.AttentionPeople" >
+    insert into attention_people (attention_people_id, attention_people_user_one, 
+      attention_people_user_two, attention_people_createtime, 
+      attention_people_modifytime)
+    values (#{attentionPeopleId,jdbcType=VARCHAR}, #{attentionPeopleUserOne,jdbcType=VARCHAR}, 
+      #{attentionPeopleUserTwo,jdbcType=VARCHAR}, #{attentionPeopleCreatetime,jdbcType=VARCHAR}, 
+      #{attentionPeopleModifytime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.friendsystem.pojo.AttentionPeople" >
+    insert into attention_people
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attentionPeopleId != null" >
+        attention_people_id,
+      </if>
+      <if test="attentionPeopleUserOne != null" >
+        attention_people_user_one,
+      </if>
+      <if test="attentionPeopleUserTwo != null" >
+        attention_people_user_two,
+      </if>
+      <if test="attentionPeopleCreatetime != null" >
+        attention_people_createtime,
+      </if>
+      <if test="attentionPeopleModifytime != null" >
+        attention_people_modifytime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attentionPeopleId != null" >
+        #{attentionPeopleId,jdbcType=VARCHAR},
+      </if>
+      <if test="attentionPeopleUserOne != null" >
+        #{attentionPeopleUserOne,jdbcType=VARCHAR},
+      </if>
+      <if test="attentionPeopleUserTwo != null" >
+        #{attentionPeopleUserTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="attentionPeopleCreatetime != null" >
+        #{attentionPeopleCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="attentionPeopleModifytime != null" >
+        #{attentionPeopleModifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.friendsystem.pojo.AttentionPeopleExample" resultType="java.lang.Integer" >
+    select count(*) from attention_people
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update attention_people
+    <set >
+      <if test="record.attentionPeopleId != null" >
+        attention_people_id = #{record.attentionPeopleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attentionPeopleUserOne != null" >
+        attention_people_user_one = #{record.attentionPeopleUserOne,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attentionPeopleUserTwo != null" >
+        attention_people_user_two = #{record.attentionPeopleUserTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attentionPeopleCreatetime != null" >
+        attention_people_createtime = #{record.attentionPeopleCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attentionPeopleModifytime != null" >
+        attention_people_modifytime = #{record.attentionPeopleModifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update attention_people
+    set attention_people_id = #{record.attentionPeopleId,jdbcType=VARCHAR},
+      attention_people_user_one = #{record.attentionPeopleUserOne,jdbcType=VARCHAR},
+      attention_people_user_two = #{record.attentionPeopleUserTwo,jdbcType=VARCHAR},
+      attention_people_createtime = #{record.attentionPeopleCreatetime,jdbcType=VARCHAR},
+      attention_people_modifytime = #{record.attentionPeopleModifytime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.friendsystem.pojo.AttentionPeople" >
+    update attention_people
+    <set >
+      <if test="attentionPeopleUserOne != null" >
+        attention_people_user_one = #{attentionPeopleUserOne,jdbcType=VARCHAR},
+      </if>
+      <if test="attentionPeopleUserTwo != null" >
+        attention_people_user_two = #{attentionPeopleUserTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="attentionPeopleCreatetime != null" >
+        attention_people_createtime = #{attentionPeopleCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="attentionPeopleModifytime != null" >
+        attention_people_modifytime = #{attentionPeopleModifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where attention_people_id = #{attentionPeopleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.friendsystem.pojo.AttentionPeople" >
+    update attention_people
+    set attention_people_user_one = #{attentionPeopleUserOne,jdbcType=VARCHAR},
+      attention_people_user_two = #{attentionPeopleUserTwo,jdbcType=VARCHAR},
+      attention_people_createtime = #{attentionPeopleCreatetime,jdbcType=VARCHAR},
+      attention_people_modifytime = #{attentionPeopleModifytime,jdbcType=VARCHAR}
+    where attention_people_id = #{attentionPeopleId,jdbcType=VARCHAR}
+  </update>
+</mapper>

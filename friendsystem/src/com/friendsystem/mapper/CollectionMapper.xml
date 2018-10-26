@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.friendsystem.mapper.CollectionMapper" >
+  <resultMap id="BaseResultMap" type="com.friendsystem.pojo.Collection" >
+    <id column="collection_id" property="collectionId" jdbcType="VARCHAR" />
+    <result column="collection_people" property="collectionPeople" jdbcType="VARCHAR" />
+    <result column="collection_article" property="collectionArticle" jdbcType="VARCHAR" />
+    <result column="collection_createtime" property="collectionCreatetime" jdbcType="VARCHAR" />
+    <result column="collection_modifytime" property="collectionModifytime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    collection_id, collection_people, collection_article, collection_createtime, collection_modifytime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.friendsystem.pojo.CollectionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from collection
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from collection
+    where collection_id = #{collectionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from collection
+    where collection_id = #{collectionId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.friendsystem.pojo.CollectionExample" >
+    delete from collection
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.friendsystem.pojo.Collection" >
+    insert into collection (collection_id, collection_people, collection_article, 
+      collection_createtime, collection_modifytime
+      )
+    values (#{collectionId,jdbcType=VARCHAR}, #{collectionPeople,jdbcType=VARCHAR}, #{collectionArticle,jdbcType=VARCHAR}, 
+      #{collectionCreatetime,jdbcType=VARCHAR}, #{collectionModifytime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.friendsystem.pojo.Collection" >
+    insert into collection
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="collectionId != null" >
+        collection_id,
+      </if>
+      <if test="collectionPeople != null" >
+        collection_people,
+      </if>
+      <if test="collectionArticle != null" >
+        collection_article,
+      </if>
+      <if test="collectionCreatetime != null" >
+        collection_createtime,
+      </if>
+      <if test="collectionModifytime != null" >
+        collection_modifytime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="collectionId != null" >
+        #{collectionId,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionPeople != null" >
+        #{collectionPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionArticle != null" >
+        #{collectionArticle,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionCreatetime != null" >
+        #{collectionCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionModifytime != null" >
+        #{collectionModifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.friendsystem.pojo.CollectionExample" resultType="java.lang.Integer" >
+    select count(*) from collection
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update collection
+    <set >
+      <if test="record.collectionId != null" >
+        collection_id = #{record.collectionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectionPeople != null" >
+        collection_people = #{record.collectionPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectionArticle != null" >
+        collection_article = #{record.collectionArticle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectionCreatetime != null" >
+        collection_createtime = #{record.collectionCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectionModifytime != null" >
+        collection_modifytime = #{record.collectionModifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update collection
+    set collection_id = #{record.collectionId,jdbcType=VARCHAR},
+      collection_people = #{record.collectionPeople,jdbcType=VARCHAR},
+      collection_article = #{record.collectionArticle,jdbcType=VARCHAR},
+      collection_createtime = #{record.collectionCreatetime,jdbcType=VARCHAR},
+      collection_modifytime = #{record.collectionModifytime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.friendsystem.pojo.Collection" >
+    update collection
+    <set >
+      <if test="collectionPeople != null" >
+        collection_people = #{collectionPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionArticle != null" >
+        collection_article = #{collectionArticle,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionCreatetime != null" >
+        collection_createtime = #{collectionCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionModifytime != null" >
+        collection_modifytime = #{collectionModifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where collection_id = #{collectionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.friendsystem.pojo.Collection" >
+    update collection
+    set collection_people = #{collectionPeople,jdbcType=VARCHAR},
+      collection_article = #{collectionArticle,jdbcType=VARCHAR},
+      collection_createtime = #{collectionCreatetime,jdbcType=VARCHAR},
+      collection_modifytime = #{collectionModifytime,jdbcType=VARCHAR}
+    where collection_id = #{collectionId,jdbcType=VARCHAR}
+  </update>
+</mapper>

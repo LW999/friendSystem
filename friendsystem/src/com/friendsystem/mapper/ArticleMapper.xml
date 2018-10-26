@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.friendsystem.mapper.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.friendsystem.pojo.Article" >
+    <id column="article_id" property="articleId" jdbcType="VARCHAR" />
+    <result column="article_title" property="articleTitle" jdbcType="VARCHAR" />
+    <result column="article_content" property="articleContent" jdbcType="VARCHAR" />
+    <result column="article_by_user" property="articleByUser" jdbcType="VARCHAR" />
+    <result column="article_is_release" property="articleIsRelease" jdbcType="VARCHAR" />
+    <result column="article_is_delete" property="articleIsDelete" jdbcType="VARCHAR" />
+    <result column="article_views" property="articleViews" jdbcType="VARCHAR" />
+    <result column="article_img" property="articleImg" jdbcType="VARCHAR" />
+    <result column="article_createtime" property="articleCreatetime" jdbcType="VARCHAR" />
+    <result column="article_modifytime" property="articleModifytime" jdbcType="VARCHAR" />
+    <result column="article_project" property="articleProject" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    article_id, article_title, article_content, article_by_user, article_is_release, 
+    article_is_delete, article_views, article_img, article_createtime, article_modifytime, 
+    article_project
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.friendsystem.pojo.ArticleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from article
+    where article_id = #{articleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from article
+    where article_id = #{articleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.friendsystem.pojo.ArticleExample" >
+    delete from article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.friendsystem.pojo.Article" >
+    insert into article (article_id, article_title, article_content, 
+      article_by_user, article_is_release, article_is_delete, 
+      article_views, article_img, article_createtime, 
+      article_modifytime, article_project)
+    values (#{articleId,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR}, #{articleContent,jdbcType=VARCHAR}, 
+      #{articleByUser,jdbcType=VARCHAR}, #{articleIsRelease,jdbcType=VARCHAR}, #{articleIsDelete,jdbcType=VARCHAR}, 
+      #{articleViews,jdbcType=VARCHAR}, #{articleImg,jdbcType=VARCHAR}, #{articleCreatetime,jdbcType=VARCHAR}, 
+      #{articleModifytime,jdbcType=VARCHAR}, #{articleProject,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.friendsystem.pojo.Article" >
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="articleTitle != null" >
+        article_title,
+      </if>
+      <if test="articleContent != null" >
+        article_content,
+      </if>
+      <if test="articleByUser != null" >
+        article_by_user,
+      </if>
+      <if test="articleIsRelease != null" >
+        article_is_release,
+      </if>
+      <if test="articleIsDelete != null" >
+        article_is_delete,
+      </if>
+      <if test="articleViews != null" >
+        article_views,
+      </if>
+      <if test="articleImg != null" >
+        article_img,
+      </if>
+      <if test="articleCreatetime != null" >
+        article_createtime,
+      </if>
+      <if test="articleModifytime != null" >
+        article_modifytime,
+      </if>
+      <if test="articleProject != null" >
+        article_project,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="articleId != null" >
+        #{articleId,jdbcType=VARCHAR},
+      </if>
+      <if test="articleTitle != null" >
+        #{articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleContent != null" >
+        #{articleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="articleByUser != null" >
+        #{articleByUser,jdbcType=VARCHAR},
+      </if>
+      <if test="articleIsRelease != null" >
+        #{articleIsRelease,jdbcType=VARCHAR},
+      </if>
+      <if test="articleIsDelete != null" >
+        #{articleIsDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="articleViews != null" >
+        #{articleViews,jdbcType=VARCHAR},
+      </if>
+      <if test="articleImg != null" >
+        #{articleImg,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCreatetime != null" >
+        #{articleCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="articleModifytime != null" >
+        #{articleModifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="articleProject != null" >
+        #{articleProject,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.friendsystem.pojo.ArticleExample" resultType="java.lang.Integer" >
+    select count(*) from article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update article
+    <set >
+      <if test="record.articleId != null" >
+        article_id = #{record.articleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleTitle != null" >
+        article_title = #{record.articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleContent != null" >
+        article_content = #{record.articleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleByUser != null" >
+        article_by_user = #{record.articleByUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleIsRelease != null" >
+        article_is_release = #{record.articleIsRelease,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleIsDelete != null" >
+        article_is_delete = #{record.articleIsDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleViews != null" >
+        article_views = #{record.articleViews,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleImg != null" >
+        article_img = #{record.articleImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleCreatetime != null" >
+        article_createtime = #{record.articleCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleModifytime != null" >
+        article_modifytime = #{record.articleModifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleProject != null" >
+        article_project = #{record.articleProject,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update article
+    set article_id = #{record.articleId,jdbcType=VARCHAR},
+      article_title = #{record.articleTitle,jdbcType=VARCHAR},
+      article_content = #{record.articleContent,jdbcType=VARCHAR},
+      article_by_user = #{record.articleByUser,jdbcType=VARCHAR},
+      article_is_release = #{record.articleIsRelease,jdbcType=VARCHAR},
+      article_is_delete = #{record.articleIsDelete,jdbcType=VARCHAR},
+      article_views = #{record.articleViews,jdbcType=VARCHAR},
+      article_img = #{record.articleImg,jdbcType=VARCHAR},
+      article_createtime = #{record.articleCreatetime,jdbcType=VARCHAR},
+      article_modifytime = #{record.articleModifytime,jdbcType=VARCHAR},
+      article_project = #{record.articleProject,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.friendsystem.pojo.Article" >
+    update article
+    <set >
+      <if test="articleTitle != null" >
+        article_title = #{articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleContent != null" >
+        article_content = #{articleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="articleByUser != null" >
+        article_by_user = #{articleByUser,jdbcType=VARCHAR},
+      </if>
+      <if test="articleIsRelease != null" >
+        article_is_release = #{articleIsRelease,jdbcType=VARCHAR},
+      </if>
+      <if test="articleIsDelete != null" >
+        article_is_delete = #{articleIsDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="articleViews != null" >
+        article_views = #{articleViews,jdbcType=VARCHAR},
+      </if>
+      <if test="articleImg != null" >
+        article_img = #{articleImg,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCreatetime != null" >
+        article_createtime = #{articleCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="articleModifytime != null" >
+        article_modifytime = #{articleModifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="articleProject != null" >
+        article_project = #{articleProject,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where article_id = #{articleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.friendsystem.pojo.Article" >
+    update article
+    set article_title = #{articleTitle,jdbcType=VARCHAR},
+      article_content = #{articleContent,jdbcType=VARCHAR},
+      article_by_user = #{articleByUser,jdbcType=VARCHAR},
+      article_is_release = #{articleIsRelease,jdbcType=VARCHAR},
+      article_is_delete = #{articleIsDelete,jdbcType=VARCHAR},
+      article_views = #{articleViews,jdbcType=VARCHAR},
+      article_img = #{articleImg,jdbcType=VARCHAR},
+      article_createtime = #{articleCreatetime,jdbcType=VARCHAR},
+      article_modifytime = #{articleModifytime,jdbcType=VARCHAR},
+      article_project = #{articleProject,jdbcType=VARCHAR}
+    where article_id = #{articleId,jdbcType=VARCHAR}
+  </update>
+</mapper>

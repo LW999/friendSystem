@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.friendsystem.mapper.RecommendedMapper" >
+  <resultMap id="BaseResultMap" type="com.friendsystem.pojo.Recommended" >
+    <id column="recommended_id" property="recommendedId" jdbcType="VARCHAR" />
+    <result column="recommended_by_article" property="recommendedByArticle" jdbcType="VARCHAR" />
+    <result column="recommended_img" property="recommendedImg" jdbcType="VARCHAR" />
+    <result column="recommended_createtime" property="recommendedCreatetime" jdbcType="VARCHAR" />
+    <result column="recommended_modifytime" property="recommendedModifytime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    recommended_id, recommended_by_article, recommended_img, recommended_createtime, 
+    recommended_modifytime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.friendsystem.pojo.RecommendedExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from recommended
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from recommended
+    where recommended_id = #{recommendedId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from recommended
+    where recommended_id = #{recommendedId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.friendsystem.pojo.RecommendedExample" >
+    delete from recommended
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.friendsystem.pojo.Recommended" >
+    insert into recommended (recommended_id, recommended_by_article, 
+      recommended_img, recommended_createtime, 
+      recommended_modifytime)
+    values (#{recommendedId,jdbcType=VARCHAR}, #{recommendedByArticle,jdbcType=VARCHAR}, 
+      #{recommendedImg,jdbcType=VARCHAR}, #{recommendedCreatetime,jdbcType=VARCHAR}, 
+      #{recommendedModifytime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.friendsystem.pojo.Recommended" >
+    insert into recommended
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recommendedId != null" >
+        recommended_id,
+      </if>
+      <if test="recommendedByArticle != null" >
+        recommended_by_article,
+      </if>
+      <if test="recommendedImg != null" >
+        recommended_img,
+      </if>
+      <if test="recommendedCreatetime != null" >
+        recommended_createtime,
+      </if>
+      <if test="recommendedModifytime != null" >
+        recommended_modifytime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recommendedId != null" >
+        #{recommendedId,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedByArticle != null" >
+        #{recommendedByArticle,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedImg != null" >
+        #{recommendedImg,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedCreatetime != null" >
+        #{recommendedCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedModifytime != null" >
+        #{recommendedModifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.friendsystem.pojo.RecommendedExample" resultType="java.lang.Integer" >
+    select count(*) from recommended
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update recommended
+    <set >
+      <if test="record.recommendedId != null" >
+        recommended_id = #{record.recommendedId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recommendedByArticle != null" >
+        recommended_by_article = #{record.recommendedByArticle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recommendedImg != null" >
+        recommended_img = #{record.recommendedImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recommendedCreatetime != null" >
+        recommended_createtime = #{record.recommendedCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recommendedModifytime != null" >
+        recommended_modifytime = #{record.recommendedModifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update recommended
+    set recommended_id = #{record.recommendedId,jdbcType=VARCHAR},
+      recommended_by_article = #{record.recommendedByArticle,jdbcType=VARCHAR},
+      recommended_img = #{record.recommendedImg,jdbcType=VARCHAR},
+      recommended_createtime = #{record.recommendedCreatetime,jdbcType=VARCHAR},
+      recommended_modifytime = #{record.recommendedModifytime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.friendsystem.pojo.Recommended" >
+    update recommended
+    <set >
+      <if test="recommendedByArticle != null" >
+        recommended_by_article = #{recommendedByArticle,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedImg != null" >
+        recommended_img = #{recommendedImg,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedCreatetime != null" >
+        recommended_createtime = #{recommendedCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedModifytime != null" >
+        recommended_modifytime = #{recommendedModifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where recommended_id = #{recommendedId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.friendsystem.pojo.Recommended" >
+    update recommended
+    set recommended_by_article = #{recommendedByArticle,jdbcType=VARCHAR},
+      recommended_img = #{recommendedImg,jdbcType=VARCHAR},
+      recommended_createtime = #{recommendedCreatetime,jdbcType=VARCHAR},
+      recommended_modifytime = #{recommendedModifytime,jdbcType=VARCHAR}
+    where recommended_id = #{recommendedId,jdbcType=VARCHAR}
+  </update>
+</mapper>

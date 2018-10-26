@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.friendsystem.mapper.LikeMapper" >
+  <resultMap id="BaseResultMap" type="com.friendsystem.pojo.Like" >
+    <id column="like_id" property="likeId" jdbcType="VARCHAR" />
+    <result column="like_article" property="likeArticle" jdbcType="VARCHAR" />
+    <result column="like_people" property="likePeople" jdbcType="VARCHAR" />
+    <result column="like_createtime" property="likeCreatetime" jdbcType="VARCHAR" />
+    <result column="like_modifytime" property="likeModifytime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    like_id, like_article, like_people, like_createtime, like_modifytime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.friendsystem.pojo.LikeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from like
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from like
+    where like_id = #{likeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from like
+    where like_id = #{likeId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.friendsystem.pojo.LikeExample" >
+    delete from like
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.friendsystem.pojo.Like" >
+    insert into like (like_id, like_article, like_people, 
+      like_createtime, like_modifytime)
+    values (#{likeId,jdbcType=VARCHAR}, #{likeArticle,jdbcType=VARCHAR}, #{likePeople,jdbcType=VARCHAR}, 
+      #{likeCreatetime,jdbcType=VARCHAR}, #{likeModifytime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.friendsystem.pojo.Like" >
+    insert into like
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="likeId != null" >
+        like_id,
+      </if>
+      <if test="likeArticle != null" >
+        like_article,
+      </if>
+      <if test="likePeople != null" >
+        like_people,
+      </if>
+      <if test="likeCreatetime != null" >
+        like_createtime,
+      </if>
+      <if test="likeModifytime != null" >
+        like_modifytime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="likeId != null" >
+        #{likeId,jdbcType=VARCHAR},
+      </if>
+      <if test="likeArticle != null" >
+        #{likeArticle,jdbcType=VARCHAR},
+      </if>
+      <if test="likePeople != null" >
+        #{likePeople,jdbcType=VARCHAR},
+      </if>
+      <if test="likeCreatetime != null" >
+        #{likeCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="likeModifytime != null" >
+        #{likeModifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.friendsystem.pojo.LikeExample" resultType="java.lang.Integer" >
+    select count(*) from like
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update like
+    <set >
+      <if test="record.likeId != null" >
+        like_id = #{record.likeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likeArticle != null" >
+        like_article = #{record.likeArticle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likePeople != null" >
+        like_people = #{record.likePeople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likeCreatetime != null" >
+        like_createtime = #{record.likeCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likeModifytime != null" >
+        like_modifytime = #{record.likeModifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update like
+    set like_id = #{record.likeId,jdbcType=VARCHAR},
+      like_article = #{record.likeArticle,jdbcType=VARCHAR},
+      like_people = #{record.likePeople,jdbcType=VARCHAR},
+      like_createtime = #{record.likeCreatetime,jdbcType=VARCHAR},
+      like_modifytime = #{record.likeModifytime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.friendsystem.pojo.Like" >
+    update like
+    <set >
+      <if test="likeArticle != null" >
+        like_article = #{likeArticle,jdbcType=VARCHAR},
+      </if>
+      <if test="likePeople != null" >
+        like_people = #{likePeople,jdbcType=VARCHAR},
+      </if>
+      <if test="likeCreatetime != null" >
+        like_createtime = #{likeCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="likeModifytime != null" >
+        like_modifytime = #{likeModifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where like_id = #{likeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.friendsystem.pojo.Like" >
+    update like
+    set like_article = #{likeArticle,jdbcType=VARCHAR},
+      like_people = #{likePeople,jdbcType=VARCHAR},
+      like_createtime = #{likeCreatetime,jdbcType=VARCHAR},
+      like_modifytime = #{likeModifytime,jdbcType=VARCHAR}
+    where like_id = #{likeId,jdbcType=VARCHAR}
+  </update>
+</mapper>
