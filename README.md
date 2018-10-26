@@ -1,1 +1,1 @@
-# friendSystem
+# 基于SSM的校园博客系统
