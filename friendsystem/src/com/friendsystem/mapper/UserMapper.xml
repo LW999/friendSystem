@@ -15,6 +15,7 @@
     <result column="user_synopsis" property="userSynopsis" jdbcType="VARCHAR" />
     <result column="user_createtime" property="userCreatetime" jdbcType="VARCHAR" />
     <result column="user_modifytime" property="userModifytime" jdbcType="VARCHAR" />
+    <result column="user_is_activation" property="userIsActivation" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,7 +77,8 @@
   </sql>
   <sql id="Base_Column_List" >
     user_id, user_name, user_password, user_email, user_account, user_sex, user_wechat, 
-    user_type, user_is_banned, user_portrait, user_synopsis, user_createtime, user_modifytime
+    user_type, user_is_banned, user_portrait, user_synopsis, user_createtime, user_modifytime, 
+    user_is_activation
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.friendsystem.pojo.UserExample" >
     select
@@ -113,12 +115,12 @@
       user_email, user_account, user_sex, 
       user_wechat, user_type, user_is_banned, 
       user_portrait, user_synopsis, user_createtime, 
-      user_modifytime)
+      user_modifytime, user_is_activation)
     values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
       #{userEmail,jdbcType=VARCHAR}, #{userAccount,jdbcType=VARCHAR}, #{userSex,jdbcType=VARCHAR}, 
       #{userWechat,jdbcType=VARCHAR}, #{userType,jdbcType=VARCHAR}, #{userIsBanned,jdbcType=VARCHAR}, 
       #{userPortrait,jdbcType=VARCHAR}, #{userSynopsis,jdbcType=VARCHAR}, #{userCreatetime,jdbcType=VARCHAR}, 
-      #{userModifytime,jdbcType=VARCHAR})
+      #{userModifytime,jdbcType=VARCHAR}, #{userIsActivation,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.friendsystem.pojo.User" >
     insert into user
@@ -162,6 +164,9 @@
       <if test="userModifytime != null" >
         user_modifytime,
       </if>
+      <if test="userIsActivation != null" >
+        user_is_activation,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -202,6 +207,9 @@
       </if>
       <if test="userModifytime != null" >
         #{userModifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="userIsActivation != null" >
+        #{userIsActivation,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -253,6 +261,9 @@
       <if test="record.userModifytime != null" >
         user_modifytime = #{record.userModifytime,jdbcType=VARCHAR},
       </if>
+      <if test="record.userIsActivation != null" >
+        user_is_activation = #{record.userIsActivation,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -272,7 +283,8 @@
       user_portrait = #{record.userPortrait,jdbcType=VARCHAR},
       user_synopsis = #{record.userSynopsis,jdbcType=VARCHAR},
       user_createtime = #{record.userCreatetime,jdbcType=VARCHAR},
-      user_modifytime = #{record.userModifytime,jdbcType=VARCHAR}
+      user_modifytime = #{record.userModifytime,jdbcType=VARCHAR},
+      user_is_activation = #{record.userIsActivation,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -316,6 +328,9 @@
       <if test="userModifytime != null" >
         user_modifytime = #{userModifytime,jdbcType=VARCHAR},
       </if>
+      <if test="userIsActivation != null" >
+        user_is_activation = #{userIsActivation,jdbcType=VARCHAR},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
@@ -332,7 +347,8 @@
       user_portrait = #{userPortrait,jdbcType=VARCHAR},
       user_synopsis = #{userSynopsis,jdbcType=VARCHAR},
       user_createtime = #{userCreatetime,jdbcType=VARCHAR},
-      user_modifytime = #{userModifytime,jdbcType=VARCHAR}
+      user_modifytime = #{userModifytime,jdbcType=VARCHAR},
+      user_is_activation = #{userIsActivation,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
 </mapper>

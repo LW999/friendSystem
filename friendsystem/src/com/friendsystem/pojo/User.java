@@ -27,6 +27,8 @@ public class User {
 
     private String userModifytime;
 
+    private String userIsActivation;
+
     public String getUserId() {
         return userId;
     }
@@ -131,13 +133,11 @@ public class User {
         this.userModifytime = userModifytime == null ? null : userModifytime.trim();
     }
 
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword + ", userEmail="
-				+ userEmail + ", userAccount=" + userAccount + ", userSex=" + userSex + ", userWechat=" + userWechat
-				+ ", userType=" + userType + ", userIsBanned=" + userIsBanned + ", userPortrait=" + userPortrait
-				+ ", userSynopsis=" + userSynopsis + ", userCreatetime=" + userCreatetime + ", userModifytime="
-				+ userModifytime + "]";
-	}
-    
+    public String getUserIsActivation() {
+        return userIsActivation;
+    }
+
+    public void setUserIsActivation(String userIsActivation) {
+        this.userIsActivation = userIsActivation == null ? null : userIsActivation.trim();
+    }
 }

@@ -1013,6 +1013,76 @@ public class UserExample {
             addCriterion("user_modifytime not between", value1, value2, "userModifytime");
             return (Criteria) this;
         }
+
+        public Criteria andUserIsActivationIsNull() {
+            addCriterion("user_is_activation is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIsActivationIsNotNull() {
+            addCriterion("user_is_activation is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIsActivationEqualTo(String value) {
+            addCriterion("user_is_activation =", value, "userIsActivation");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIsActivationNotEqualTo(String value) {
+            addCriterion("user_is_activation <>", value, "userIsActivation");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIsActivationGreaterThan(String value) {
+            addCriterion("user_is_activation >", value, "userIsActivation");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIsActivationGreaterThanOrEqualTo(String value) {
+            addCriterion("user_is_activation >=", value, "userIsActivation");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIsActivationLessThan(String value) {
+            addCriterion("user_is_activation <", value, "userIsActivation");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIsActivationLessThanOrEqualTo(String value) {
+            addCriterion("user_is_activation <=", value, "userIsActivation");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIsActivationLike(String value) {
+            addCriterion("user_is_activation like", value, "userIsActivation");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIsActivationNotLike(String value) {
+            addCriterion("user_is_activation not like", value, "userIsActivation");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIsActivationIn(List<String> values) {
+            addCriterion("user_is_activation in", values, "userIsActivation");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIsActivationNotIn(List<String> values) {
+            addCriterion("user_is_activation not in", values, "userIsActivation");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIsActivationBetween(String value1, String value2) {
+            addCriterion("user_is_activation between", value1, value2, "userIsActivation");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIsActivationNotBetween(String value1, String value2) {
+            addCriterion("user_is_activation not between", value1, value2, "userIsActivation");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
