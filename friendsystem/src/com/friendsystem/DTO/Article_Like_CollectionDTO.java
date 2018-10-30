@@ -1,4 +1,4 @@
-package com.friendsystem.controller.DTO;
+package com.friendsystem.DTO;
 
 import java.util.List;
 

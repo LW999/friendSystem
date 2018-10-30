@@ -7,7 +7,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.friendsystem.controller.DTO.User_ArticleDTO;
+import com.friendsystem.DTO.Article_DetailsDTO;
+import com.friendsystem.DTO.User_ArticleDTO;
 import com.friendsystem.mapper.ArticleMapper;
 import com.friendsystem.mapper.UserMapper;
 import com.friendsystem.pojo.Article;
@@ -43,6 +44,23 @@ public class OperationService {
 			return listMoreUsers;
 
 		}
+		return null;
+	}
+
+	/**
+	 * 文章详情
+	 * 
+	 * @param article_Id
+	 * @return article_DetailsDTO
+	 */
+	public Article_DetailsDTO getArticleDetail(String article_Id) {
+		if (article_Id != null && article_Id.trim().length() > 0) {
+			Article_DetailsDTO article_DetailsDTO = new Article_DetailsDTO();
+			Article article = articleMapper.selectByPrimaryKey(article_Id);
+			
+
+		}
+
 		return null;
 	}
 

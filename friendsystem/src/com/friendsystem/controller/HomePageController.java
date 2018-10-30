@@ -8,9 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.friendsystem.controller.DTO.Article_Like_CollectionDTO;
-import com.friendsystem.controller.DTO.User_ArticleDTO;
-import com.friendsystem.controller.DTO.User_LikeDTO;
+import com.friendsystem.DTO.Article_DetailsDTO;
+import com.friendsystem.DTO.Article_Like_CollectionDTO;
+import com.friendsystem.DTO.User_ArticleDTO;
+import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.pojo.Article;
 import com.friendsystem.pojo.Project;
 import com.friendsystem.pojo.Recommended;
@@ -25,7 +26,7 @@ public class HomePageController {
 
 	@Resource(name = "operationService")
 	private OperationService operationService;
-
+	
 	/**
 	 * 首页显示
 	 * 
@@ -67,5 +68,16 @@ public class HomePageController {
 		return modelAndView;
 
 	}
-
+	/**
+	 * 点击显示详细文章
+	 * 
+	 * @return
+	 */
+	@RequestMapping("articleDetail")
+	public ModelAndView articleDetails(String article_Id) {
+		ModelAndView modelAndView = new ModelAndView();
+		Article_DetailsDTO article_DetailsDTO = new Article_DetailsDTO();
+		article_DetailsDTO = operationService.getArticleDetail(article_Id);
+		return modelAndView;
+	}
 }

@@ -1,7 +1,7 @@
 package com.friendsystem.mapper;
 
-import com.friendsystem.controller.DTO.User_ArticleDTO;
-import com.friendsystem.controller.DTO.User_LikeDTO;
+import com.friendsystem.DTO.User_ArticleDTO;
+import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.pojo.User;
 import com.friendsystem.pojo.UserExample;
 import java.util.List;

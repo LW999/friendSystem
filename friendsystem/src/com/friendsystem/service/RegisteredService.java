@@ -74,7 +74,7 @@ public class RegisteredService {
 			String account = GenerateAccount.nextInt8();
 			user.setCode(code);
 
-			user.setUserType("user");
+			user.setUserType("user");	
 			user.setUserAccount(account);
 			user.setUserIsActivation("0");// 0是未激活，1是激活
 			user.setUserSex("保密");

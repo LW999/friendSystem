@@ -7,8 +7,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.friendsystem.controller.DTO.Article_Like_CollectionDTO;
-import com.friendsystem.controller.DTO.User_LikeDTO;
+import com.friendsystem.DTO.Article_Like_CollectionDTO;
+import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.mapper.ArticleMapper;
 import com.friendsystem.mapper.CollectionMapper;
 import com.friendsystem.mapper.LikeMapper;
