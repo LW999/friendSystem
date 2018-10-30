@@ -58,6 +58,12 @@ public interface UserMapper {
 	 */
 	List<User> getRandomUsers();
 
+	/**
+	 * 随机查询12个推荐用户
+	 * 
+	 * @returnList<User>
+	 */
 	List<User> getMoreRandomUsers();
+
 
 }

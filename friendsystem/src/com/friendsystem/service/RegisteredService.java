@@ -27,7 +27,6 @@ public class RegisteredService {
 
 	/**
 	 * 查询邮箱是否注册过
-	 * 
 	 * @param mail
 	 * @return
 	 */

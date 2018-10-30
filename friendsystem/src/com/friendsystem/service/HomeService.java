@@ -135,10 +135,10 @@ public class HomeService {
 						int likeByArticle = likeMapper.countByExample(likeExample);
 						int all = 0;
 						all = all + likeByArticle;
-						for (int i = 0; i <= listUsers.size(); i++) {
+						for (int i = 0; i <= listArticleByUser.size(); i++) {
 							// 如果i等于集合的长度，吧all加入到DTO中
 							System.out.println("size:" + i);
-							if (i == listUsers.size()) {
+							if (i == listArticleByUser.size()) {
 								ULDTO.setLike(all);
 							}
 						}
