@@ -16,6 +16,7 @@ import com.friendsystem.mapper.ProjectMapper;
 import com.friendsystem.mapper.RecommendedMapper;
 import com.friendsystem.mapper.UserMapper;
 import com.friendsystem.pojo.Article;
+import com.friendsystem.pojo.ArticleExample;
 import com.friendsystem.pojo.Collection;
 import com.friendsystem.pojo.CollectionExample;
 import com.friendsystem.pojo.Like;
@@ -30,17 +31,17 @@ import com.friendsystem.pojo.User;;
 @Service("homeService")
 public class HomeService {
 	@Resource
-	private ArticleMapper articleMapper;//文章DAO
+	private ArticleMapper articleMapper;// 文章DAO
 	@Resource
-	private ProjectMapper projectMapper;//专题DAO
+	private ProjectMapper projectMapper;// 专题DAO
 	@Resource
-	private RecommendedMapper recommendedMapper;//推荐DAO
+	private RecommendedMapper recommendedMapper;// 推荐DAO
 	@Resource
-	private LikeMapper likeMapper;//点赞DAO
+	private LikeMapper likeMapper;// 点赞DAO
 	@Resource
-	private CollectionMapper collectionMapper;//收藏DAO
+	private CollectionMapper collectionMapper;// 收藏DAO
 	@Resource
-	private UserMapper userMapper;//用户DAO
+	private UserMapper userMapper;// 用户DAO
 
 	/**
 	 * 查询所有专题
@@ -107,14 +108,46 @@ public class HomeService {
 		}
 		return null;
 	}
-/**
- * 
- * @return listRandomUsers
- */
+
+	/**
+	 * 
+	 * @return listRandomUsers
+	 */
 	public List<User_LikeDTO> getRandomUsers() {
 		List<User_LikeDTO> listRandomUsers = new ArrayList<>();
 		List<User> listUsers = new ArrayList<>();
 		listUsers = userMapper.getRandomUsers();
+		// 先遍历用户，然后遍历用户写的文章，遍历文章得到的赞
+		if (listUsers.size() > 0) {
+			for (User user : listUsers) {
+				User_LikeDTO ULDTO = new User_LikeDTO();
+				ArticleExample articleExample = new ArticleExample();
+				com.friendsystem.pojo.ArticleExample.Criteria criteria = articleExample.createCriteria();
+				criteria.andArticleByUserEqualTo(user.getUserId());
+				List<Article> listArticleByUser = articleMapper.selectByExample(articleExample);// 得到用户所写的文章
+				if (listArticleByUser.size() > 0) {
+
+					for (Article article : listArticleByUser) {
+						// 遍历文章所得到的赞
+						LikeExample likeExample = new LikeExample();
+						com.friendsystem.pojo.LikeExample.Criteria criteria2 = likeExample.createCriteria();
+						criteria2.andLikeArticleEqualTo(article.getArticleId());
+						int likeByArticle = likeMapper.countByExample(likeExample);
+						int all = 0;
+						all = all + likeByArticle;
+						for (int i = 0; i <= listUsers.size(); i++) {
+							// 如果i等于集合的长度，吧all加入到DTO中
+							System.out.println("size:" + i);
+							if (i == listUsers.size()) {
+								ULDTO.setLike(all);
+							}
+						}
+					}
+					ULDTO.setUser(user);
+				}
+			}
+			return listRandomUsers;
+		}
 		return null;
 	}
 

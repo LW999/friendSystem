@@ -371,6 +371,13 @@
 		#{articleId,jdbcType=VARCHAR}
 	</update>
 	<select id="selectByRand" resultMap="BaseResultMap">
-		select * from article order by RAND() LIMIT 10
+		select * from article order
+		by RAND() LIMIT 10
+	</select>
+	<select id="getThreeArticle" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from article where article_by_user
+		=#{userID,jdbcType=VARCHAR} and article_is_release ='1' and
+		article_is_delete ='0' ORDER BY article_createtime DESC LIMIT 2
 	</select>
 </mapper>

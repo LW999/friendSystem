@@ -73,12 +73,14 @@ public class RegisteredService {
 			String code = BuildUuid.getUuid();
 			String account = GenerateAccount.nextInt8();
 			user.setCode(code);
+
 			user.setUserType("user");
 			user.setUserAccount(account);
 			user.setUserIsActivation("0");// 0是未激活，1是激活
 			user.setUserSex("保密");
 			user.setUserCreatetime(TimeUtil.getStringSecond());
 			user.setUserModifytime(TimeUtil.getStringSecond());
+			System.out.println("user::" + user);
 			userMapper.insert(user);
 			// 给用户发送邮件
 			// 创建邮件配置
@@ -127,12 +129,11 @@ public class RegisteredService {
 		// 设置邮件标题
 		msg.setSubject("邮箱验证", "utf-8");
 		// msg.setContent(m,"text/html;charset=gb2312");
-		msg.setText("点击我<a>localhost:8080</a>");
 
 		String content = "<html><head></head>" + "<body><h1>欢迎注册阿伟社交系统,您的账号为:" + account
 				+ "</h1><br></br><h2>点击以下链接完成注册</h2>"
-				+ "<h3><a href='http://localhost:8080/RegisterDemo/ActiveServlet?code=" + code
-				+ "'>http://localhost:8080/?code=" + code + "</href>" + "</h3></body></html>";
+				+ "<h3><a href='http://localhost:8080/friendsystem/register/activation.do?code=" + code
+				+ "'>http://localhost:8080/friendsystem/register/activation.do?code=" + code + "</href>" + "</h3></body></html>";
 		msg.setContent(content, "text/html;charset=UTF-8");
 		// 设置显示的发件时间
 		msg.setSentDate(new Date());
@@ -152,6 +153,7 @@ public class RegisteredService {
 			User user = userMapper.selectUserByCode(code);
 			if (user != null) {
 				if (user.getUserIsActivation().equals("1")) {
+					System.out.println("已经被激活，不能重复激活");
 					// 已经被激活，不能重复激活
 					return "RepeatActivation";
 				} else {
@@ -160,9 +162,11 @@ public class RegisteredService {
 					if (user.getCode().equals(code)) {
 						return "Pass";// code一致可以通过
 					}
+					
 					return "Error";
 				}
 			}
+			System.out.println("code错误");
 		}
 		return "Error";
 	}

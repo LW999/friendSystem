@@ -32,5 +32,7 @@ public interface ArticleMapper {
 	 * 随机查询10条文章
 	 */
 	List<Article> selectByRand();
+
+	List<Article> getThreeArticle(String userID);
 	
 }

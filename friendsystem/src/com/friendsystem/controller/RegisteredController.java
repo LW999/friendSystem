@@ -55,12 +55,14 @@ public class RegisteredController {
 	 */
 	@RequestMapping("/activation")
 	public String Activation(String code) {
+		System.out.println("okoko:" + code);
 		if (code != null && code.trim().length() > 0) {
 			// 先查询code是否被激活
 			String isActivation = registeredService.getUserByCode(code);
 			if (isActivation.equals("Pass")) {
 				registeredService.activation(code);
 			}
+
 		}
 		return null;
 

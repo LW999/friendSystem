@@ -20,6 +20,7 @@ import com.friendsystem.pojo.User;
 import com.friendsystem.service.LoginService;
 import com.friendsystem.service.RegisteredService;
 import com.friendsystem.service.TestService;
+import com.friendsystem.util.BuildUuid;
 import com.friendsystem.util.GenerateAccount;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -58,6 +59,7 @@ public class TestWeiWei {
 	public void mail() throws Exception {
 		// 创建邮件配置
 		Properties props = new Properties();
+		String code = BuildUuid.getUuid();
 		props.setProperty("mail.transport.protocol", "smtp"); // 使用的协议（JavaMail规范要求）
 		props.setProperty("mail.smtp.host", SMTPSERVER); // 发件人的邮箱的 SMTP 服务器地址
 		props.setProperty("mail.smtp.port", SMTPPORT);
@@ -69,7 +71,7 @@ public class TestWeiWei {
 		// 开启debug模式，可以看到更多详细的输入日志
 		session.setDebug(true);
 		// 创建邮件
-		MimeMessage message = createEmail(session, "@qq.com");
+		MimeMessage message = createEmail(session, "835621887@qq.com", code);
 		// 获取传输通道
 		Transport transport = session.getTransport();
 		transport.connect(SMTPSERVER, ACCOUT, PWD);
@@ -79,7 +81,7 @@ public class TestWeiWei {
 
 	}
 
-	public static MimeMessage createEmail(Session session, String mail) throws Exception {
+	public static MimeMessage createEmail(Session session, String mail, String code) throws Exception {
 		// 根据会话创建邮件
 		MimeMessage msg = new MimeMessage(session);
 		// address邮件地址, personal邮件昵称, charset编码方式
@@ -94,7 +96,6 @@ public class TestWeiWei {
 		// msg.setContent(m,"text/html;charset=gb2312");
 
 		msg.setText("点击我<a>localhost:8080</a>");
-		String code = "520";
 		String content = "<html><head></head><body><h1>这是一封阿伟的激活邮件,激活请点击以下链接</h1><h3><a href='http://localhost:8080/RegisterDemo/ActiveServlet?code="
 				+ code + "'>http://localhost:8080/?code=" + code + "</href></h3></body></html>";
 		msg.setContent(content, "text/html;charset=UTF-8");
@@ -119,11 +120,13 @@ public class TestWeiWei {
 
 	@Test
 	public void tette() {
-		String code = "1";
+		String code = "89898";
 		String isActivation = registeredService.getUserByCode(code);
+		System.out.println("???:" + isActivation);
 		if (isActivation.equals("Pass")) {
 			registeredService.activation(code);
 		}
+		
 	}
 
 	@Test

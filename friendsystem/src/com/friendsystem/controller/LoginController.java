@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.friendsystem.pojo.User;
@@ -21,6 +23,7 @@ import sun.security.util.Password;
  * @author LW 登陆
  */
 @Controller
+@SessionAttributes("Session")
 @RequestMapping("login")
 public class LoginController {
 	@Resource(name = "loginService")
@@ -76,8 +79,16 @@ public class LoginController {
 			User userSession = loginService.getUserByAccount(account, password);
 			if (userSession != null) {
 				// 允许登陆
+
 				request.getSession().setAttribute("userSession", userSession);
 				ModelAndView modelAndView = new ModelAndView();
+
+				modelAndView.addObject("Session", userSession);// 使用注解
+				/**
+				 * 在其他controller调用Session
+				 * @SessionAttributes("Session") 
+				 * public String XXX(@ModelAttribute("Session") User user)
+				 */
 				modelAndView.addObject("session", userSession);
 				return modelAndView;
 

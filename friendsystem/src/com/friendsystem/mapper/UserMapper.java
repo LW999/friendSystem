@@ -1,5 +1,6 @@
 package com.friendsystem.mapper;
 
+import com.friendsystem.controller.DTO.User_ArticleDTO;
 import com.friendsystem.controller.DTO.User_LikeDTO;
 import com.friendsystem.pojo.User;
 import com.friendsystem.pojo.UserExample;
@@ -56,5 +57,7 @@ public interface UserMapper {
 	 * @return listUser
 	 */
 	List<User> getRandomUsers();
+
+	List<User> getMoreRandomUsers();
 
 }
