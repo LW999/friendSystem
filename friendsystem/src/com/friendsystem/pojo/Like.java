@@ -1,53 +1,70 @@
 package com.friendsystem.pojo;
 
+/**
+ * 点赞表
+ * 
+ * @author LW
+ *
+ */
 public class Like {
-    private String likeId;
+	/**
+	 * 点赞ID
+	 */
+	private String likeId;
+	/**
+	 * 点赞的文章ID
+	 */
+	private String likeArticle;
+	/**
+	 * 点赞人ID
+	 */
+	private String likePeople;
+	/**
+	 * 创建时间
+	 */
+	private String likeCreatetime;
+	/**
+	 * 修改时间
+	 */
+	private String likeModifytime;
 
-    private String likeArticle;
+	public String getLikeId() {
+		return likeId;
+	}
 
-    private String likePeople;
+	public void setLikeId(String likeId) {
+		this.likeId = likeId == null ? null : likeId.trim();
+	}
 
-    private String likeCreatetime;
+	public String getLikeArticle() {
+		return likeArticle;
+	}
 
-    private String likeModifytime;
+	public void setLikeArticle(String likeArticle) {
+		this.likeArticle = likeArticle == null ? null : likeArticle.trim();
+	}
 
-    public String getLikeId() {
-        return likeId;
-    }
+	public String getLikePeople() {
+		return likePeople;
+	}
 
-    public void setLikeId(String likeId) {
-        this.likeId = likeId == null ? null : likeId.trim();
-    }
+	public void setLikePeople(String likePeople) {
+		this.likePeople = likePeople == null ? null : likePeople.trim();
+	}
 
-    public String getLikeArticle() {
-        return likeArticle;
-    }
+	public String getLikeCreatetime() {
+		return likeCreatetime;
+	}
 
-    public void setLikeArticle(String likeArticle) {
-        this.likeArticle = likeArticle == null ? null : likeArticle.trim();
-    }
+	public void setLikeCreatetime(String likeCreatetime) {
+		this.likeCreatetime = likeCreatetime == null ? null : likeCreatetime.trim();
+	}
 
-    public String getLikePeople() {
-        return likePeople;
-    }
+	public String getLikeModifytime() {
+		return likeModifytime;
+	}
 
-    public void setLikePeople(String likePeople) {
-        this.likePeople = likePeople == null ? null : likePeople.trim();
-    }
-
-    public String getLikeCreatetime() {
-        return likeCreatetime;
-    }
-
-    public void setLikeCreatetime(String likeCreatetime) {
-        this.likeCreatetime = likeCreatetime == null ? null : likeCreatetime.trim();
-    }
-
-    public String getLikeModifytime() {
-        return likeModifytime;
-    }
-
-    public void setLikeModifytime(String likeModifytime) {
-        this.likeModifytime = likeModifytime == null ? null : likeModifytime.trim();
-    }
+	public void setLikeModifytime(String likeModifytime) {
+		this.likeModifytime = likeModifytime == null ? null : likeModifytime.trim();
+	}
 }

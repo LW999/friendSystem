@@ -17,6 +17,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 public class Upload {
 	@RequestMapping("/upload")
 	public String upload(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("llll");
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
 				request.getSession().getServletContext());
 		if (multipartResolver.isMultipart(request)) {

@@ -1,63 +1,80 @@
 package com.friendsystem.pojo;
 
+/**
+ * 
+ * @author 哈哈哈哈哈哈 专题表
+ */
 public class Project {
-    private String projectId;
+	/**
+	 * 专题ID
+	 */
+	private String projectId;
+	/**
+	 * 专题名称
+	 */
+	private String projectName;
+	/**
+	 * 专题是否删除
+	 */
+	private String projectIsDelete;
+	/**
+	 * 创建时间
+	 */
+	private String projectCreatetime;
+	/**
+	 * 修改时间
+	 */
+	private String projectModifytime;
+	/**
+	 * 专题图片
+	 */
+	private String projectImg;
 
-    private String projectName;
+	public String getProjectId() {
+		return projectId;
+	}
 
-    private String projectIsDelete;
+	public void setProjectId(String projectId) {
+		this.projectId = projectId == null ? null : projectId.trim();
+	}
 
-    private String projectCreatetime;
+	public String getProjectName() {
+		return projectName;
+	}
 
-    private String projectModifytime;
+	public void setProjectName(String projectName) {
+		this.projectName = projectName == null ? null : projectName.trim();
+	}
 
-    private String projectImg;
+	public String getProjectIsDelete() {
+		return projectIsDelete;
+	}
 
-    public String getProjectId() {
-        return projectId;
-    }
+	public void setProjectIsDelete(String projectIsDelete) {
+		this.projectIsDelete = projectIsDelete == null ? null : projectIsDelete.trim();
+	}
 
-    public void setProjectId(String projectId) {
-        this.projectId = projectId == null ? null : projectId.trim();
-    }
+	public String getProjectCreatetime() {
+		return projectCreatetime;
+	}
 
-    public String getProjectName() {
-        return projectName;
-    }
+	public void setProjectCreatetime(String projectCreatetime) {
+		this.projectCreatetime = projectCreatetime == null ? null : projectCreatetime.trim();
+	}
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName == null ? null : projectName.trim();
-    }
+	public String getProjectModifytime() {
+		return projectModifytime;
+	}
 
-    public String getProjectIsDelete() {
-        return projectIsDelete;
-    }
+	public void setProjectModifytime(String projectModifytime) {
+		this.projectModifytime = projectModifytime == null ? null : projectModifytime.trim();
+	}
 
-    public void setProjectIsDelete(String projectIsDelete) {
-        this.projectIsDelete = projectIsDelete == null ? null : projectIsDelete.trim();
-    }
+	public String getProjectImg() {
+		return projectImg;
+	}
 
-    public String getProjectCreatetime() {
-        return projectCreatetime;
-    }
-
-    public void setProjectCreatetime(String projectCreatetime) {
-        this.projectCreatetime = projectCreatetime == null ? null : projectCreatetime.trim();
-    }
-
-    public String getProjectModifytime() {
-        return projectModifytime;
-    }
-
-    public void setProjectModifytime(String projectModifytime) {
-        this.projectModifytime = projectModifytime == null ? null : projectModifytime.trim();
-    }
-
-    public String getProjectImg() {
-        return projectImg;
-    }
-
-    public void setProjectImg(String projectImg) {
-        this.projectImg = projectImg == null ? null : projectImg.trim();
-    }
+	public void setProjectImg(String projectImg) {
+		this.projectImg = projectImg == null ? null : projectImg.trim();
+	}
 }

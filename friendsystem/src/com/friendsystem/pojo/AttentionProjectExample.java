@@ -174,6 +174,76 @@ public class AttentionProjectExample {
             return (Criteria) this;
         }
 
+        public Criteria andAttentionProjectProjectIsNull() {
+            addCriterion("attention_project_project is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttentionProjectProjectIsNotNull() {
+            addCriterion("attention_project_project is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttentionProjectProjectEqualTo(String value) {
+            addCriterion("attention_project_project =", value, "attentionProjectProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttentionProjectProjectNotEqualTo(String value) {
+            addCriterion("attention_project_project <>", value, "attentionProjectProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttentionProjectProjectGreaterThan(String value) {
+            addCriterion("attention_project_project >", value, "attentionProjectProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttentionProjectProjectGreaterThanOrEqualTo(String value) {
+            addCriterion("attention_project_project >=", value, "attentionProjectProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttentionProjectProjectLessThan(String value) {
+            addCriterion("attention_project_project <", value, "attentionProjectProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttentionProjectProjectLessThanOrEqualTo(String value) {
+            addCriterion("attention_project_project <=", value, "attentionProjectProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttentionProjectProjectLike(String value) {
+            addCriterion("attention_project_project like", value, "attentionProjectProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttentionProjectProjectNotLike(String value) {
+            addCriterion("attention_project_project not like", value, "attentionProjectProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttentionProjectProjectIn(List<String> values) {
+            addCriterion("attention_project_project in", values, "attentionProjectProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttentionProjectProjectNotIn(List<String> values) {
+            addCriterion("attention_project_project not in", values, "attentionProjectProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttentionProjectProjectBetween(String value1, String value2) {
+            addCriterion("attention_project_project between", value1, value2, "attentionProjectProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttentionProjectProjectNotBetween(String value1, String value2) {
+            addCriterion("attention_project_project not between", value1, value2, "attentionProjectProject");
+            return (Criteria) this;
+        }
+
         public Criteria andAttentionProjectUserIsNull() {
             addCriterion("attention_project_user is null");
             return (Criteria) this;

@@ -3,6 +3,7 @@
 <mapper namespace="com.friendsystem.mapper.AttentionProjectMapper" >
   <resultMap id="BaseResultMap" type="com.friendsystem.pojo.AttentionProject" >
     <id column="attention_project_id" property="attentionProjectId" jdbcType="VARCHAR" />
+    <result column="attention_project_project" property="attentionProjectProject" jdbcType="VARCHAR" />
     <result column="attention_project_user" property="attentionProjectUser" jdbcType="VARCHAR" />
     <result column="attention_project_createtime" property="attentionProjectCreatetime" jdbcType="VARCHAR" />
     <result column="attention_project_modifytime" property="attentionProjectModifytime" jdbcType="VARCHAR" />
@@ -66,7 +67,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    attention_project_id, attention_project_user, attention_project_createtime, attention_project_modifytime
+    attention_project_id, attention_project_project, attention_project_user, attention_project_createtime, 
+    attention_project_modifytime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.friendsystem.pojo.AttentionProjectExample" >
     select
@@ -99,18 +101,21 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.friendsystem.pojo.AttentionProject" >
-    insert into attention_project (attention_project_id, attention_project_user, 
-      attention_project_createtime, attention_project_modifytime
-      )
-    values (#{attentionProjectId,jdbcType=VARCHAR}, #{attentionProjectUser,jdbcType=VARCHAR}, 
-      #{attentionProjectCreatetime,jdbcType=VARCHAR}, #{attentionProjectModifytime,jdbcType=VARCHAR}
-      )
+    insert into attention_project (attention_project_id, attention_project_project, 
+      attention_project_user, attention_project_createtime, 
+      attention_project_modifytime)
+    values (#{attentionProjectId,jdbcType=VARCHAR}, #{attentionProjectProject,jdbcType=VARCHAR}, 
+      #{attentionProjectUser,jdbcType=VARCHAR}, #{attentionProjectCreatetime,jdbcType=VARCHAR}, 
+      #{attentionProjectModifytime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.friendsystem.pojo.AttentionProject" >
     insert into attention_project
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="attentionProjectId != null" >
         attention_project_id,
+      </if>
+      <if test="attentionProjectProject != null" >
+        attention_project_project,
       </if>
       <if test="attentionProjectUser != null" >
         attention_project_user,
@@ -125,6 +130,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="attentionProjectId != null" >
         #{attentionProjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="attentionProjectProject != null" >
+        #{attentionProjectProject,jdbcType=VARCHAR},
       </if>
       <if test="attentionProjectUser != null" >
         #{attentionProjectUser,jdbcType=VARCHAR},
@@ -149,6 +157,9 @@
       <if test="record.attentionProjectId != null" >
         attention_project_id = #{record.attentionProjectId,jdbcType=VARCHAR},
       </if>
+      <if test="record.attentionProjectProject != null" >
+        attention_project_project = #{record.attentionProjectProject,jdbcType=VARCHAR},
+      </if>
       <if test="record.attentionProjectUser != null" >
         attention_project_user = #{record.attentionProjectUser,jdbcType=VARCHAR},
       </if>
@@ -166,6 +177,7 @@
   <update id="updateByExample" parameterType="map" >
     update attention_project
     set attention_project_id = #{record.attentionProjectId,jdbcType=VARCHAR},
+      attention_project_project = #{record.attentionProjectProject,jdbcType=VARCHAR},
       attention_project_user = #{record.attentionProjectUser,jdbcType=VARCHAR},
       attention_project_createtime = #{record.attentionProjectCreatetime,jdbcType=VARCHAR},
       attention_project_modifytime = #{record.attentionProjectModifytime,jdbcType=VARCHAR}
@@ -176,6 +188,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.friendsystem.pojo.AttentionProject" >
     update attention_project
     <set >
+      <if test="attentionProjectProject != null" >
+        attention_project_project = #{attentionProjectProject,jdbcType=VARCHAR},
+      </if>
       <if test="attentionProjectUser != null" >
         attention_project_user = #{attentionProjectUser,jdbcType=VARCHAR},
       </if>
@@ -190,7 +205,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.friendsystem.pojo.AttentionProject" >
     update attention_project
-    set attention_project_user = #{attentionProjectUser,jdbcType=VARCHAR},
+    set attention_project_project = #{attentionProjectProject,jdbcType=VARCHAR},
+      attention_project_user = #{attentionProjectUser,jdbcType=VARCHAR},
       attention_project_createtime = #{attentionProjectCreatetime,jdbcType=VARCHAR},
       attention_project_modifytime = #{attentionProjectModifytime,jdbcType=VARCHAR}
     where attention_project_id = #{attentionProjectId,jdbcType=VARCHAR}

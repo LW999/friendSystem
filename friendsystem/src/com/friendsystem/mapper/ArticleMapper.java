@@ -6,25 +6,31 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ArticleMapper {
-    int countByExample(ArticleExample example);
+	int countByExample(ArticleExample example);
 
-    int deleteByExample(ArticleExample example);
+	int deleteByExample(ArticleExample example);
 
-    int deleteByPrimaryKey(String articleId);
+	int deleteByPrimaryKey(String articleId);
 
-    int insert(Article record);
+	int insert(Article record);
 
-    int insertSelective(Article record);
+	int insertSelective(Article record);
 
-    List<Article> selectByExample(ArticleExample example);
+	List<Article> selectByExample(ArticleExample example);
 
-    Article selectByPrimaryKey(String articleId);
+	Article selectByPrimaryKey(String articleId);
 
-    int updateByExampleSelective(@Param("record") Article record, @Param("example") ArticleExample example);
+	int updateByExampleSelective(@Param("record") Article record, @Param("example") ArticleExample example);
 
-    int updateByExample(@Param("record") Article record, @Param("example") ArticleExample example);
+	int updateByExample(@Param("record") Article record, @Param("example") ArticleExample example);
 
-    int updateByPrimaryKeySelective(Article record);
+	int updateByPrimaryKeySelective(Article record);
 
-    int updateByPrimaryKey(Article record);
+	int updateByPrimaryKey(Article record);
+
+	/**
+	 * 随机查询10条文章
+	 */
+	List<Article> selectByRand();
+	
 }

@@ -1,4 +1,4 @@
-package com.friendsystem.login.service;
+package com.friendsystem.service;
 
 import java.util.List;
 
@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.friendsystem.mapper.UserMapper;
-import com.friendsystem.pojo.ArticleExample.Criteria;
 import com.friendsystem.pojo.User;
 import com.friendsystem.pojo.UserExample;
 
