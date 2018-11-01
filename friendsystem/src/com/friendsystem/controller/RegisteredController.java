@@ -4,8 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.friendsystem.pojo.User;
 import com.friendsystem.service.RegisteredService;
 
 @Controller
@@ -21,9 +21,10 @@ public class RegisteredController {
 	private RegisteredService registeredService;
 
 	@RequestMapping("/reg")
-	public String Registered(String name, String password, String mail) throws Exception {
+	public ModelAndView Registered(String name, String password, String mail) throws Exception {
 		System.out.println("opopopo");
 		System.out.println("kkk:" + mail + password + name);
+		ModelAndView modelAndView = new ModelAndView();
 		if (mail != null && mail.trim().length() > 0 && password != null && password.trim().length() > 0 && name != null
 				&& name.trim().length() > 0) {
 			String check = registeredService.getUserByMail(mail);
@@ -31,19 +32,24 @@ public class RegisteredController {
 				// 可以使用该邮箱
 				String number = registeredService.saveUserAndSedMail(mail, password, name);
 				System.out.println("成功！" + number);
+				modelAndView.addObject("check", check);
 			}
 			if (check.equals("NoActivation")) {
 				// 已经注册但是未激活
 				System.out.println("失败！" + check);
+				modelAndView.addObject("check", check);
 
 			}
 			if (check.equals("HasBeenRegistered")) {
 				System.out.println("失败！" + check);
+				modelAndView.addObject("check", check);
 				// 该邮箱已经被注册
 			}
+			modelAndView.addObject("check", check);
+			modelAndView.setViewName("register");
 
 		}
-		return "失败";
+		return modelAndView;
 
 	}
 
