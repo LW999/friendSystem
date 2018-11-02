@@ -9,9 +9,16 @@
 	href="${pageContext.request.contextPath }/css/entry-2dd01f1ba455dc6d65b3.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/css/web-d5108cec60c4ed55f041.css" />
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/web-bfc15fabb3b20492f7d4.css" />
+	
 <!-- 图标 -->
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath }/img/logo.ico" />
+	
+	<style type="text/css">
+	
+	</style>
 
 </head>
 <body lang="zh-CN" class="reader-black-font">
@@ -31,10 +38,10 @@
 		<!-- 如果用户登录，显示下拉菜单 -->
 		<div class="user">
 			<div data-hover="dropdown">
-				<a class="avatar" href=""><img src="" alt="120"></a>
+				<a class="avatar" href=""><img src="${pageContext.request.contextPath }/img/logo.png" alt="120"></a>
 			</div>
 			<ul class="dropdown-menu">
-				<li><a href="/u/d355083d142b"> <i
+				<li><a href=""> <i
 						class="iconfont ic-navigation-profile"></i><span>我的主页</span>
 				</a></li>
 				<li>
@@ -139,28 +146,42 @@
 			<div class="col-xs-16 main">
 				<!-- Banner -->
 				<div id="indexCarousel" class="carousel slide">
+				<!-- 轮播图 -->
 					<div class="carousel-inner">
 						<div class="item active">
 							<div class="banner">
 								<a target="_blank" href="#"><img
-									src="img/banner-s-3-7123fd94750759acf7eca05b871e9d17.png"
+									src="img/59c8621b2b5f2.png"
 									alt="1"></a>
 							</div>
 						</div>
+						
 						<div class="item">
 							<div class="banner" data-banner-name="赛末点02">
 								<a target="_blank" href="#"><img
-									src="img/banner-s-7-1a0222c91694a1f38e610be4bf9669be.png"
+									src="img/59c8621b2b5f2.png"
 									alt="540"></a>
 							</div>
 						</div>
+							<div class="item">
+							<div class="banner" data-banner-name="赛末点02">
+								<a target="_blank" href="#"><img
+									src="img/59c8621b2b5f2.png"
+									alt="540"></a>
+							</div>
+						</div>
+						
+						
 					</div>
+					
 					<ol class="carousel-indicators">
 						<li data-target="#indexCarousel" data-slide-to="0" class=""></li>
 						<li data-target="#indexCarousel" data-slide-to="1" class=""></li>
 						<li data-target="#indexCarousel" data-slide-to="2" class=""></li>
 
 					</ol>
+					
+					
 					<a class="left carousel-control" href="#indexCarousel"
 						role="button" data-slide="prev"><i
 						class="iconfont ic-previous-s"></i></a> <a
@@ -264,12 +285,11 @@
 							style="transform: rotate(0deg);"></i> 换一批 </a>
 					</div>
 					<ul class="list">
-						<li><a href="" target="_blank" class="avatar"><img
-								src="img/QQ.png"></a> <a class="follow" state="0"><i
-								class="iconfont ic-follow"></i>关注 </a> <a class="following"
-							state="0"><i class="iconfont ic-followed"></i>已关注 </a> <a
-							class="following" state="0"><i class="iconfont ic-unfollow"></i>取消关注
-						</a> <a href="#" target="_blank" class="name"> 李伟 </a>
+						<li><a href="" target="_blank" class="avatar"><img src="img/QQ.png"></a> 
+						<!-- <a class="follow" ><i class="iconfont ic-follow"></i>关注 </a>  -->
+						<a class="following"><i class="iconfont ic-follow"></i>已关注 </a> 
+						<!-- <a class="following"><i class="iconfont ic-unfollow"></i>取消关注</a> -->
+						 <a href="#" target="_blank" class="name"> 李伟 </a>
 							<p>写了438k字 · 1.7k喜欢</p></li>
 
 					</ul>
@@ -291,38 +311,26 @@
 			<!---->
 		</ul>
 	</div>
-	<footer class="container">
+	
+	
+	<!-- 底部 -->
+	<jsp:include page="bottom.jsp"></jsp:include>
+	
+<!-- 	<footer class="container">
 	<div class="row">
 		<div class="col-xs-17 main">
 
-			<a target="_blank" href="http://www.jianshu.com/c/jppzD2">关于简书</a><em>
-				· </em> <a target="_blank" href="http://www.jianshu.com/contact">联系我们</a><em>
-				· </em> <a target="_blank" href="http://www.jianshu.com/c/bfeec2e13990">加入我们</a><em>
-				· </em> <a target="_blank" href="http://www.jianshu.com/p/fc1c113e5b6b">简书出版</a><em>
-				· </em> <a target="_blank" href="http://www.jianshu.com/press">品牌与徽标</a><em>
-				· </em> <a target="_blank" href="http://www.jianshu.com/faqs">帮助中心</a><em>
-				· </em> <a target="_blank" href="http://www.jianshu.com/p/cabc8fa39830">合作伙伴</a>
+			<a target="_blank" href="http://www.jianshu.com/c/jppzD2">关于Friends</a><em>
+				· </em> <a target="_blank" href="http://www.jianshu.com/contact">联系阿伟</a><em>
+				· </em> <a target="_blank" href="http://www.jianshu.com/c/bfeec2e13990">加入阿伟</a><em>
+				· </em> <a target="_blank" href="http://www.jianshu.com/p/fc1c113e5b6b">阿伟出版</a><em>
+				· </em> <a target="_blank" href="http://www.jianshu.com/press">品牌徽标</a>
 			<div class="icp">
-				©2012-2018 上海佰集信息科技有限公司 / 简书 / 沪ICP备11018329号-5 / <a target="_blank"
-					href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010402002252">
-					<img
-					src="//cdn2.jianshu.io/assets/web/smrz-557fa318122c99a66523209bf9753a27.png"
-					alt="Smrz">
-				</a> <a target="_blank"
-					href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010402002252">沪公网安备31010402002252号
-					/ </a> <a target="_blank" href="http://www.shjbzx.cn/"> <img
-					src="//cdn2.jianshu.io/assets/web/wxb-a216456895eb66c17497dbd3da443cf8.png"
-					alt="Wxb">
-				</a> 举报电话：021-34770013 / <a target="_blank"
-					href="http://218.242.124.22:8081/businessCheck/verifKey.do?showType=extShow&amp;serial=9031000020171107081457000002158769-SAIC_SHOW_310000-20171115131223587837&amp;signData=MEQCIADWZ5aTcBeER5SOVp0ly+ElvKnwtjczum6Gi6wZ7/wWAiB9MAPM22hp947ZaBobux5PDkd0lfqoCOkVV7zjCYME6g==">
-					<img
-					src="//cdn2.jianshu.io/assets/web/zggsrz-5695587dccf490ca3e651f4228f7479e.png"
-					alt="Zggsrz">
-				</a>
+				©2012-2018 阿伟信息科技有限公司 / Friends / 835621887@QQ.com / 
 			</div>
 		</div>
 	</div>
-	</footer>
+	</footer> -->
 	<script type="application/json" data-name="page-data">
 		{}
 	</script>
