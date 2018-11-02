@@ -16,6 +16,9 @@
 	href="${pageContext.request.contextPath}/css/web-d5108cec60c4ed55f041.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/toastr.css">
+<!-- 图标 -->
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath }/img/logo.ico" />
 
 </head>
 <body class="no-padding reader-black-font" lang="zh-CN">
@@ -36,11 +39,10 @@
 			<div class="js-sign-up-container">
 				<form class="new_user"
 					action="${pageContext.request.contextPath }/register/reg.do"
-					accept-charset="UTF-8" method="get">
+					accept-charset="UTF-8" method="POST">
 					<div class="input-prepend restyle">
-						<input placeholder="你的昵称" value="" name="name" id="user_nickname"
-							type="text" class="form-control"> <i
-							class="iconfont ic-user"></i>
+						<input placeholder="你的昵称" value="" name="name" type="text"
+							class="form-control"> <i class="iconfont ic-user"></i>
 					</div>
 
 					<div class="input-prepend restyle no-radius js-normal">
@@ -77,10 +79,15 @@
 			}
 			if (val == "Pass") {
 				toastr.success("注册成功！请激活")
-			} else if (val == "NoActivation") {
+			}
+			if (val == "NoActivation") {
 				toastr.warning("该邮箱未激活！")
-			} else if (val == "HasBeenRegister") {
-				toastr.success("该邮箱已经注册！")
+			}
+			if (val == "HasBeenRegistered") {
+				toastr.error("该邮箱已经注册！")
+			}
+			if (val == "InvalidFormat") {
+				toastr.warning("邮箱格式错误")
 			}
 
 		}

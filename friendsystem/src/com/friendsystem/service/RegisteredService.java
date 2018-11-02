@@ -18,7 +18,9 @@ import com.friendsystem.pojo.UserExample;
 import com.friendsystem.pojo.UserExample.Criteria;
 import com.friendsystem.util.BuildUuid;
 import com.friendsystem.util.GenerateAccount;
+import com.friendsystem.util.MailContent;
 import com.friendsystem.util.TimeUtil;
+import com.friendsystem.util.ValidationMail;
 
 @Service("registeredService")
 public class RegisteredService {
@@ -27,20 +29,26 @@ public class RegisteredService {
 
 	/**
 	 * 查询邮箱是否注册过
+	 * 
 	 * @param mail
 	 * @return
 	 */
 	public String getUserByMail(String mail) {
+
 		System.out.println("kkk:" + mail);
 		if (mail != null && mail.trim().length() > 0) {
-			User user = userMapper.selectUserByMail(mail);
-			if (user != null) {
-				if (user.getUserIsActivation().equals("0")) {
-					return "NoActivation";// 返回未激活
+			if (ValidationMail.checkEmaile(mail)) {
+
+				User user = userMapper.selectUserByMail(mail);
+				if (user != null) {
+					if (user.getUserIsActivation().equals("0")) {
+						return "NoActivation";// 返回未激活
+					}
+					return "HasBeenRegistered";// 返回已被激活
 				}
-				return "HasBeenRegistered";// 返回已被激活
+				return "Pass";// 可以使用该邮箱
 			}
-			return "Pass";// 可以使用该邮箱
+			return "InvalidFormat";// 邮箱格式错误
 		}
 		return null;
 	}
@@ -58,7 +66,6 @@ public class RegisteredService {
 	public static final String ACCOUT = "835621887@qq.com";// 邮箱帐号
 	public static final String PWD = "kohsfsungfmzbeff";// 这是授权码，并不是邮箱的登录密码
 	private static final User User = null;
-
 	public String saveUserAndSedMail(String mail, String password, String name) throws Exception {
 		if (mail != null && mail.trim().length() > 0 && password != null && password.trim().length() > 0 && name != null
 				&& name.trim().length() > 0) {
@@ -73,7 +80,7 @@ public class RegisteredService {
 			String account = GenerateAccount.nextInt8();
 			user.setCode(code);
 
-			user.setUserType("user");	
+			user.setUserType("user");
 			user.setUserAccount(account);
 			user.setUserIsActivation("0");// 0是未激活，1是激活
 			user.setUserSex("保密");
@@ -95,7 +102,7 @@ public class RegisteredService {
 			// 开启debug模式，可以看到更多详细的输入日志
 			session.setDebug(true);
 			// 创建邮件
-			MimeMessage message = createEmail(session, mail, code, account);
+			MimeMessage message = MailContent.createEmail(session, mail, code, account);
 			// 获取传输通道
 			Transport transport = session.getTransport();
 			transport.connect(SMTPSERVER, ACCOUT, PWD);
@@ -107,14 +114,14 @@ public class RegisteredService {
 		return null;
 	}
 
-	/**
+/*	*//**
 	 * 邮件内容配置
 	 * 
 	 * @param session
 	 * @param mail
 	 * @return
 	 * @throws Exception
-	 */
+	 *//*
 	public static MimeMessage createEmail(Session session, String mail, String code, String account) throws Exception {
 		// 根据会话创建邮件
 		MimeMessage msg = new MimeMessage(session);
@@ -132,14 +139,15 @@ public class RegisteredService {
 		String content = "<html><head></head>" + "<body><h1>欢迎注册阿伟社交系统,您的账号为:" + account
 				+ "</h1><br></br><h2>点击以下链接完成注册</h2>"
 				+ "<h3><a href='http://localhost:8080/friendsystem/register/activation.do?code=" + code
-				+ "'>http://localhost:8080/friendsystem/register/activation.do?code=" + code + "</href>" + "</h3></body></html>";
+				+ "'>http://localhost:8080/friendsystem/register/activation.do?code=" + code + "</href>"
+				+ "</h3></body></html>";
 		msg.setContent(content, "text/html;charset=UTF-8");
 		// 设置显示的发件时间
 		msg.setSentDate(new Date());
 		// 保存设置
 		msg.saveChanges();
 		return msg;
-	}
+	}*/
 
 	/**
 	 * 判断code是否正确
@@ -161,7 +169,7 @@ public class RegisteredService {
 					if (user.getCode().equals(code)) {
 						return "Pass";// code一致可以通过
 					}
-					
+
 					return "Error";
 				}
 			}
@@ -172,7 +180,6 @@ public class RegisteredService {
 
 	/**
 	 * 激活
-	 * 
 	 * @param code
 	 */
 	public void activation(String code) {

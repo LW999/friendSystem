@@ -36,14 +36,19 @@ public class RegisteredController {
 			}
 			if (check.equals("NoActivation")) {
 				// 已经注册但是未激活
-				System.out.println("失败！" + check);
+				System.out.println("失败！已经注册但是未激活" + check);
 				modelAndView.addObject("check", check);
 
 			}
 			if (check.equals("HasBeenRegistered")) {
-				System.out.println("失败！" + check);
+				System.out.println("失败！该邮箱已经被注册" + check);
 				modelAndView.addObject("check", check);
 				// 该邮箱已经被注册
+			}
+			if (check.equals("InvalidFormat")) {
+				
+				System.out.println("邮箱格式错误");
+
 			}
 			modelAndView.addObject("check", check);
 			modelAndView.setViewName("register");

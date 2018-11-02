@@ -22,6 +22,7 @@ import com.friendsystem.service.RegisteredService;
 import com.friendsystem.service.TestService;
 import com.friendsystem.util.BuildUuid;
 import com.friendsystem.util.GenerateAccount;
+import com.friendsystem.util.ValidationMail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/applicationContext-dao.xml",
@@ -126,12 +127,15 @@ public class TestWeiWei {
 		if (isActivation.equals("Pass")) {
 			registeredService.activation(code);
 		}
-		
+
 	}
 
 	@Test
 	public void h() {
-
+		System.out.println(ValidationMail.checkEmaile("877381442@qq.com"));
+		System.out.println(ValidationMail.checkEmaile("@163.com"));
+		System.out.println(ValidationMail.checkEmaile("kero99@163.com.cn"));
+		System.out.println(ValidationMail.checkEmaile("test.b@qq.com"));
 	}
 
 }
