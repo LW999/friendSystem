@@ -26,14 +26,15 @@ public class HomePageController {
 
 	@Resource(name = "operationService")
 	private OperationService operationService;
-	
+
 	/**
 	 * 首页显示
 	 * 
 	 * @return
 	 */
-	@RequestMapping("index")
+	@RequestMapping("/index")
 	public ModelAndView homePage() {
+		System.out.println("进来了吗：");
 		// 需要标签
 		List<Project> listProject = homeService.getAllProject();
 		// 需要推荐文章
@@ -48,7 +49,7 @@ public class HomePageController {
 		mod.addObject("listRecommended", listRecommended);
 		mod.addObject("listRandomArticlesDTO", listRandomArticlesDTO);
 		mod.addObject("listRandomUserDTO", listRandomUserDTO);
-		mod.setViewName("home");
+		mod.setViewName("/home/home");
 		return mod;
 
 	}
@@ -68,6 +69,7 @@ public class HomePageController {
 		return modelAndView;
 
 	}
+
 	/**
 	 * 点击显示详细文章
 	 * 

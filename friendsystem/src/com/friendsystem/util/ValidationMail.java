@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ValidationMail {
-	 public static boolean checkEmaile(String emaile){
+	 public static boolean checkEmaile(String email){
          /**
           *   ^匹配输入字符串的开始位置 
           *   $结束的位置
@@ -34,7 +34,7 @@ public class ValidationMail {
          //正则表达式的模式 编译正则表达式
          Pattern p = Pattern.compile(RULE_EMAIL);
          //正则表达式的匹配器
-         Matcher m = p.matcher(emaile);
+         Matcher m = p.matcher(email);
          //进行正则匹配\
          return m.matches();  
      }   

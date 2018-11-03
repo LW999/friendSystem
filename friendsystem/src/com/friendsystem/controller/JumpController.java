@@ -21,6 +21,7 @@ public class JumpController {
 		modelAndView.addObject("check", check);
 		return modelAndView;
 	}
+
 	/**
 	 * 跳转到注册
 	 */
@@ -31,7 +32,22 @@ public class JumpController {
 		modelAndView.setViewName("register");
 		modelAndView.addObject("check", check);
 		return modelAndView;
-		
+
 	}
+	/**
+	 * 跳转到底部
+	 */
+	@RequestMapping("/bottom")
+	public ModelAndView bottom() {
+		System.out.println("底部");
+		ModelAndView modelAndView = new ModelAndView();
+		String check = "李真猛！";
+		modelAndView.setViewName("/home/bottom");
+		modelAndView.addObject("check", check);
+		return modelAndView;
+
+	}
+	
+
 
 }
