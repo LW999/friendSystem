@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 import com.friendsystem.DTO.Article_DetailsDTO;
 import com.friendsystem.DTO.User_ArticleDTO;
 import com.friendsystem.mapper.ArticleMapper;
-import com.friendsystem.mapper.LikeMapper;
+import com.friendsystem.mapper.LikesMapper;
 import com.friendsystem.mapper.UserMapper;
 import com.friendsystem.pojo.Article;
 import com.friendsystem.pojo.ArticleExample;
-import com.friendsystem.pojo.Like;
-import com.friendsystem.pojo.LikeExample;
-import com.friendsystem.pojo.LikeExample.Criteria;
+import com.friendsystem.pojo.Likes;
+import com.friendsystem.pojo.LikesExample;
+import com.friendsystem.pojo.LikesExample.Criteria;
 
 import sun.misc.UUDecoder;
 
@@ -30,7 +30,7 @@ public class OperationService {
 	@Resource
 	private ArticleMapper articleMapper;
 	@Resource
-	private LikeMapper likeMapper;
+	private LikesMapper likeMapper;
 
 	/**
 	 * 查询更多作者
@@ -78,16 +78,16 @@ public class OperationService {
 				article_DetailsDTO.setUser(user);// 插入作者
 			}
 			// 得到该文章所得到的赞
-			LikeExample likeExample = new LikeExample();
+			LikesExample likeExample = new LikesExample();
 			Criteria criteria = likeExample.createCriteria();
-			criteria.andLikeArticleEqualTo(article_Id);
+			criteria.andLikearticleEqualTo(article_Id);
 			int likeByArticle = likeMapper.countByExample(likeExample);
 			// 得到所有该文章点赞的人
 			List<User> listUserLike = new ArrayList<>();
-			List<Like> listLike = likeMapper.selectByExample(likeExample);
-			for (Like like : listLike) {
+			List<Likes> listLike = likeMapper.selectByExample(likeExample);
+			for (Likes likes : listLike) {
 				// 遍历喜欢的人出来
-				User userLike = userMapper.selectByPrimaryKey(like.getLikePeople());
+				User userLike = userMapper.selectByPrimaryKey(likes.getLikepeople());
 				listUserLike.add(userLike);// 把遍历的人塞到集合
 			}
 			article_DetailsDTO.setListUserByLike(listUserLike);
@@ -100,9 +100,9 @@ public class OperationService {
 			if (listAllArticleByUser.size() > 0) {
 				for (Article article2 : listAllArticleByUser) {
 					// 遍历文章所得到的赞
-					LikeExample likeExample2 = new LikeExample();
-					com.friendsystem.pojo.LikeExample.Criteria criteria3 = likeExample.createCriteria();
-					criteria3.andLikeArticleEqualTo(article2.getArticleId());
+					LikesExample likeExample2 = new LikesExample();
+					com.friendsystem.pojo.LikesExample.Criteria criteria3 = likeExample.createCriteria();
+					criteria3.andLikearticleEqualTo(article2.getArticleId());
 					int likeByArticle2 = likeMapper.countByExample(likeExample2);
 					int all = 0;
 					all = all + likeByArticle2;

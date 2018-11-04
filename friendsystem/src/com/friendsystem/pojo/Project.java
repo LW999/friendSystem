@@ -77,4 +77,12 @@ public class Project {
 	public void setProjectImg(String projectImg) {
 		this.projectImg = projectImg == null ? null : projectImg.trim();
 	}
+
+	@Override
+	public String toString() {
+		return "Project [projectId=" + projectId + ", projectName=" + projectName + ", projectIsDelete="
+				+ projectIsDelete + ", projectCreatetime=" + projectCreatetime + ", projectModifytime="
+				+ projectModifytime + ", projectImg=" + projectImg + "]";
+	}
+
 }

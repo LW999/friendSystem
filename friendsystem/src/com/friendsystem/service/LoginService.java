@@ -24,14 +24,17 @@ public class LoginService {
 
 	public User getUserByAccount(String account, String password) {
 		if (account != null && account.trim().length() > 0 && password != null && password.trim().length() > 0) {
+
 			User user = userMapper.selectUserByAccount(account);
+			System.out.println("ijij:" + user.getUserIsActivation());
 			if (user != null && user.getUserIsActivation().equals("1")) {
+				System.out.println("mmmmmm");
 				if (user.getUserPassword().equals(password)) {
 					if (user.getUserIsBanned().equals("0")) {
-						return null;
+						return user;
 					}
 					System.out.println("ooo:" + user);
-					return user;
+					return null;
 				}
 			}
 

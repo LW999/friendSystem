@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.friendsystem.pojo.Article;
 import com.friendsystem.pojo.Collection;
-import com.friendsystem.pojo.Like;
 
 /**
  * 一篇文章和点赞数+收藏数

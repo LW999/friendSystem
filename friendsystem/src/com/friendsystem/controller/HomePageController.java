@@ -34,7 +34,6 @@ public class HomePageController {
 	 */
 	@RequestMapping("/index")
 	public ModelAndView homePage() {
-		System.out.println("进来了吗：");
 		// 需要标签
 		List<Project> listProject = homeService.getAllProject();
 		// 需要推荐文章
@@ -44,6 +43,7 @@ public class HomePageController {
 		// 需要页面显示5个随机推荐的作者
 		List<User_LikeDTO> listRandomUserDTO = homeService.getRandomUsers();
 		// 使用 ModelAndView mod = new ModelAndView();
+		System.out.println("随机的五个作者：" + listRandomUserDTO);
 		ModelAndView mod = new ModelAndView();
 		mod.addObject("listProject", listProject);
 		mod.addObject("listRecommended", listRecommended);

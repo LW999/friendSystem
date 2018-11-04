@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.friendsystem.mapper.LikeMapper" >
-  <resultMap id="BaseResultMap" type="com.friendsystem.pojo.Like" >
-    <id column="like_id" property="likeId" jdbcType="VARCHAR" />
-    <result column="like_article" property="likeArticle" jdbcType="VARCHAR" />
-    <result column="like_people" property="likePeople" jdbcType="VARCHAR" />
-    <result column="like_createtime" property="likeCreatetime" jdbcType="VARCHAR" />
-    <result column="like_modifytime" property="likeModifytime" jdbcType="VARCHAR" />
+<mapper namespace="com.friendsystem.mapper.LikesMapper" >
+  <resultMap id="BaseResultMap" type="com.friendsystem.pojo.Likes" >
+    <id column="likeId" property="likeid" jdbcType="VARCHAR" />
+    <result column="likeArticle" property="likearticle" jdbcType="VARCHAR" />
+    <result column="likePeople" property="likepeople" jdbcType="VARCHAR" />
+    <result column="likeCreatetime" property="likecreatetime" jdbcType="VARCHAR" />
+    <result column="likeModifytime" property="likemodifytime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    like_id, like_article, like_people, like_createtime, like_modifytime
+    likeId, likeArticle, likePeople, likeCreatetime, likeModifytime
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.friendsystem.pojo.LikeExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.friendsystem.pojo.LikesExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from like
+    from likes
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,85 +86,85 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from like
-    where like_id = #{likeId,jdbcType=VARCHAR}
+    from likes
+    where likeId = #{likeid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from like
-    where like_id = #{likeId,jdbcType=VARCHAR}
+    delete from likes
+    where likeId = #{likeid,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.friendsystem.pojo.LikeExample" >
-    delete from like
+  <delete id="deleteByExample" parameterType="com.friendsystem.pojo.LikesExample" >
+    delete from likes
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.friendsystem.pojo.Like" >
-    insert into like (like_id, like_article, like_people, 
-      like_createtime, like_modifytime)
-    values (#{likeId,jdbcType=VARCHAR}, #{likeArticle,jdbcType=VARCHAR}, #{likePeople,jdbcType=VARCHAR}, 
-      #{likeCreatetime,jdbcType=VARCHAR}, #{likeModifytime,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.friendsystem.pojo.Likes" >
+    insert into likes (likeId, likeArticle, likePeople, 
+      likeCreatetime, likeModifytime)
+    values (#{likeid,jdbcType=VARCHAR}, #{likearticle,jdbcType=VARCHAR}, #{likepeople,jdbcType=VARCHAR}, 
+      #{likecreatetime,jdbcType=VARCHAR}, #{likemodifytime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.friendsystem.pojo.Like" >
-    insert into like
+  <insert id="insertSelective" parameterType="com.friendsystem.pojo.Likes" >
+    insert into likes
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="likeId != null" >
-        like_id,
+      <if test="likeid != null" >
+        likeId,
       </if>
-      <if test="likeArticle != null" >
-        like_article,
+      <if test="likearticle != null" >
+        likeArticle,
       </if>
-      <if test="likePeople != null" >
-        like_people,
+      <if test="likepeople != null" >
+        likePeople,
       </if>
-      <if test="likeCreatetime != null" >
-        like_createtime,
+      <if test="likecreatetime != null" >
+        likeCreatetime,
       </if>
-      <if test="likeModifytime != null" >
-        like_modifytime,
+      <if test="likemodifytime != null" >
+        likeModifytime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="likeId != null" >
-        #{likeId,jdbcType=VARCHAR},
+      <if test="likeid != null" >
+        #{likeid,jdbcType=VARCHAR},
       </if>
-      <if test="likeArticle != null" >
-        #{likeArticle,jdbcType=VARCHAR},
+      <if test="likearticle != null" >
+        #{likearticle,jdbcType=VARCHAR},
       </if>
-      <if test="likePeople != null" >
-        #{likePeople,jdbcType=VARCHAR},
+      <if test="likepeople != null" >
+        #{likepeople,jdbcType=VARCHAR},
       </if>
-      <if test="likeCreatetime != null" >
-        #{likeCreatetime,jdbcType=VARCHAR},
+      <if test="likecreatetime != null" >
+        #{likecreatetime,jdbcType=VARCHAR},
       </if>
-      <if test="likeModifytime != null" >
-        #{likeModifytime,jdbcType=VARCHAR},
+      <if test="likemodifytime != null" >
+        #{likemodifytime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.friendsystem.pojo.LikeExample" resultType="java.lang.Integer" >
-    select count(*) from like
+  <select id="countByExample" parameterType="com.friendsystem.pojo.LikesExample" resultType="java.lang.Integer" >
+    select count(*) from likes
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update like
+    update likes
     <set >
-      <if test="record.likeId != null" >
-        like_id = #{record.likeId,jdbcType=VARCHAR},
+      <if test="record.likeid != null" >
+        likeId = #{record.likeid,jdbcType=VARCHAR},
       </if>
-      <if test="record.likeArticle != null" >
-        like_article = #{record.likeArticle,jdbcType=VARCHAR},
+      <if test="record.likearticle != null" >
+        likeArticle = #{record.likearticle,jdbcType=VARCHAR},
       </if>
-      <if test="record.likePeople != null" >
-        like_people = #{record.likePeople,jdbcType=VARCHAR},
+      <if test="record.likepeople != null" >
+        likePeople = #{record.likepeople,jdbcType=VARCHAR},
       </if>
-      <if test="record.likeCreatetime != null" >
-        like_createtime = #{record.likeCreatetime,jdbcType=VARCHAR},
+      <if test="record.likecreatetime != null" >
+        likeCreatetime = #{record.likecreatetime,jdbcType=VARCHAR},
       </if>
-      <if test="record.likeModifytime != null" >
-        like_modifytime = #{record.likeModifytime,jdbcType=VARCHAR},
+      <if test="record.likemodifytime != null" >
+        likeModifytime = #{record.likemodifytime,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -172,40 +172,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update like
-    set like_id = #{record.likeId,jdbcType=VARCHAR},
-      like_article = #{record.likeArticle,jdbcType=VARCHAR},
-      like_people = #{record.likePeople,jdbcType=VARCHAR},
-      like_createtime = #{record.likeCreatetime,jdbcType=VARCHAR},
-      like_modifytime = #{record.likeModifytime,jdbcType=VARCHAR}
+    update likes
+    set likeId = #{record.likeid,jdbcType=VARCHAR},
+      likeArticle = #{record.likearticle,jdbcType=VARCHAR},
+      likePeople = #{record.likepeople,jdbcType=VARCHAR},
+      likeCreatetime = #{record.likecreatetime,jdbcType=VARCHAR},
+      likeModifytime = #{record.likemodifytime,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.friendsystem.pojo.Like" >
-    update like
+  <update id="updateByPrimaryKeySelective" parameterType="com.friendsystem.pojo.Likes" >
+    update likes
     <set >
-      <if test="likeArticle != null" >
-        like_article = #{likeArticle,jdbcType=VARCHAR},
+      <if test="likearticle != null" >
+        likeArticle = #{likearticle,jdbcType=VARCHAR},
       </if>
-      <if test="likePeople != null" >
-        like_people = #{likePeople,jdbcType=VARCHAR},
+      <if test="likepeople != null" >
+        likePeople = #{likepeople,jdbcType=VARCHAR},
       </if>
-      <if test="likeCreatetime != null" >
-        like_createtime = #{likeCreatetime,jdbcType=VARCHAR},
+      <if test="likecreatetime != null" >
+        likeCreatetime = #{likecreatetime,jdbcType=VARCHAR},
       </if>
-      <if test="likeModifytime != null" >
-        like_modifytime = #{likeModifytime,jdbcType=VARCHAR},
+      <if test="likemodifytime != null" >
+        likeModifytime = #{likemodifytime,jdbcType=VARCHAR},
       </if>
     </set>
-    where like_id = #{likeId,jdbcType=VARCHAR}
+    where likeId = #{likeid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.friendsystem.pojo.Like" >
-    update like
-    set like_article = #{likeArticle,jdbcType=VARCHAR},
-      like_people = #{likePeople,jdbcType=VARCHAR},
-      like_createtime = #{likeCreatetime,jdbcType=VARCHAR},
-      like_modifytime = #{likeModifytime,jdbcType=VARCHAR}
-    where like_id = #{likeId,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.friendsystem.pojo.Likes" >
+    update likes
+    set likeArticle = #{likearticle,jdbcType=VARCHAR},
+      likePeople = #{likepeople,jdbcType=VARCHAR},
+      likeCreatetime = #{likecreatetime,jdbcType=VARCHAR},
+      likeModifytime = #{likemodifytime,jdbcType=VARCHAR}
+    where likeId = #{likeid,jdbcType=VARCHAR}
   </update>
 </mapper>

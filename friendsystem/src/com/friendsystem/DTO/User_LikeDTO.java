@@ -6,20 +6,11 @@ public class User_LikeDTO {
 	/**
 	 * 作者文章点赞数
 	 */
-
-	private int Like;
+	private int like = 1;
 	/**
 	 * 作者
 	 */
-	public User user;
-
-	public int getLike() {
-		return Like;
-	}
-
-	public void setLike(int like) {
-		Like = like;
-	}
+	private User user;
 
 	public User getUser() {
 		return user;
@@ -29,9 +20,17 @@ public class User_LikeDTO {
 		this.user = user;
 	}
 
-	@Override
-	public String toString() {
-		return "User_LikeDTO [Like=" + Like + ", user=" + user + "]";
+	public int getLike() {
+		return like;
 	}
 
+	public void setLike(int like) {
+		this.like = like;
+	}
+
+	@Override
+	public String toString() {
+		return "User_LikeDTO [like=" + like + ", user=" + user + "]";
+	}
+	
 }

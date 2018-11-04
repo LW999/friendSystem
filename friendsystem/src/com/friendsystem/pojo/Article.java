@@ -138,4 +138,14 @@ public class Article {
 	public void setArticleProject(String articleProject) {
 		this.articleProject = articleProject == null ? null : articleProject.trim();
 	}
+
+	@Override
+	public String toString() {
+		return "Article [articleId=" + articleId + ", articleTitle=" + articleTitle + ", articleContent="
+				+ articleContent + ", articleByUser=" + articleByUser + ", articleIsRelease=" + articleIsRelease
+				+ ", articleIsDelete=" + articleIsDelete + ", articleViews=" + articleViews + ", articleImg="
+				+ articleImg + ", articleCreatetime=" + articleCreatetime + ", articleModifytime=" + articleModifytime
+				+ ", articleProject=" + articleProject + "]";
+	}
+	
 }

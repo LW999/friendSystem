@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.friendsystem.pojo.User;
@@ -30,9 +32,6 @@ public class LoginController {
 	private LoginService loginService;
 	private HttpServletResponse response;
 	private HttpServletRequest request;
-	private String account;
-	private String password;
-	private String email;
 
 	public HttpServletResponse getResponse() {
 		return response;
@@ -50,46 +49,25 @@ public class LoginController {
 		this.request = request;
 	}
 
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public ModelAndView login() {
+	@RequestMapping("/login")
+	public ModelAndView login(Model model, String account, String password) {
+		System.out.println("账号：" + account + "密码：" + password);
 		if (account != null && account.trim().length() > 0 && password != null && password.trim().length() > 0) {
+
 			User userSession = loginService.getUserByAccount(account, password);
+			System.err.println("user:" + userSession);
 			if (userSession != null) {
 				// 允许登陆
-
-				request.getSession().setAttribute("userSession", userSession);
+				// request.getSession().setAttribute("userSession", userSession);
 				ModelAndView modelAndView = new ModelAndView();
-
 				modelAndView.addObject("Session", userSession);// 使用注解
+				model.addAttribute("Session", userSession);
 				/**
-				 * 在其他controller调用Session
-				 * @SessionAttributes("Session") 
-				 * public String XXX(@ModelAttribute("Session") User user)
+				 * 在其他controller调用Session @SessionAttributes("Session") public String
+				 * XXX(@ModelAttribute("Session") User user)
 				 */
-				modelAndView.addObject("session", userSession);
+				modelAndView.setViewName("forward:/homePage/index.do");
+				// modelAndView.addObject("session", userSession);
 				return modelAndView;
 
 			}
@@ -99,6 +77,22 @@ public class LoginController {
 			return null;
 		}
 		return null;
+	}
+
+	/**
+	 * 清除Session
+	 * 
+	 * @param status
+	 * @return
+	 */
+	@RequestMapping("/logout")
+	public ModelAndView logout(SessionStatus status) {
+		System.out.println("lllll");
+		ModelAndView ModelAndView = new ModelAndView();
+		ModelAndView.setViewName("forward:/homePage/index.do");
+		status.setComplete();
+		return ModelAndView;
+
 	}
 
 }

@@ -16,12 +16,17 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.friendsystem.DTO.User_LikeDTO;
+import com.friendsystem.pojo.Project;
 import com.friendsystem.pojo.User;
+import com.friendsystem.service.HomeService;
 import com.friendsystem.service.LoginService;
+import com.friendsystem.service.ManagementService;
 import com.friendsystem.service.RegisteredService;
 import com.friendsystem.service.TestService;
 import com.friendsystem.util.BuildUuid;
 import com.friendsystem.util.GenerateAccount;
+import com.friendsystem.util.TimeUtil;
 import com.friendsystem.util.ValidationMail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -138,4 +143,31 @@ public class TestWeiWei {
 		System.out.println(ValidationMail.checkEmaile("test.b@qq.com"));
 	}
 
+	@Resource(name = "managementService")
+	private ManagementService managementService;
+
+	@Test
+	public void addpro() {
+
+		Project project = new Project();
+		project.setProjectId(BuildUuid.getUuid());
+		project.setProjectIsDelete("0");
+		project.setProjectCreatetime(TimeUtil.getStringSecond());
+		project.setProjectModifytime(TimeUtil.getStringSecond());
+		project.setProjectName("旅行");
+		project.setProjectImg(
+				"‪//upload.jianshu.io/collections/images/13/%E5%95%8A.png?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64");
+		String msg = managementService.addProperties(project);
+		System.out.println("okok:" + msg);
+
+	}
+
+	@Resource(name = "homeService")
+	private HomeService homeService;
+
+	@Test
+	public void suiji() {
+		List<User_LikeDTO> listRandomUserDTO = homeService.getRandomUsers();
+		System.out.println("dto:" + listRandomUserDTO);
+	}
 }

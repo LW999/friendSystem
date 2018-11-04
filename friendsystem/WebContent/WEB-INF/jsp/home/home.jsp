@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,43 +33,54 @@
 		<!-- 未登录显示登录/注册/写文章 -->
 		<a class="btn write-btn" target="_blank" href="/writer#/"> <i
 			class="iconfont ic-write"></i>写文章
-		</a> <a class="btn sign-up" id="sign_up" href="/sign_up">注册</a> <a
-			class="btn log-in" id="sign_in" href="/sign_in">登录</a>
-
+		</a>
+		<c:if test="${sessionScope.Session eq null}">
+			<a class="btn sign-up"
+				href="${pageContext.request.contextPath }/jump/reg.do">注册</a>
+			<a class="btn log-in"
+				href="${pageContext.request.contextPath }/jump/login.do">${sessionScope.Session.userName }登录</a>
+		</c:if>
 		<!-- 如果用户登录，显示下拉菜单 -->
-		<div class="user">
-			<div data-hover="dropdown">
-				<a class="avatar" href=""><img
-					src="${pageContext.request.contextPath }/img/logo.png" alt="120"></a>
-			</div>
-			<ul class="dropdown-menu">
-				<li><a href=""> <i class="iconfont ic-navigation-profile"></i><span>我的主页</span>
-				</a></li>
-				<li>
-					<!-- TODO bookmarks_path --> <a href="/bookmarks"> <i
-						class="iconfont ic-navigation-mark"></i><span>收藏的文章</span>
-				</a>
-				</li>
-				<li><a href="/users/d355083d142b/liked_notes"> <i
-						class="iconfont ic-navigation-like"></i><span>喜欢的文章</span>
-				</a></li>
-				<li><a href="/my/paid_notes"> <i class="iconfont ic-paid"></i><span>已购内容</span>
-				</a></li>
-				<li><a href="/wallet"> <i
-						class="iconfont ic-navigation-wallet"></i><span>我的钱包</span>
-				</a></li>
-				<li><a href="/settings"> <i
-						class="iconfont ic-navigation-settings"></i><span>设置</span>
-				</a></li>
-				<li><a href="/faqs"> <i
-						class="iconfont ic-navigation-feedback"></i><span>帮助与反馈</span>
-				</a></li>
-				<li><a rel="nofollow" data-method="delete" href="/sign_out">
-						<i class="iconfont ic-navigation-signout"></i><span>退出</span>
-				</a></li>
-			</ul>
-		</div>
-
+		<c:choose>
+			<c:when test="${sessionScope.Session eq null}">
+			</c:when>
+			<c:otherwise>
+				<!-- 用户头像那些 -->
+				<div class="user">
+					<div data-hover="dropdown">
+						<a class="avatar" href=""> <img
+							src="${sessionScope.Session.userPortrait }" alt="130">
+						</a>
+					</div>
+					<ul class="dropdown-menu">
+						<li><a href=""> <i class="iconfont ic-navigation-profile"></i><span>我的主页</span>
+						</a></li>
+						<li>
+							<!-- TODO bookmarks_path --> <a href="/bookmarks"> <i
+								class="iconfont ic-navigation-mark"></i><span>收藏的文章</span>
+						</a>
+						</li>
+						<li><a href="/users/d355083d142b/liked_notes"> <i
+								class="iconfont ic-navigation-like"></i><span>喜欢的文章</span>
+						</a></li>
+						<li><a href="/my/paid_notes"> <i class="iconfont ic-paid"></i><span>已购内容</span>
+						</a></li>
+						<li><a href="/wallet"> <i
+								class="iconfont ic-navigation-wallet"></i><span>我的钱包</span>
+						</a></li>
+						<li><a href="/settings"> <i
+								class="iconfont ic-navigation-settings"></i><span>设置</span>
+						</a></li>
+						<li><a href="/faqs"> <i
+								class="iconfont ic-navigation-feedback"></i><span>帮助与反馈</span>
+						</a></li>
+						<li><a rel="nofollow" data-method="delete" href="${pageContext.request.contextPath }/login/logout.do">
+								<i class="iconfont ic-navigation-signout"></i><span>注销</span>
+						</a></li>
+					</ul>
+				</div>
+			</c:otherwise>
+		</c:choose>
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -81,28 +95,38 @@
 							class="menu-text">首页</span><i
 							class="iconfont ic-navigation-discover menu-icon"></i>
 					</a></li>
-					<!--登陆后出现-->
+
+
 					<ul class="nav navbar-nav">
+						<c:choose>
+							<c:when test="${sessionScope.Session eq null}">
+							</c:when>
+							<c:otherwise>
+								<!--登陆后出现-->
+								<li class="tab "><a href="#"> <span class="menu-text">关注</span><i
+										class="iconfont ic-navigation-follow menu-icon"></i>
+								</a></li>
+								<li class="tab notification"><a data-hover="dropdown"
+									href="#" class="notification-btn"><span class="menu-text">消息</span>
+										<i class="iconfont ic-navigation-notification menu-icon"></i>
+										<!----> <!----> </a>
+									<ul class="dropdown-menu">
+										<li><a href="#"><i class="iconfont ic-comments"></i>
+												<span><span class="badge pull-left">8</span>评论</span> <!---->
+										</a></li>
+										<li><a href="3"><i class="iconfont ic-chats"></i> <span>简信</span>
+												<!----> </a></li>
 
-						<li class="tab "><a href="#"> <span class="menu-text">关注</span><i
-								class="iconfont ic-navigation-follow menu-icon"></i>
-						</a></li>
-						<li class="tab notification"><a data-hover="dropdown"
-							href="#" class="notification-btn"><span class="menu-text">消息</span>
-								<i class="iconfont ic-navigation-notification menu-icon"></i> <!---->
-								<!----> </a>
-							<ul class="dropdown-menu">
-								<li><a href="#"><i class="iconfont ic-comments"></i> <span><span
-											class="badge pull-left">8</span>评论</span> <!----> </a></li>
-								<li><a href="3"><i class="iconfont ic-chats"></i> <span>简信</span>
-										<!----> </a></li>
+										<li><a href="#"><i class="iconfont ic-likes"></i> <span>喜欢和赞</span>
+												<!----> </a></li>
+										<li><a href="#"><i class="iconfont ic-follows"></i> <span>关注</span>
+												<!----> </a></li>
 
-								<li><a href="#"><i class="iconfont ic-likes"></i> <span>喜欢和赞</span>
-										<!----> </a></li>
-								<li><a href="#"><i class="iconfont ic-follows"></i> <span>关注</span>
-										<!----> </a></li>
+									</ul></li>
 
-							</ul></li>
+							</c:otherwise>
+						</c:choose>
+
 
 						<li class="search">
 							<form target="_blank" action="#" accept-charset="UTF-8"
@@ -149,14 +173,14 @@
 						<div class="item active">
 							<div class="banner">
 								<a target="_blank" href="#"><img
-									src="${pageContext.request.contextPath }/img/59c8621b2b5f2.png"
-									alt="1"></a>
+									src="${pageContext.request.contextPath }/img/timg.jpg" alt="1"></a>
 							</div>
 						</div>
 
 						<div class="item">
 							<div class="banner" data-banner-name="赛末点02">
-								<a target="_blank" href="#"><img src="img/59c8621b2b5f2.png"
+								<a target="_blank" href="#"><img
+									src="${pageContext.request.contextPath }/img/59c8621b2b5f2.png"
 									alt="540"></a>
 							</div>
 						</div>
@@ -186,19 +210,19 @@
 						data-slide="next"><i class="iconfont ic-next-s"></i></a>
 				</div>
 				<!--专题分类需要遍历-->
-				<div class="recommend-collection">
 
-					<a class="collection" target="_blank"
-						href="/c/5AUzod?utm_medium=index-collections&amp;utm_source=desktop">
-						<img
-						src="//upload.jianshu.io/collections/images/13/%E5%95%8A.png?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64"
-						alt="64">
-						<div class="name">旅行·在路上</div>
-					</a> <a class="more-hot-collection" target="_blank"
-						href="/recommendations/collections?utm_medium=index-collections&amp;utm_source=desktop">
-						更多热门专题 <i class="iconfont ic-link"></i>
+				<div class="recommend-collection">
+					<c:forEach items="${listProject}" var="listP">
+						<a class="collection" target="_blank" href="#"> <img
+							src="${listP.projectImg}" alt="">
+							<div class="name">${listP.projectName }</div>
+						</a>
+					</c:forEach>
+					<a class="more-hot-collection" target="_blank" href="#"> 更多热门专题
+						<i class="iconfont ic-link"></i>
 					</a>
 				</div>
+
 				<div class="split-line"></div>
 				<div id="list-container">
 
@@ -252,11 +276,14 @@
 						换一批 </a>
 				</div>
 				<ul class="list">
-					<li><a href="" target="_blank" class="avatar"><img
-							src="${pageContext.request.contextPath }/img/QQ.png"></a> <!-- <a class="follow" ><i class="iconfont ic-follow"></i>关注 </a>  -->
-						<a class="following"><i class="iconfont ic-follow"></i>已关注 </a> <!-- <a class="following"><i class="iconfont ic-unfollow"></i>取消关注</a> -->
-						<a href="#" target="_blank" class="name"> 李伟 </a>
-						<p>写了438k字 · 1.7k喜欢</p></li>
+					<c:forEach items="${listRandomUserDTO}" var="listR">
+						<li><a href="" target="_blank" class="avatar"><img
+								src="${listR.user.userPortrait }"></a> <!-- <a class="follow" ><i class="iconfont ic-follow"></i>关注 </a>  -->
+							<a class="following"><i class="iconfont ic-follow"></i>已关注 </a> <!-- <a class="following"><i class="iconfont ic-unfollow"></i>取消关注</a> -->
+							<a href="#" target="_blank" class="name">
+								${listR.user.userName } </a>
+							<p>一共获得了${listR.like}个喜欢</p></li>
+					</c:forEach>
 
 				</ul>
 				<a href="" target="_blank" class="find-more"> 查看全部<i

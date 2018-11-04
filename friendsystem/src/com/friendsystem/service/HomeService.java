@@ -11,7 +11,7 @@ import com.friendsystem.DTO.Article_Like_CollectionDTO;
 import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.mapper.ArticleMapper;
 import com.friendsystem.mapper.CollectionMapper;
-import com.friendsystem.mapper.LikeMapper;
+import com.friendsystem.mapper.LikesMapper;
 import com.friendsystem.mapper.ProjectMapper;
 import com.friendsystem.mapper.RecommendedMapper;
 import com.friendsystem.mapper.UserMapper;
@@ -19,8 +19,8 @@ import com.friendsystem.pojo.Article;
 import com.friendsystem.pojo.ArticleExample;
 import com.friendsystem.pojo.Collection;
 import com.friendsystem.pojo.CollectionExample;
-import com.friendsystem.pojo.Like;
-import com.friendsystem.pojo.LikeExample;
+import com.friendsystem.pojo.Likes;
+import com.friendsystem.pojo.LikesExample;
 import com.friendsystem.pojo.Project;
 import com.friendsystem.pojo.ProjectExample;
 import com.friendsystem.pojo.ProjectExample.Criteria;
@@ -37,7 +37,7 @@ public class HomeService {
 	@Resource
 	private RecommendedMapper recommendedMapper;// 推荐DAO
 	@Resource
-	private LikeMapper likeMapper;// 点赞DAO
+	private LikesMapper likeMapper;// 点赞DAO
 	@Resource
 	private CollectionMapper collectionMapper;// 收藏DAO
 	@Resource
@@ -87,9 +87,9 @@ public class HomeService {
 		if (listArticle.size() > 0) {
 			System.err.println("随机：" + listArticle);
 			for (Article article : listArticle) {
-				LikeExample likeExample = new LikeExample();
-				com.friendsystem.pojo.LikeExample.Criteria criteria = likeExample.createCriteria();
-				criteria.andLikeArticleEqualTo(article.getArticleId());
+				LikesExample likeExample = new LikesExample();
+				com.friendsystem.pojo.LikesExample.Criteria criteria = likeExample.createCriteria();
+				criteria.andLikearticleEqualTo(article.getArticleId());
 				int likeNumber = likeMapper.countByExample(likeExample);// 得到所有点赞的人数
 				CollectionExample collectionExample = new CollectionExample();
 				com.friendsystem.pojo.CollectionExample.Criteria criteria2 = collectionExample.createCriteria();
@@ -117,34 +117,38 @@ public class HomeService {
 		List<User_LikeDTO> listRandomUsers = new ArrayList<>();
 		List<User> listUsers = new ArrayList<>();
 		listUsers = userMapper.getRandomUsers();
+		System.out.println("size:" + listUsers.size());
 		// 先遍历用户，然后遍历用户写的文章，遍历文章得到的赞
 		if (listUsers.size() > 0) {
 			for (User user : listUsers) {
+				System.out.println("user:" + user);
 				User_LikeDTO ULDTO = new User_LikeDTO();
 				ArticleExample articleExample = new ArticleExample();
 				com.friendsystem.pojo.ArticleExample.Criteria criteria = articleExample.createCriteria();
 				criteria.andArticleByUserEqualTo(user.getUserId());
-				List<Article> listArticleByUser = articleMapper.selectByExample(articleExample);// 得到用户所写的文章
-				if (listArticleByUser.size() > 0) {
+				criteria.andArticleIsDeleteEqualTo("0");
 
-					for (Article article : listArticleByUser) {
-						// 遍历文章所得到的赞
-						LikeExample likeExample = new LikeExample();
-						com.friendsystem.pojo.LikeExample.Criteria criteria2 = likeExample.createCriteria();
-						criteria2.andLikeArticleEqualTo(article.getArticleId());
-						int likeByArticle = likeMapper.countByExample(likeExample);
-						int all = 0;
-						all = all + likeByArticle;
-						for (int i = 0; i <= listArticleByUser.size(); i++) {
-							// 如果i等于集合的长度，吧all加入到DTO中
-							System.out.println("size:" + i);
-							if (i == listArticleByUser.size()) {
-								ULDTO.setLike(all);
-							}
+				List<Article> listArticleByUser = articleMapper.selectByExample(articleExample);// 得到用户所写的文章
+				// 定义点赞数
+				int all = 0;
+				for (Article article : listArticleByUser) {
+					// 遍历文章所得到的赞
+					LikesExample likeExample = new LikesExample();
+					com.friendsystem.pojo.LikesExample.Criteria criteria2 = likeExample.createCriteria();
+					criteria2.andLikearticleEqualTo(article.getArticleId());
+					int likeByArticle = likeMapper.countByExample(likeExample);
+					all = all + likeByArticle;
+					for (int i = 1; i <= listArticleByUser.size(); i++) {
+						// 如果i等于集合的长度，吧all加入到DTO中
+						if (i == listArticleByUser.size()) {
+							System.out.println("给爸爸出来：" + all);
+							ULDTO.setLike(all);
 						}
 					}
-					ULDTO.setUser(user);
 				}
+				ULDTO.setUser(user);
+				listRandomUsers.add(ULDTO);
+
 			}
 			return listRandomUsers;
 		}

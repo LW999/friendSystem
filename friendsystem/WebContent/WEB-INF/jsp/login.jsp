@@ -29,29 +29,25 @@
 
 			<h4 class="title">
 				<div class="normal-title">
-					<a class="active" href="${pageContext.request.contextPath }/jump/login.do">登录</a> <b>·</b> <a
-						id="js-sign-up-btn" class="" href="${pageContext.request.contextPath }/jump/reg.do">注册</a>
+					<a class="active"
+						href="${pageContext.request.contextPath }/jump/login.do">登录</a> <b>·</b>
+					<a id="js-sign-up-btn" class=""
+						href="${pageContext.request.contextPath }/jump/reg.do">注册</a>
 				</div>
 			</h4>
 			<div class="js-sign-in-container">
-				<form id="new_session" action="/sessions" accept-charset="UTF-8"
-					method="post">
-
+				<form action="${pageContext.request.contextPath }/login/login.do" accept-charset="UTF-8" method="post">
 					<!-- 正常登录登录名输入框 -->
 					<div class="input-prepend restyle js-normal">
-						<input placeholder="手机号或邮箱" name="" id="" type="text"
+						<input placeholder="账号或邮箱" name="account" type="text"
 							class="form-control"> <i class="iconfont ic-user"></i>
 					</div>
-
-
 					<div class="input-prepend">
-						<input placeholder="密码" name="session[password]"
-							id="session_password" type="password" class="form-control">
-						<i class="iconfont ic-password"></i>
+						<input placeholder="密码" name="password" type="password"
+							class="form-control"> <i class="iconfont ic-password"></i>
 					</div>
 					<div class="remember-btn"></div>
-					<button class="sign-in-button" id="sign-in-form-submit-btn"
-						type="button">
+					<button class="sign-in-button" type="submit">
 						<span id="sign-in-loading"></span>登录
 					</button>
 				</form>
@@ -66,10 +62,8 @@
 	<script type="text/javascript">
 		function myfun() {
 			var val = "${check}";
-			alert(val)
-			
 			if (val == "Login") {
-				toastr.error("欢迎登陆")
+				toastr.success("欢迎登陆")
 			}
 		}
 		window.onload = myfun;
