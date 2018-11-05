@@ -167,7 +167,8 @@ public class TestWeiWei {
 
 	@Test
 	public void suiji() {
-		List<User_LikeDTO> listRandomUserDTO = homeService.getRandomUsers();
-		System.out.println("dto:" + listRandomUserDTO);
+		String type="";
+		//List<User_LikeDTO> listRandomUserDTO = homeService.getRandomUsers(type);
+		//System.out.println("dto:" + listRandomUserDTO);
 	}
 }

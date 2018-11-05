@@ -52,31 +52,44 @@ public class LoginController {
 	@RequestMapping("/login")
 	public ModelAndView login(Model model, String account, String password) {
 		System.out.println("账号：" + account + "密码：" + password);
-		if (account != null && account.trim().length() > 0 && password != null && password.trim().length() > 0) {
+		ModelAndView modelAndView = new ModelAndView();
+		String message;
+		if (account == null) {
+			message = "noAccount";
+			modelAndView.addObject("message", message);
+			modelAndView.setViewName("login");
+			return modelAndView;
 
+		}
+		if (password == null) {
+			message = "noPassword";
+			modelAndView.addObject("message", message);
+			modelAndView.setViewName("login");
+			return modelAndView;
+		}
+		if (account != null && account.trim().length() > 0 && password != null && password.trim().length() > 0) {
 			User userSession = loginService.getUserByAccount(account, password);
 			System.err.println("user:" + userSession);
+			if (userSession == null) {
+				message = "error";
+				modelAndView.addObject("message", message);
+				modelAndView.setViewName("login");
+			}
 			if (userSession != null) {
 				// 允许登陆
 				// request.getSession().setAttribute("userSession", userSession);
-				ModelAndView modelAndView = new ModelAndView();
-				modelAndView.addObject("Session", userSession);// 使用注解
+				// modelAndView.addObject("Session", userSession);// 使用注解
 				model.addAttribute("Session", userSession);
 				/**
 				 * 在其他controller调用Session @SessionAttributes("Session") public String
 				 * XXX(@ModelAttribute("Session") User user)
 				 */
 				modelAndView.setViewName("forward:/homePage/index.do");
-				// modelAndView.addObject("session", userSession);
 				return modelAndView;
 
 			}
-			if (userSession == null) {
-				// 被封禁或者未注册
-			}
-			return null;
 		}
-		return null;
+		return modelAndView;
 	}
 
 	/**
@@ -89,7 +102,7 @@ public class LoginController {
 	public ModelAndView logout(SessionStatus status) {
 		System.out.println("lllll");
 		ModelAndView ModelAndView = new ModelAndView();
-		ModelAndView.setViewName("forward:/homePage/index.do");
+		ModelAndView.setViewName("forward:/homePage/session.do");
 		status.setComplete();
 		return ModelAndView;
 

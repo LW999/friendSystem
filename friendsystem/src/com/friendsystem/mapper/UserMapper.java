@@ -65,5 +65,12 @@ public interface UserMapper {
 	 */
 	List<User> getMoreRandomUsers();
 
+	/**
+	 * 随机查询5个作者，没有自己
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	List<User> getRandomUsersNoOneSelft(String userId);
 
 }

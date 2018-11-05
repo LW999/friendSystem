@@ -7,7 +7,7 @@
 <title>首页</title>
 </head>
 <body>
-	<form action="homePage/index.do" method="post" id="index"></form>
+	<form action="homePage/session.do" method="post" id="index"></form>
 	<script>
 		window.onload = function() {
 			document.getElementById("index").submit();

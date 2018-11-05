@@ -34,7 +34,7 @@
 		<a class="btn write-btn" target="_blank" href="/writer#/"> <i
 			class="iconfont ic-write"></i>写文章
 		</a>
-		<c:if test="${sessionScope.Session eq null}">
+		<c:if test="${sessionScope.Session.userType eq 'tourists'}">
 			<a class="btn sign-up"
 				href="${pageContext.request.contextPath }/jump/reg.do">注册</a>
 			<a class="btn log-in"
@@ -42,7 +42,7 @@
 		</c:if>
 		<!-- 如果用户登录，显示下拉菜单 -->
 		<c:choose>
-			<c:when test="${sessionScope.Session eq null}">
+			<c:when test="${sessionScope.Session.userType eq 'tourists'}">
 			</c:when>
 			<c:otherwise>
 				<!-- 用户头像那些 -->
@@ -74,8 +74,9 @@
 						<li><a href="/faqs"> <i
 								class="iconfont ic-navigation-feedback"></i><span>帮助与反馈</span>
 						</a></li>
-						<li><a rel="nofollow" data-method="delete" href="${pageContext.request.contextPath }/login/logout.do">
-								<i class="iconfont ic-navigation-signout"></i><span>注销</span>
+						<li><a rel="nofollow" data-method="delete"
+							href="${pageContext.request.contextPath }/login/logout.do"> <i
+								class="iconfont ic-navigation-signout"></i><span>注销</span>
 						</a></li>
 					</ul>
 				</div>
@@ -99,7 +100,7 @@
 
 					<ul class="nav navbar-nav">
 						<c:choose>
-							<c:when test="${sessionScope.Session eq null}">
+							<c:when test="${sessionScope.Session.userType eq 'tourists'}">
 							</c:when>
 							<c:otherwise>
 								<!--登陆后出现-->

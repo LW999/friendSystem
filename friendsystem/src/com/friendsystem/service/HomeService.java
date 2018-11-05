@@ -113,15 +113,19 @@ public class HomeService {
 	 * 
 	 * @return listRandomUsers
 	 */
-	public List<User_LikeDTO> getRandomUsers() {
+	public List<User_LikeDTO> getRandomUsers(User userSession) {
 		List<User_LikeDTO> listRandomUsers = new ArrayList<>();
 		List<User> listUsers = new ArrayList<>();
-		listUsers = userMapper.getRandomUsers();
-		System.out.println("size:" + listUsers.size());
+		if (userSession.getUserType().equals("tourists")) {
+			// type为游客，随机五个人
+			listUsers = userMapper.getRandomUsers();
+		}
+		else {
+			listUsers = userMapper.getRandomUsersNoOneSelft(userSession.getUserId());
+		}
 		// 先遍历用户，然后遍历用户写的文章，遍历文章得到的赞
 		if (listUsers.size() > 0) {
 			for (User user : listUsers) {
-				System.out.println("user:" + user);
 				User_LikeDTO ULDTO = new User_LikeDTO();
 				ArticleExample articleExample = new ArticleExample();
 				com.friendsystem.pojo.ArticleExample.Criteria criteria = articleExample.createCriteria();
@@ -141,7 +145,6 @@ public class HomeService {
 					for (int i = 1; i <= listArticleByUser.size(); i++) {
 						// 如果i等于集合的长度，吧all加入到DTO中
 						if (i == listArticleByUser.size()) {
-							System.out.println("给爸爸出来：" + all);
 							ULDTO.setLike(all);
 						}
 					}

@@ -483,4 +483,16 @@
 		RAND()
 		LIMIT 12
 	</select>
+	<select id="getRandomUsersNoOneSelft" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from user where
+		user_is_banned = '0'
+		AND user_type = 'user'
+		AND
+		user_is_activation = '1'
+		AND user_id NOT IN (#{userId,jdbcType=VARCHAR})
+		ORDER BY
+		RAND()
+		LIMIT 5
+	</select>
 </mapper>
