@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,7 +30,6 @@ import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 @SessionAttributes("Session")
 @RequestMapping("homePage")
 public class HomePageController {
-	private static final Object Null = null;
 
 	@Resource(name = "homeService")
 	private HomeService homeService;
@@ -80,7 +80,7 @@ public class HomePageController {
 		mod.addObject("listProject", listProject);
 		mod.addObject("listRecommended", listRecommended);
 		mod.addObject("listRandomArticlesDTO", listRandomArticlesDTO);
-
+		mod.setViewName("/home/project");
 		mod.setViewName("/home/home");
 		return mod;
 
@@ -114,4 +114,5 @@ public class HomePageController {
 		article_DetailsDTO = operationService.getArticleDetail(article_Id);
 		return modelAndView;
 	}
+	
 }
