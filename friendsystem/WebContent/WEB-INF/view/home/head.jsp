@@ -97,7 +97,7 @@
 							</c:when>
 							<c:otherwise>
 								<!--登陆后出现-->
-								<li class="tab "><a href="#"> <span class="menu-text">关注</span><i
+								<li class="tab "><a href="${pageContext.request.contextPath}/jump/attention.do"> <span class="menu-text">关注</span><i
 										class="iconfont ic-navigation-follow menu-icon"></i>
 								</a></li>
 								<li class="tab notification"><a data-hover="dropdown"

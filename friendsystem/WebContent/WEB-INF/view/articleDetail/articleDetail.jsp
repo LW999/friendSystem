@@ -122,9 +122,9 @@
 <title>文章详情</title>
 </head>
 <body class="reader-black-font" lang="zh-CN">
-<%@include file="/WEB-INF/jsp/home/head.jsp"%>
+<!-- 头部 -->
+<%@include file="/WEB-INF/view/home/head.jsp"%>
 	<div class="note">
-
 		<div class="post">
 			<div class="article">
 				<h1 class="title">死磕一个方向，傻傻的坚持做下去，让我月赚五万</h1>

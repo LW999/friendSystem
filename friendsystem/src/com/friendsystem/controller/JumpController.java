@@ -35,6 +35,7 @@ public class JumpController {
 		return modelAndView;
 
 	}
+
 	/**
 	 * 跳转到底部
 	 */
@@ -48,6 +49,12 @@ public class JumpController {
 		return modelAndView;
 
 	}
+
+	/**
+	 * 跳转到详情（暂时）
+	 * 
+	 * @return
+	 */
 	@RequestMapping("/test")
 	public ModelAndView llal() {
 		System.out.println("底部");
@@ -58,7 +65,36 @@ public class JumpController {
 		return modelAndView;
 
 	}
-	
 
+	/**
+	 * 跳转到我的关注
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/attention")
+	public ModelAndView attention() {
+		System.out.println("底部");
+		ModelAndView modelAndView = new ModelAndView();
+		String check = "李真猛！";
+		modelAndView.setViewName("/myAttention/allAttention");
+		modelAndView.addObject("check", check);
+		return modelAndView;
 
+	}
+
+	/**
+	 * 跳转推荐关注
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/recommend")
+	public ModelAndView recommendAttention() {
+		System.out.println("底部");
+		ModelAndView modelAndView = new ModelAndView();
+		String check = "李真猛！";
+		modelAndView.setViewName("/myAttention/recommendAttention");
+		modelAndView.addObject("check", check);
+		return modelAndView;
+
+	}
 }

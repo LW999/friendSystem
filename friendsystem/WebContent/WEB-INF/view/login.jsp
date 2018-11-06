@@ -17,7 +17,9 @@
 	href="${pageContext.request.contextPath }/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/toastr.css">
-
+<!-- 图标 -->
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath }/img/logo.ico" />
 </head>
 <body class="no-padding reader-black-font" lang="zh-CN">
 	<div class="sign">
