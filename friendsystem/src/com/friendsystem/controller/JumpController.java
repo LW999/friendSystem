@@ -48,6 +48,16 @@ public class JumpController {
 		return modelAndView;
 
 	}
+	@RequestMapping("/test")
+	public ModelAndView llal() {
+		System.out.println("底部");
+		ModelAndView modelAndView = new ModelAndView();
+		String check = "李真猛！";
+		modelAndView.setViewName("/articleDetail/articleDetail");
+		modelAndView.addObject("check", check);
+		return modelAndView;
+
+	}
 	
 
 

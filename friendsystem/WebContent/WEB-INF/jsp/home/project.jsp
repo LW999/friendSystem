@@ -18,11 +18,11 @@
 			class="iconfont ic-link"></i>
 		</a>
 	</div>
-	<form action="${pageContext.request.contextPath }/rest/pro.do" method="post" id="index"></form>
+	<%-- <form action="${pageContext.request.contextPath }/rest/pro.do" method="post" id="index"></form>
 	<script>
 		window.onload = function() {
 			document.getElementById("index").submit();
 		}
-	</script>
+	</script> --%>
 </body>
 </html>

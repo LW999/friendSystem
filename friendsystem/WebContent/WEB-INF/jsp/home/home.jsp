@@ -17,11 +17,6 @@
 <!-- 图标 -->
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath }/img/logo.ico" />
-
-<style type="text/css">
-</style>
-
-</head>
 <body lang="zh-CN" class="reader-black-font">
 	<!-- 全局顶部导航栏 -->
 	<jsp:include page="head.jsp"></jsp:include>
@@ -67,24 +62,15 @@
 						data-slide="next"><i class="iconfont ic-next-s"></i></a>
 				</div>
 				<!--专题分类需要遍历-->
-				<div class="recommend-collection">
-					<c:forEach items="${listProject}" var="listP">
-						<a class="collection" target="_blank" href="#"> <img
-							src="${listP.projectImg}" alt="">
-							<div class="name">${listP.projectName }</div>
-						</a>
-					</c:forEach>
-					<a class="more-hot-collection" target="_blank" href="#"> 更多热门专题
-						<i class="iconfont ic-link"></i>
-					</a>
-				</div>
+				<%@include file="project.jsp"%>
 				<div class="split-line"></div>
 				<div id="list-container">
 
 					<!-- 文章列表模块需要遍历 -->
 					<ul class="note-list" infinite-scroll-url="/">
 
-						<li class="have-img"><a class="wrap-img" href="#"
+						<li class="have-img"><a class="wrap-img"
+							href="${pageContext.request.contextPath }/jump/test.do"
 							target="_blank"> <img class="img-blur-done"
 								src="${pageContext.request.contextPath }/img/QQ.png" alt="">
 						</a>
@@ -124,28 +110,8 @@
 			<!-- 右边的导航 -->
 			<jsp:include page="right.jsp"></jsp:include>
 			<!-- 推荐作者 -->
-			<div class="recommended-authors">
-				<div class="title">
-					<span>推荐作者</span> <a class="page-change"><i
-						class="iconfont ic-search-change" style="transform: rotate(0deg);"></i>
-						换一批 </a>
-				</div>
-				<ul class="list">
-					<c:forEach items="${listRandomUserDTO}" var="listR">
-						<li><a href="" target="_blank" class="avatar"><img
-								src="${listR.user.userPortrait }"></a> <!-- <a class="follow" ><i class="iconfont ic-follow"></i>关注 </a>  -->
-							<a class="following"><i class="iconfont ic-follow"></i>已关注 </a> <!-- <a class="following"><i class="iconfont ic-unfollow"></i>取消关注</a> -->
-							<a href="#" target="_blank" class="name">
-								${listR.user.userName } </a>
-							<p>一共获得了${listR.like}个喜欢</p></li>
-					</c:forEach>
-
-				</ul>
-				<a href="" target="_blank" class="find-more"> 查看全部<i
-					class="iconfont ic-link"></i></a>
-			</div>
+			<%@include file="recommended.jsp"%>
 		</div>
-	</div>
 	</div>
 	<div class="side-tool">
 		<ul>
