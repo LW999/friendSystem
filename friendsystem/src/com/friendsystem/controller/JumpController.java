@@ -97,4 +97,19 @@ public class JumpController {
 		return modelAndView;
 
 	}
+	/**
+	 * 跳转到关注的人
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/people")
+	public ModelAndView people() {
+		System.out.println("底部");
+		ModelAndView modelAndView = new ModelAndView();
+		String check = "李真猛！";
+		modelAndView.setViewName("/myAttention/people");
+		modelAndView.addObject("check", check);
+		return modelAndView;
+
+	}
 }

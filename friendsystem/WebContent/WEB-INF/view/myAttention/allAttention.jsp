@@ -20,11 +20,12 @@
 
 	<div class="container subscription">
 		<div class="row">
+			<!-- 左边 -->
 			<%@include file="left.jsp"%>
+
 			<div class="col-xs-16 col-xs-offset-8 main">
 				<div>
 					<ul class="note-list">
-
 
 						<li class="have-img"><a
 							href="/p/c1cc83e74393?utm_source=desktop&amp;utm_medium=timeline"
