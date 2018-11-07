@@ -101,7 +101,6 @@ public class HomePageController {
 		return modelAndView;
 
 	}
-
 	/**
 	 * 点击显示详细文章
 	 * 

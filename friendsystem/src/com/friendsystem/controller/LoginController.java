@@ -54,19 +54,6 @@ public class LoginController {
 		System.out.println("账号：" + account + "密码：" + password);
 		ModelAndView modelAndView = new ModelAndView();
 		String message;
-		if (account == null) {
-			message = "noAccount";
-			modelAndView.addObject("message", message);
-			modelAndView.setViewName("login");
-			return modelAndView;
-
-		}
-		if (password == null) {
-			message = "noPassword";
-			modelAndView.addObject("message", message);
-			modelAndView.setViewName("login");
-			return modelAndView;
-		}
 		if (account != null && account.trim().length() > 0 && password != null && password.trim().length() > 0) {
 			User userSession = loginService.getUserByAccount(account, password);
 			System.err.println("user:" + userSession);
@@ -74,6 +61,8 @@ public class LoginController {
 				message = "error";
 				modelAndView.addObject("message", message);
 				modelAndView.setViewName("login");
+				return modelAndView;
+
 			}
 			if (userSession != null) {
 				// 允许登陆
@@ -88,6 +77,11 @@ public class LoginController {
 				return modelAndView;
 
 			}
+		} else {
+			message = "error2";
+			modelAndView.addObject("message", message);
+			modelAndView.setViewName("login");
+			return modelAndView;
 		}
 		return modelAndView;
 	}

@@ -56,11 +56,6 @@
 						<li><a href="/users/d355083d142b/liked_notes"> <i
 								class="iconfont ic-navigation-like"></i><span>喜欢的文章</span>
 						</a></li>
-						<li><a href="/my/paid_notes"> <i class="iconfont ic-paid"></i><span>已购内容</span>
-						</a></li>
-						<li><a href="/wallet"> <i
-								class="iconfont ic-navigation-wallet"></i><span>我的钱包</span>
-						</a></li>
 						<li><a href="/settings"> <i
 								class="iconfont ic-navigation-settings"></i><span>设置</span>
 						</a></li>
@@ -85,7 +80,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="menu">
 				<ul class="nav navbar-nav">
-					<li class="tab active"><a href="/"> <span
+					<li class="tab active"><a href="${pageContext.request.contextPath}/homePage/index.do"> <span
 							class="menu-text">首页</span><i
 							class="iconfont ic-navigation-discover menu-icon"></i>
 					</a></li>
@@ -108,12 +103,12 @@
 										<li><a href="#"><i class="iconfont ic-comments"></i>
 												<span><span class="badge pull-left">8</span>评论</span> <!---->
 										</a></li>
-										<li><a href="3"><i class="iconfont ic-chats"></i> <span>简信</span>
+										<li><a href="3"><i class="iconfont ic-chats"></i> <span><span><span class="badge pull-left">56</span>私信</span>
 												<!----> </a></li>
 
-										<li><a href="#"><i class="iconfont ic-likes"></i> <span>喜欢和赞</span>
+										<li><a href="#"><i class="iconfont ic-likes"></i> <span><span><span class="badge pull-left">41</span>喜欢和赞</span>
 												<!----> </a></li>
-										<li><a href="#"><i class="iconfont ic-follows"></i> <span>关注</span>
+										<li><a href="#"><i class="iconfont ic-follows"></i> <span><span><span class="badge pull-left">999</span>关注</span>
 												<!----> </a></li>
 
 									</ul></li>

@@ -64,9 +64,17 @@
 	<script type="text/javascript">
 		function myfun() {
 			var val = "${check}";
+			var va2 = "${message}";
 			if (val == "Login") {
 				toastr.success("欢迎登陆")
 			}
+			if(va2 == "error2"){
+				toastr.warning("请输入账号或密码")
+			}
+			if(va2 == "error"){
+				toastr.error("密码或账号有误")
+			}
+			
 		}
 		window.onload = myfun;
 	</script>
