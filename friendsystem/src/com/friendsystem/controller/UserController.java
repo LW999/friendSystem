@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,13 +34,13 @@ public class UserController {
 	private UserService userService;
 
 	/**
-	 * 用户点击关注
+	 * 用户点击关注作者
 	 * 
 	 * @throws IOException
 	 */
 	@RequestMapping("attentionUser")
-	public void attentionUser(@ModelAttribute("session") User userSession,ModelMap model,String user_Id, HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	public void attentionUser(@ModelAttribute("session") User userSession, Model model, String user_Id,
+			HttpServletRequest request, HttpServletResponse response) throws IOException {
 		System.out.println("???dsd?=" + user_Id);
 		System.out.println("????=" + userSession);
 		response.setContentType("text/html; charset=utf-8");
@@ -51,8 +52,6 @@ public class UserController {
 		}
 
 	}
-	
-	
 
 	/**
 	 * 用户点击我的关注
@@ -60,15 +59,17 @@ public class UserController {
 	 * @param userSession
 	 * @return modelAndView
 	 */
-	@RequestMapping("")
-	public ModelAndView allAttention(@ModelAttribute("Session") User userSession) {
+	@RequestMapping("myAttention")
+	public ModelAndView allAttention(@ModelAttribute("session") User userSession, Model map) {
 		// 获得所有关注的东西
 		ALLUserAttentionDTO allUserAttentionDTO = userService.getAllUserAttention(userSession);
 		// 获得所有关注的人发布的最新文章
-		List<AllUserArticleDTO> allUserArticleDTO = userService.getAllUserArticle(userSession);
+		List<AllUserArticleDTO> listAllUserArticleDTO = userService.getAllUserArticle(userSession);
 		ModelAndView modelAndView = new ModelAndView();
-
-		return null;
+		modelAndView.addObject("allUserAttentionDTO", allUserAttentionDTO);
+		modelAndView.addObject("listAllUserArticleDTO", listAllUserArticleDTO);
+		modelAndView.setViewName("/myAttention/allAttention");
+		return modelAndView;
 
 	}
 

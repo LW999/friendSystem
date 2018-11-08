@@ -22,7 +22,7 @@ public class ALLUserAttentionDTO {
 	 * 
 	 * 用户关注的所有专题
 	 */
-	private List<Project> iistProject;
+	private List<Project> listProject;
 
 	public List<User> getListPeople() {
 		return listPeople;
@@ -32,17 +32,19 @@ public class ALLUserAttentionDTO {
 		this.listPeople = listPeople;
 	}
 
-	public List<Project> getIistProject() {
-		return iistProject;
+	public List<Project> getListProject() {
+		return listProject;
 	}
 
-	public void setIistProject(List<Project> iistProject) {
-		this.iistProject = iistProject;
+	public void setListProject(List<Project> listProject) {
+		this.listProject = listProject;
 	}
 
 	@Override
 	public String toString() {
-		return "ALLUserAttentionDTO [listPeople=" + listPeople + ", iistProject=" + iistProject + "]";
+		return "ALLUserAttentionDTO [listPeople=" + listPeople + ", listProject=" + listProject + "]";
 	}
+
+
 
 }

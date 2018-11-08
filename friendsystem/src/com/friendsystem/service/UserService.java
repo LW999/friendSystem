@@ -15,6 +15,7 @@ import com.friendsystem.DTO.AllUserArticleDTO;
 import com.friendsystem.mapper.ArticleMapper;
 import com.friendsystem.mapper.AttentionPeopleMapper;
 import com.friendsystem.mapper.AttentionProjectMapper;
+import com.friendsystem.mapper.LikesMapper;
 import com.friendsystem.mapper.ProjectMapper;
 import com.friendsystem.mapper.UserMapper;
 import com.friendsystem.pojo.Article;
@@ -24,6 +25,8 @@ import com.friendsystem.pojo.AttentionPeopleExample;
 import com.friendsystem.pojo.AttentionPeopleExample.Criteria;
 import com.friendsystem.pojo.AttentionProject;
 import com.friendsystem.pojo.AttentionProjectExample;
+import com.friendsystem.pojo.Likes;
+import com.friendsystem.pojo.LikesExample;
 import com.friendsystem.pojo.Project;
 import com.friendsystem.util.BuildUuid;
 import com.friendsystem.util.TimeUtil;
@@ -49,6 +52,8 @@ public class UserService {
 	private ProjectMapper projectMapper;// 专题DAO
 	@Resource
 	private ArticleMapper articleMapper;// 文章DAO
+	@Resource
+	private LikesMapper likesMapper;// 点赞DAO
 
 	/**
 	 * 根据用户传回来的ID查询是否需要关注其他用户
@@ -126,7 +131,8 @@ public class UserService {
 				}
 			}
 		}
-
+		allUserAttentionDTO.setListProject(listP);
+		allUserAttentionDTO.setListPeople(listU);
 		return allUserAttentionDTO;
 	}
 
@@ -142,10 +148,14 @@ public class UserService {
 		Criteria criteria = attentionPeopleExample.createCriteria();
 		criteria.andAttentionPeopleUserOneEqualTo(userSession.getUserId());
 		List<AttentionPeople> listP = aPeopleMapper.selectByExample(attentionPeopleExample);
+		//点赞
+		LikesExample likesExample = new LikesExample();
+		com.friendsystem.pojo.LikesExample.Criteria criteria3 = likesExample.createCriteria();
 		if (listP.size() > 0) {
 			for (AttentionPeople attentionPeople : listP) {
 				AllUserArticleDTO allUserArticleDTO = new AllUserArticleDTO();
 				User user = new User();
+
 				user = userMapper.selectByPrimaryKey(attentionPeople.getAttentionPeopleUserTwo());
 				if (user != null) {
 					List<Article> listA = new ArrayList<>();
@@ -155,8 +165,13 @@ public class UserService {
 					articleExample.setOrderByClause("article_createtime DESC LIMIT 1");
 					listA = articleMapper.selectByExample(articleExample);
 					if (listA.size() > 0) {
-						allUserArticleDTO.setArticle(listA.get(0));
+						
+						// 获取该文章所获得的赞
+						criteria3.andLikearticleEqualTo(listA.get(0).getArticleId());
+						int like = likesMapper.countByExample(likesExample);
 						allUserArticleDTO.setUser(user);
+						allUserArticleDTO.setArticle(listA.get(0));
+						allUserArticleDTO.setLike(like);
 						listAllUserArticleDTO.add(allUserArticleDTO);
 					}
 				}

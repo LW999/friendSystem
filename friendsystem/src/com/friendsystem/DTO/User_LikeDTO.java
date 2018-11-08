@@ -6,7 +6,7 @@ public class User_LikeDTO {
 	/**
 	 * 作者文章点赞数
 	 */
-	private int like = 1;
+	private int like = 0;
 	/**
 	 * 作者
 	 */

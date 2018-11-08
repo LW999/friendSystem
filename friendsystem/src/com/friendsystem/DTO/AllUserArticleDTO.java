@@ -18,6 +18,18 @@ public class AllUserArticleDTO {
 	 * 用户发表的最新文章
 	 */
 	private Article article;
+	/**
+	 * 该文章获得的赞
+	 */
+	private int like = 0;
+
+	public int getLike() {
+		return like;
+	}
+
+	public void setLike(int like) {
+		this.like = like;
+	}
 
 	public User getUser() {
 		return user;
@@ -37,7 +49,7 @@ public class AllUserArticleDTO {
 
 	@Override
 	public String toString() {
-		return "AllUserArticleDTO [user=" + user + ", article=" + article + "]";
+		return "AllUserArticleDTO [user=" + user + ", article=" + article + ", like=" + like + "]";
 	}
 
 }

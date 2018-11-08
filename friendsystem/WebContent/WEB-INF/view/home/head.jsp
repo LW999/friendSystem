@@ -31,7 +31,7 @@
 			<a class="btn sign-up"
 				href="${pageContext.request.contextPath }/jump/reg.do">注册</a>
 			<a class="btn log-in"
-				href="${pageContext.request.contextPath }/jump/login.do">${sessionScope.session.userName }登录</a>
+				href="${pageContext.request.contextPath }/jump/login.do">登录</a>
 		</c:if>
 		<!-- 如果用户登录，显示下拉菜单 -->
 		<c:choose>
@@ -92,7 +92,7 @@
 							</c:when>
 							<c:otherwise>
 								<!--登陆后出现-->
-								<li class="tab "><a href="${pageContext.request.contextPath}/jump/attention.do"> <span class="menu-text">关注</span><i
+								<li class="tab "><a href="${pageContext.request.contextPath}/user/myAttention.do"> <span class="menu-text">关注</span><i
 										class="iconfont ic-navigation-follow menu-icon"></i>
 								</a></li>
 								<li class="tab notification"><a data-hover="dropdown"

@@ -42,7 +42,7 @@ public class HomePageController {
 	 * 登陆进来前先制空Session
 	 */
 	@RequestMapping("/session")
-	public ModelAndView Session(ModelMap model) {
+	public ModelAndView Session(Model model) {
 		ModelAndView modelAndView = new ModelAndView();
 		User userSession = new User();
 		userSession.setUserType("tourists");// 设置用户属性为游客
@@ -58,7 +58,7 @@ public class HomePageController {
 	 * @return
 	 */
 	@RequestMapping("/index")
-	public ModelAndView homePage(@ModelAttribute("session") User userSession) {
+	public ModelAndView homePage(@ModelAttribute("session") User userSession,Model map) {
 		// 使用 ModelAndView mod = new ModelAndView();
 		ModelAndView mod = new ModelAndView();
 		if (userSession.getUserType().equals("tourists")) {

@@ -51,7 +51,7 @@ public class LoginController {
 	}
 
 	@RequestMapping("/login")
-	public ModelAndView login(ModelMap model, String account, String password) {
+	public ModelAndView login(Model model, String account, String password) {
 		System.out.println("账号：" + account + "密码：" + password);
 		ModelAndView modelAndView = new ModelAndView();
 		String message;
