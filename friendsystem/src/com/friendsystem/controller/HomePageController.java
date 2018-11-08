@@ -3,15 +3,11 @@ package com.friendsystem.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.mail.Session;
-import javax.validation.constraints.Null;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,13 +15,11 @@ import com.friendsystem.DTO.Article_DetailsDTO;
 import com.friendsystem.DTO.Article_Like_CollectionDTO;
 import com.friendsystem.DTO.User_ArticleDTO;
 import com.friendsystem.DTO.User_LikeDTO;
-import com.friendsystem.pojo.Article;
 import com.friendsystem.pojo.Project;
 import com.friendsystem.pojo.Recommended;
 import com.friendsystem.pojo.User;
 import com.friendsystem.service.HomeService;
 import com.friendsystem.service.OperationService;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 
 @Controller
 @SessionAttributes("session")

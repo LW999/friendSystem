@@ -17,11 +17,7 @@ import com.friendsystem.pojo.ArticleExample;
 import com.friendsystem.pojo.Likes;
 import com.friendsystem.pojo.LikesExample;
 import com.friendsystem.pojo.LikesExample.Criteria;
-
-import sun.misc.UUDecoder;
-
 import com.friendsystem.pojo.User;
-import com.friendsystem.pojo.UserExample;
 
 @Service("operationService")
 public class OperationService {
