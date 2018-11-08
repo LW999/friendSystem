@@ -39,7 +39,7 @@
 											src="${listAUDTO.user.userPortrait}"></a>
 										<div class="info">
 											<a href="#" target="_blank" class="nickname"></a>
-											<span>发表了文章 · 11.01 22:31</span>
+											<span>发表了文章 ·${listAUDTO.article.articleCreatetime} </span>
 										</div>
 									</div>
 									<a

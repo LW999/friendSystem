@@ -143,5 +143,16 @@
 	<script src="${pageContext.request.contextPath }/js/fore.js"
 		crossorigin="anonymous"></script>
 
+
+	<script type="text/javascript">
+		function myfun() {
+			var va2 = "${message}";
+			if (va2 == "noSession") {
+				toastr.error("没有Session")
+			}
+		}
+		window.onload = myfun;
+	</script>
+
 </body>
 </html>

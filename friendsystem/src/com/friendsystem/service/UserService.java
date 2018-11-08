@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.friendsystem.DTO.ALLUserAttentionDTO;
 import com.friendsystem.DTO.AllUserArticleDTO;
+import com.friendsystem.DTO.User_AllArticlesAndLikeDTO;
 import com.friendsystem.mapper.ArticleMapper;
 import com.friendsystem.mapper.AttentionPeopleMapper;
 import com.friendsystem.mapper.AttentionProjectMapper;
@@ -148,7 +149,7 @@ public class UserService {
 		Criteria criteria = attentionPeopleExample.createCriteria();
 		criteria.andAttentionPeopleUserOneEqualTo(userSession.getUserId());
 		List<AttentionPeople> listP = aPeopleMapper.selectByExample(attentionPeopleExample);
-		//点赞
+		// 点赞
 		LikesExample likesExample = new LikesExample();
 		com.friendsystem.pojo.LikesExample.Criteria criteria3 = likesExample.createCriteria();
 		if (listP.size() > 0) {
@@ -165,7 +166,7 @@ public class UserService {
 					articleExample.setOrderByClause("article_createtime DESC LIMIT 1");
 					listA = articleMapper.selectByExample(articleExample);
 					if (listA.size() > 0) {
-						
+
 						// 获取该文章所获得的赞
 						criteria3.andLikearticleEqualTo(listA.get(0).getArticleId());
 						int like = likesMapper.countByExample(likesExample);
@@ -179,6 +180,45 @@ public class UserService {
 		}
 
 		return listAllUserArticleDTO;
+	}
+
+	/**
+	 * 用户的所有文章和点赞数
+	 * 
+	 * @param user_Id
+	 * @return
+	 */
+	public User_AllArticlesAndLikeDTO getUALDTO(String user_Id) {
+		if (user_Id != null && user_Id.trim().length() > 0) {
+			User_AllArticlesAndLikeDTO UADTO = new User_AllArticlesAndLikeDTO();
+			User user = userMapper.selectByPrimaryKey(user_Id);
+			ArticleExample aExample = new ArticleExample();
+			com.friendsystem.pojo.ArticleExample.Criteria criteria = aExample.createCriteria();
+			criteria.andArticleByUserEqualTo(user_Id);
+			List<Article> listA = articleMapper.selectByExample(aExample);
+			
+			int all = 0;
+			int i = 0;
+			for (Article article : listA) {
+				LikesExample likesExample = new LikesExample();
+				com.friendsystem.pojo.LikesExample.Criteria criteria2 = likesExample.createCriteria();
+				criteria2.andLikearticleEqualTo(article.getArticleId());
+				int like = 0;
+				like = likesMapper.countByExample(likesExample);
+				all = like + all;
+				i++;
+				if (i == listA.size()) {
+					System.out.println("hahhah ");
+					UADTO.setLike(all);
+				}
+
+			}
+			UADTO.setUser(user);
+			UADTO.setListA(listA);
+			return UADTO;
+		}
+
+		return null;
 	}
 
 }

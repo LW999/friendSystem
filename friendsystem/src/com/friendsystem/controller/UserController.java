@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.friendsystem.DTO.ALLUserAttentionDTO;
 import com.friendsystem.DTO.AllUserArticleDTO;
+import com.friendsystem.DTO.User_AllArticlesAndLikeDTO;
 import com.friendsystem.pojo.User;
 import com.friendsystem.service.UserService;
 
@@ -61,16 +62,42 @@ public class UserController {
 	 */
 	@RequestMapping("myAttention")
 	public ModelAndView allAttention(@ModelAttribute("session") User userSession, Model map) {
+		ModelAndView modelAndView = new ModelAndView();
+		if (userSession.getUserId() == null) {
+			String message ="noSession";
+			modelAndView.addObject("message", message);
+			modelAndView.setViewName("forward:/homePage/session.do");
+		}
 		// 获得所有关注的东西
 		ALLUserAttentionDTO allUserAttentionDTO = userService.getAllUserAttention(userSession);
 		// 获得所有关注的人发布的最新文章
 		List<AllUserArticleDTO> listAllUserArticleDTO = userService.getAllUserArticle(userSession);
-		ModelAndView modelAndView = new ModelAndView();
+
 		modelAndView.addObject("allUserAttentionDTO", allUserAttentionDTO);
 		modelAndView.addObject("listAllUserArticleDTO", listAllUserArticleDTO);
 		modelAndView.setViewName("/myAttention/allAttention");
 		return modelAndView;
 
+	}
+
+	/**
+	 * 点击关注的作者显示主页
+	 * 
+	 * @param userSession
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping("whoPeople")
+	public ModelAndView whoPeople(@ModelAttribute("session") User userSession, Model map, String user_Id) {
+		System.out.println("作者ID:" + user_Id);
+		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
+		ALLUserAttentionDTO allUserAttentionDTO = userService.getAllUserAttention(userSession);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("UALDTO", UALDTO);
+		modelAndView.addObject("allUserAttentionDTO", allUserAttentionDTO);
+		modelAndView.setViewName("/myAttention/people");
+		System.out.println("DTO:" + UALDTO);
+		return modelAndView;
 	}
 
 }

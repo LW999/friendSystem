@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.friendsystem.DTO.User_AllArticlesAndLikeDTO;
 import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.pojo.Project;
 import com.friendsystem.pojo.User;
@@ -24,6 +25,7 @@ import com.friendsystem.service.LoginService;
 import com.friendsystem.service.ManagementService;
 import com.friendsystem.service.RegisteredService;
 import com.friendsystem.service.TestService;
+import com.friendsystem.service.UserService;
 import com.friendsystem.util.BuildUuid;
 import com.friendsystem.util.GenerateAccount;
 import com.friendsystem.util.TimeUtil;
@@ -167,8 +169,18 @@ public class TestWeiWei {
 
 	@Test
 	public void suiji() {
-		String type="";
-		//List<User_LikeDTO> listRandomUserDTO = homeService.getRandomUsers(type);
-		//System.out.println("dto:" + listRandomUserDTO);
+		String type = "";
+		// List<User_LikeDTO> listRandomUserDTO = homeService.getRandomUsers(type);
+		// System.out.println("dto:" + listRandomUserDTO);
+	}
+
+	@Resource(name = "userService")
+	private UserService userService;
+
+	@Test
+	public void du() {
+		String user_Id = "29ff25c0-e7e9-4f96-8f83-82747bd398b1";
+		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
+		System.out.println("ddd" + UALDTO);
 	}
 }

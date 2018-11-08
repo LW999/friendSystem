@@ -13,9 +13,11 @@
 </head>
 <body>
 	<div class="aside">
-		<span class="change-type">我的所有关注<i class="iconfont ic-list-like" style="margin-left: 10px;color: #ea6f5a"></i> 
-		<a href="${pageContext.request.contextPath }/jump/recommend.do">
-		<i class="iconfont ic-addpeople"style="margin-left: 62px"></i> <span>添加关注</span></a></span>
+		<span class="change-type">我的所有关注<i
+			class="iconfont ic-list-like"
+			style="margin-left: 10px; color: #ea6f5a"></i> <a
+			href="${pageContext.request.contextPath }/jump/recommend.do"> <i
+				class="iconfont ic-addpeople" style="margin-left: 62px"></i> <span>添加关注</span></a></span>
 		<ul class="js-subscription-list">
 			<li class="router-link-exact-active active"><a
 				href="${pageContext.request.contextPath }/jump/attention.do"
@@ -32,7 +34,7 @@
 				var="listPeople">
 
 				<li class=""><a
-					href="${pageContext.request.contextPath }/jump/people.do"
+					href="${pageContext.request.contextPath }/user/whoPeople.do?user_Id=${listPeople.userId}"
 					class="wrap">
 						<div class="avatar">
 							<img src="${listPeople.userPortrait }">

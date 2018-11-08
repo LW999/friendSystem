@@ -104,7 +104,6 @@ public class HomePageController {
 	}
 	/**
 	 * 点击显示详细文章
-	 * 
 	 * @return
 	 */
 	@RequestMapping("articleDetail")
