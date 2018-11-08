@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.friendsystem.DTO.ALLUserAttentionDTO;
@@ -24,6 +26,7 @@ import com.friendsystem.service.UserService;
  *
  */
 @Controller
+@SessionAttributes("session")
 @RequestMapping("user")
 public class UserController {
 	@Resource(name = "userService")
@@ -35,16 +38,21 @@ public class UserController {
 	 * @throws IOException
 	 */
 	@RequestMapping("attentionUser")
-	public void attentionUser(String userId, @ModelAttribute("Session") User userSession, HttpServletRequest request,
+	public void attentionUser(@ModelAttribute("session") User userSession,ModelMap model,String user_Id, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
+		System.out.println("???dsd?=" + user_Id);
+		System.out.println("????=" + userSession);
 		response.setContentType("text/html; charset=utf-8");
-		System.out.println("ID :" + userId);
-		if (userId != null && userId.trim().length() > 0) {
-			String message = userService.getMessage(userId, userSession);
+		System.out.println("ID :" + user_Id);
+		if (user_Id != null && user_Id.trim().length() > 0) {
+			String message = userService.getMessage(user_Id, userSession);
 			System.out.println("检查：" + message);
+			response.getWriter().println(message);
 		}
 
 	}
+	
+	
 
 	/**
 	 * 用户点击我的关注

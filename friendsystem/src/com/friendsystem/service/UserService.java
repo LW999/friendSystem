@@ -59,6 +59,7 @@ public class UserService {
 	 */
 	public String getMessage(String userId, User userSession) {
 		if (userId != null && userId.trim().length() > 0) {
+			System.out.println("SessionID:" + userSession.getUserId());
 			// 根据传回来的用户ID和 自身ID查询是否关注了此人
 			AttentionPeopleExample attentionPeopleExample = new AttentionPeopleExample();
 			Criteria criteria = attentionPeopleExample.createCriteria();

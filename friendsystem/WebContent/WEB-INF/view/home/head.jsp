@@ -27,26 +27,26 @@
 		<a class="btn write-btn" target="_blank" href="/writer#/"> <i
 			class="iconfont ic-write"></i>写文章
 		</a>
-		<c:if test="${sessionScope.Session.userType eq 'tourists'}">
+		<c:if test="${sessionScope.session.userType eq 'tourists'}">
 			<a class="btn sign-up"
 				href="${pageContext.request.contextPath }/jump/reg.do">注册</a>
 			<a class="btn log-in"
-				href="${pageContext.request.contextPath }/jump/login.do">${sessionScope.Session.userName }登录</a>
+				href="${pageContext.request.contextPath }/jump/login.do">${sessionScope.session.userName }登录</a>
 		</c:if>
 		<!-- 如果用户登录，显示下拉菜单 -->
 		<c:choose>
-			<c:when test="${sessionScope.Session.userType eq 'tourists'}">
+			<c:when test="${sessionScope.session.userType eq 'tourists'}">
 			</c:when>
 			<c:otherwise>
 				<!-- 用户头像那些 -->
 				<div class="user">
 					<div data-hover="dropdown">
 						<a class="avatar" href=""> <img
-							src="${sessionScope.Session.userPortrait }" alt="130">
+							src="${sessionScope.session.userPortrait }" alt="130">
 						</a>
 					</div>
 					<ul class="dropdown-menu">
-						<li><a href=""> <i class="iconfont ic-navigation-profile"></i><span>${sessionScope.Session.userName }</span>
+						<li><a href=""> <i class="iconfont ic-navigation-profile"></i><span>${sessionScope.session.userName }</span>
 						</a></li>
 						<li>
 							<!-- TODO bookmarks_path --> <a href="/bookmarks"> <i
@@ -88,7 +88,7 @@
 
 					<ul class="nav navbar-nav">
 						<c:choose>
-							<c:when test="${sessionScope.Session.userType eq 'tourists'}">
+							<c:when test="${sessionScope.session.userType eq 'tourists'}">
 							</c:when>
 							<c:otherwise>
 								<!--登陆后出现-->

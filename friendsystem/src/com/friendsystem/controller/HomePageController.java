@@ -8,6 +8,7 @@ import javax.validation.constraints.Null;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +28,7 @@ import com.friendsystem.service.OperationService;
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 
 @Controller
-@SessionAttributes("Session")
+@SessionAttributes("session")
 @RequestMapping("homePage")
 public class HomePageController {
 
@@ -41,11 +42,11 @@ public class HomePageController {
 	 * 登陆进来前先制空Session
 	 */
 	@RequestMapping("/session")
-	public ModelAndView Session(Model model) {
+	public ModelAndView Session(ModelMap model) {
 		ModelAndView modelAndView = new ModelAndView();
 		User userSession = new User();
 		userSession.setUserType("tourists");// 设置用户属性为游客
-		model.addAttribute("Session", userSession);
+		model.addAttribute("session", userSession);
 		modelAndView.setViewName("forward:/homePage/index.do");
 		return modelAndView;
 
@@ -57,7 +58,7 @@ public class HomePageController {
 	 * @return
 	 */
 	@RequestMapping("/index")
-	public ModelAndView homePage(@ModelAttribute("Session") User userSession) {
+	public ModelAndView homePage(@ModelAttribute("session") User userSession) {
 		// 使用 ModelAndView mod = new ModelAndView();
 		ModelAndView mod = new ModelAndView();
 		if (userSession.getUserType().equals("tourists")) {
