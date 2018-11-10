@@ -196,7 +196,7 @@ public class UserService {
 			com.friendsystem.pojo.ArticleExample.Criteria criteria = aExample.createCriteria();
 			criteria.andArticleByUserEqualTo(user_Id);
 			List<Article> listA = articleMapper.selectByExample(aExample);
-			
+
 			int all = 0;
 			int i = 0;
 			for (Article article : listA) {
@@ -219,6 +219,28 @@ public class UserService {
 		}
 
 		return null;
+	}
+
+	/**
+	 * 用户基础修改
+	 * 
+	 * @param textName
+	 * @param imgPath
+	 * @param userSession
+	 * @return
+	 */
+	public User updateBasic(String textName, String imgPath, User userSession) {
+		User user = userMapper.selectByPrimaryKey(userSession.getUserId());
+		if (textName.isEmpty()) {
+		} else {
+			user.setUserName(textName);
+		}
+		if (imgPath.isEmpty()) {
+		} else {
+			user.setUserPortrait(imgPath);
+		}
+		userMapper.updateByPrimaryKey(user);
+		return user;
 	}
 
 }

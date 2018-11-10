@@ -29,15 +29,14 @@
 								class="iconfont ic-follow" style="color: #42c02e"></i>关注 </a>
 						</c:when>
 						<c:otherwise>
-							<!--  href="${pageContext.request.contextPath }/user/attentionUser.do?userId=${sessionScope.Session.userId}" -->
 							<a id="${listR.user.userId }"
-								href="javascript:jj('${listR.user.userId }');"
+								href="javascript:jj();"
 								class="following ddd" style="color: #42c02e"><i
 								class="iconfont ic-follow" style="color: #42c02e"></i>关注 </a>
 
 						</c:otherwise>
 
-					</c:choose> <!-- <a class="following"><i class="iconfont ic-unfollow"></i>取消关注</a> -->
+					</c:choose> 
 
 
 					<a href="#" target="_blank" class="name"> ${listR.user.userName }
@@ -100,11 +99,6 @@
 								}
 							})
 		}
-
-		function myfun(data) {
-
-		}
-		window.onload = myfun;
 	</script>
 </body>
 </html>

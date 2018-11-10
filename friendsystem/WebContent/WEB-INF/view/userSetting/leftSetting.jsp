@@ -13,28 +13,29 @@
 <body>
 	<div class="aside">
 		<ul>
-			<li class=""><a href="/settings/basic">
+			<li class="router-link-exact-active active"><a href="#">
 					<div class="setting-icon">
 						<i class="iconfont ic-settings-basic"></i>
 					</div> <span>基础设置</span> <!---->
 			</a></li>
-			<li class="router-link-exact-active active"><a
-				href="/settings/profile">
+			<li class=""><a
+				href="${pageContext.request.contextPath }/jump/personal.do">
 					<div class="setting-icon">
 						<i class="iconfont ic-settings-profile"></i>
 					</div> <span>个人资料</span> <!---->
 			</a></li>
-			<li class=""><a href="/settings/blacklist">
+			<li class=""><a href="#">
 					<div class="setting-icon">
 						<i class="iconfont ic-settings-block"></i>
 					</div> <span>黑名单</span> <!---->
 			</a></li>
-			<li class=""><a href="/settings/misc">
+			<li class=""><a href="#">
 					<div class="setting-icon">
 						<i class="iconfont ic-settings-account"></i>
 					</div> <span>帐号管理</span> <!---->
 			</a></li>
 		</ul>
+		
 	</div>
 </body>
 </html>

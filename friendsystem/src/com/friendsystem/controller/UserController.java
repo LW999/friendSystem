@@ -1,6 +1,9 @@
 package com.friendsystem.controller;
 
+import java.io.File;
+
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,10 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.friendsystem.DTO.ALLUserAttentionDTO;
@@ -20,6 +26,7 @@ import com.friendsystem.DTO.AllUserArticleDTO;
 import com.friendsystem.DTO.User_AllArticlesAndLikeDTO;
 import com.friendsystem.pojo.User;
 import com.friendsystem.service.UserService;
+import com.friendsystem.util.ImgUtil;
 
 /**
  * 用户的一些操作
@@ -64,7 +71,7 @@ public class UserController {
 	public ModelAndView allAttention(@ModelAttribute("session") User userSession, Model map) {
 		ModelAndView modelAndView = new ModelAndView();
 		if (userSession.getUserId() == null) {
-			String message ="noSession";
+			String message = "noSession";
 			modelAndView.addObject("message", message);
 			modelAndView.setViewName("forward:/homePage/session.do");
 		}
@@ -98,6 +105,47 @@ public class UserController {
 		modelAndView.setViewName("/myAttention/people");
 		System.out.println("DTO:" + UALDTO);
 		return modelAndView;
+	}
+
+	/**
+	 * 更改个人基础资料
+	 * 
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "basic", method = RequestMethod.POST)
+	private ModelAndView basicSetting(@ModelAttribute("session") User userSession, Model model, String textName,
+			HttpServletRequest request, HttpServletResponse response, MultipartFile pictureFile) throws IOException {
+		ModelAndView modelAndView = new ModelAndView();
+		String imgPath = "";
+		String message = "";
+		if (textName.isEmpty() && pictureFile.isEmpty()) {
+			message = "noAmend";
+			modelAndView.addObject("message", message);
+			modelAndView.setViewName("/userSetting/basic");
+		}
+		if (pictureFile.isEmpty()) {
+		} else {
+			imgPath = ImgUtil.upload(request, pictureFile);
+		}
+		User userNewSession = userService.updateBasic(textName, imgPath, userSession);
+		model.addAttribute("session", userNewSession);
+		message = "ok";
+		modelAndView.addObject("message", message);
+		modelAndView.setViewName("/userSetting/basic");
+		return modelAndView;
+
+	}
+
+	/**
+	 * 个人资料修改
+	 * @throws IOException 
+	 */
+	@RequestMapping("personal")
+	public void personalData(@ModelAttribute("session") User userSession, Model model, String user_Id,
+			HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String message = "";
+		
+		response.getWriter().println(message);
 	}
 
 }

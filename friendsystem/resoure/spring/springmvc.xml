@@ -14,9 +14,9 @@
 
 	<!-- Spring 来扫描指定包下的类，并注册被@Component，@Controller，@Service，@Repository等注解标记的组件 -->
 	<mvc:annotation-driven></mvc:annotation-driven>
-	<mvc:default-servlet-handler/>
- 
-	
+	<mvc:default-servlet-handler />
+
+
 
 	<!-- 配置SpringMVC的视图解析器 -->
 	<bean
@@ -25,10 +25,15 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	<!-- 上传配置 -->
+	<!-- 由于我的前端控制器配置的是拦截所有请求，所以要在在springmvc.xml中放行静态资源： -->
+	<mvc:resources location="/upload/" mapping="/upload/**" />
+	<!-- 定义文件上传解析器 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSizePerFile" value="500000000"></property>
+		<!-- 设定默认编码 -->
 		<property name="defaultEncoding" value="UTF-8"></property>
-		<property name="resolveLazily" value="true"></property>
+		<!-- 设定文件上传的最大值5MB，5*1024*1024 -->
+		<property name="maxUploadSize" value="5242880"></property>
 	</bean>
+
 </beans>

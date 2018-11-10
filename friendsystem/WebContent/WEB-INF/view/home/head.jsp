@@ -42,11 +42,13 @@
 				<div class="user">
 					<div data-hover="dropdown">
 						<a class="avatar" href=""> <img
-							src="${sessionScope.session.userPortrait }" alt="130">
+							src="${pageContext.request.contextPath}/img/user.do?fileFileName=${sessionScope.session.userPortrait }" alt="130">
 						</a>
 					</div>
 					<ul class="dropdown-menu">
-						<li><a href=""> <i class="iconfont ic-navigation-profile"></i><span>${sessionScope.session.userName }</span>
+						<li><a
+							href="${pageContext.request.contextPath }/jump/setting.do"> <i
+								class="iconfont ic-navigation-profile"></i><span>${sessionScope.session.userName }</span>
 						</a></li>
 						<li>
 							<!-- TODO bookmarks_path --> <a href="/bookmarks"> <i
@@ -80,7 +82,8 @@
 			</div>
 			<div class="collapse navbar-collapse" id="menu">
 				<ul class="nav navbar-nav">
-					<li class="tab active"><a href="${pageContext.request.contextPath}/homePage/index.do"> <span
+					<li class="tab active"><a
+						href="${pageContext.request.contextPath}/homePage/index.do"> <span
 							class="menu-text">首页</span><i
 							class="iconfont ic-navigation-discover menu-icon"></i>
 					</a></li>
@@ -92,7 +95,9 @@
 							</c:when>
 							<c:otherwise>
 								<!--登陆后出现-->
-								<li class="tab "><a href="${pageContext.request.contextPath}/user/myAttention.do"> <span class="menu-text">关注</span><i
+								<li class="tab "><a
+									href="${pageContext.request.contextPath}/user/myAttention.do">
+										<span class="menu-text">关注</span><i
 										class="iconfont ic-navigation-follow menu-icon"></i>
 								</a></li>
 								<li class="tab notification"><a data-hover="dropdown"
@@ -103,13 +108,13 @@
 										<li><a href="#"><i class="iconfont ic-comments"></i>
 												<span><span class="badge pull-left">8</span>评论</span> <!---->
 										</a></li>
-										<li><a href="3"><i class="iconfont ic-chats"></i> <span><span><span class="badge pull-left">56</span>私信</span>
-												<!----> </a></li>
+										<li><a href="3"><i class="iconfont ic-chats"></i> <span><span><span
+														class="badge pull-left">56</span>私信</span> <!----></a></li>
 
-										<li><a href="#"><i class="iconfont ic-likes"></i> <span><span><span class="badge pull-left">41</span>喜欢和赞</span>
-												<!----> </a></li>
-										<li><a href="#"><i class="iconfont ic-follows"></i> <span><span><span class="badge pull-left">999</span>关注</span>
-												<!----> </a></li>
+										<li><a href="#"><i class="iconfont ic-likes"></i> <span><span><span
+														class="badge pull-left">41</span>喜欢和赞</span> <!----></a></li>
+										<li><a href="#"><i class="iconfont ic-follows"></i> <span><span><span
+														class="badge pull-left">999</span>关注</span> <!----></a></li>
 
 									</ul></li>
 

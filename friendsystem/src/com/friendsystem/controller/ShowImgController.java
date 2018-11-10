@@ -1,9 +1,10 @@
 package com.friendsystem.controller;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.IOException;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,27 +12,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("img")
 public class ShowImgController {
-	private static final long serialVersionUID = 1L;
-	private InputStream inputStream;
-
-	public InputStream getInputStream() {
-		return inputStream;
-	}
-
-	public void setInputStream(InputStream inputStream) {
-		this.inputStream = inputStream;
-	}
-
-	public void imgShow(String imgName) {
-		System.out.println("okk:" + imgName);
-		String path = "C://friends/img/";
-		path = path + imgName;
-		File file = new File(path);
+	@RequestMapping("user")
+	public String IoReadImage(String fileFileName,HttpServletResponse response) throws IOException {
+		System.out.println("====ppp");
+		fileFileName = new String(fileFileName.getBytes("ISO8859-1"), "UTF-8");// 解决图片中文路径乱码
+		String linkurl = "C:\\img\\user\\" + fileFileName;
+		FileInputStream in = new FileInputStream(linkurl);
+		ServletOutputStream out = null;
+		response.setContentType("image/png");
 		try {
-			inputStream = new FileInputStream(file);
-		} catch (FileNotFoundException e) {
+			out = response.getOutputStream();
+			// 读取文件流
+			int len = 0;
+			byte[] buffer = new byte[1024 * 10];
+			while ((len = in.read(buffer)) != -1) {
+				out.write(buffer, 0, len);
+			}
+			out.flush();
+		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			out.close();
+			in.close();
 		}
+		return null;
 	}
 
 }

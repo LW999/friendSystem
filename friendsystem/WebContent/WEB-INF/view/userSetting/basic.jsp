@@ -10,6 +10,8 @@
 	href="${pageContext.request.contextPath }/css/entry-dc1e51fe2b436e18f5ee.css" />
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath }/img/logo.ico" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/toastr.css">
 <title>Friends—设置</title>
 </head>
 <body class="reader-black-font" style="overflow-y: scroll;" lang="zh-CN">
@@ -19,70 +21,124 @@
 		<div class="row">
 			<%@include file="leftSetting.jsp"%>
 			<div class="col-xs-16 col-xs-offset-8 main">
-				<table>
-					<thead>
-						<tr>
-							<th class="setting-head responsive-head"></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody class="base">
-						<tr>
-							<td class="top-line">
-								<div class="avatar">
-									<img
-										src="//upload.jianshu.io/users/upload_avatars/14515067/e84801f3-ad80-4f9d-aedf-412ac3c03965?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/300">
-								</div>
-							</td>
-							<td class="top-line"><a class="btn btn-hollow"><input
-									unselectable="on" type="file" class="hide"> 更改头像 </a></td>
-						</tr>
-						<tr>
-							<td class="setting-title">昵称</td>
-							<td><input type="text" placeholder="请输入昵称"></td>
-						</tr>
-						<tr>
-							<td class="setting-title">电子邮件</td>
-							<td><span>835621887@qq.com</span> <!----></td>
-						</tr>
-						<tr>
-							<td class="setting-title setting-verticle">接收谁的简信</td>
-							<td>
-								<div class="col-xs-8">
-									<input type="radio" value="true"> <span
-										class="responsive-span">所有人</span>
-								</div>
-								<div class="col-xs-16">
-									<input type="radio" value="false"> <span
-										class="responsive-span">我关注的人、我发过简信的人</span>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td class="setting-title setting-verticle">提醒邮件通知</td>
-							<td>
-								<div class="col-xs-8">
-									<input type="radio" value="instantly"> <span
-										class="responsive-span">所有动态</span>
-								</div>
-								<div class="col-xs-11">
-									<input type="radio" value="later"> <span
-										class="responsive-span">每天未读汇总</span>
-								</div>
-								<div class="col-xs-5">
-									<input type="radio" value="none"> <span
-										class="responsive-span">不接收</span>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<input type="submit" class="btn btn-success setting-save" value="保存">
+				<form action="${pageContext.request.contextPath }/user/basic.do"
+					method="post" enctype="multipart/form-data">
+					<table>
+						<thead>
+							<tr>
+								<th class="setting-head responsive-head"></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody class="base">
+							<tr>
+								<td class="top-line">
+									<div class="avatar">
+										<img
+											src="${pageContext.request.contextPath}/img/user.do?fileFileName=${sessionScope.session.userPortrait }"
+											id="selectImg">
+									</div>
+								</td>
+								<td class="top-line"><a class="btn btn-hollow"><input
+										unselectable="on" type="file" class="hide" id="pictureFile"
+										name="pictureFile" onchange="xmTanUploadImg(this)">
+										更改头像 </a></td>
+							</tr>
+							<tr>
+								<td class="setting-title">昵称${sessionScope.session.userName }</td>
+								<td id=""><input type="text"
+									placeholder="${sessionScope.session.userName }" id="textName"
+									name="textName"></td>
+							</tr>
+							<tr>
+								<td class="setting-title">电子邮件</td>
+								<td><span>835621887@qq.com</span> <!----></td>
+							</tr>
+						</tbody>
+					</table>
+					<table>
+						<thead>
+							<tr>
+								<th class="setting-head"></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody class="information">
+							<tr>
+								<td class="top-line setting-title setting-verticle">性别</td>
+								<td class="top-line"><input type="radio" value="1">
+									<span>男</span> <input type="radio" value="2"> <span>女</span>
+									<input type="radio" value="0"> <span>保密</span></td>
+							</tr>
+							<tr>
+								<td class="setting-title pull-left">个人简介</td>
+								<td>
+									<form>
+										<textarea placeholder="填写你的个人简介"></textarea>
+									</form>
+								</td>
+							</tr>
+							<tr>
+								<td class="setting-title">微信二维码</td>
+								<td class="weixin-qrcode"><img src="" id="selectImg2">
+									<a class="btn btn-hollow"><input type="file" class="hide"
+										onchange="xmTanUploadImg2(this)"> 更换图片 </a>
+									<p class="pull-right">上传后会在个人主页显示图标</p></td>
+							</tr>
+						</tbody>
+					</table>
+					<input type="submit" class="btn btn-success setting-save"
+						value="保存">
+				</form>
 				<!---->
 				<!---->
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/jquery1.8.2.js"></script>
+
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/toastr.js"></script>
+
+	<script type="text/javascript">
+		myfun();
+		function myfun() {
+			var va2 = "${message}";
+			if (va2 == "ok") {
+				toastr.success("修改成功")
+			}
+			if (va2 == "noAmend") {
+				toastr.error("请输入修改内容")
+			}
+
+		}
+
+		/* 图片预览功能 */
+		function xmTanUploadImg(obj) {
+			var file = obj.files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function(e) { //成功读取文件
+				var img = document.getElementById("selectImg");
+				img.src = e.target.result; //或 img.src = this.result / e.target == this
+
+			};
+		}
+
+		/* 图片预览功能 */
+		function xmTanUploadImg2(obj) {
+			var file = obj.files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function(e) { //成功读取文件
+				var img = document.getElementById("selectImg2");
+				img.src = e.target.result; //或 img.src = this.result / e.target == this
+
+			};
+		}
+	</script>
+
 
 	<!---->
 </body>
