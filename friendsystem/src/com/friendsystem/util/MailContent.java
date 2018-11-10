@@ -35,8 +35,8 @@ public class MailContent {
 
 		String content = "<html><head></head>" + "<body><h1>欢迎注册阿伟社交系统,您的账号为:" + account
 				+ "</h1><br></br><h2>点击以下链接完成注册</h2>"
-				+ "<h3><a href='http://localhost:8080/friendsystem/register/activation.do?code=" + code
-				+ "'>http://localhost:8080/friendsystem/register/activation.do?code=" + code + "</href>"
+				+ "<h3><a href='http://www.wxy999.cn:8080/friendsystem/register/activation.do?code=" + code
+				+ "'>http://www.wxy999.cn:8080/friendsystem/register/activation.do?code=" + code + "</href>"
 				+ "</h3></body></html>";
 		msg.setContent(content, "text/html;charset=UTF-8");
 		// 设置显示的发件时间

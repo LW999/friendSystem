@@ -150,6 +150,9 @@
 			if (va2 == "noSession") {
 				toastr.error("没有Session")
 			}
+			if (va2 == "ok") {
+				toastr.success("注册成功！")
+			}
 		}
 		window.onload = myfun;
 	</script>

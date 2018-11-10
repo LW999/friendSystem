@@ -46,7 +46,7 @@ public class RegisteredController {
 				// 该邮箱已经被注册
 			}
 			if (check.equals("InvalidFormat")) {
-				
+
 				System.out.println("邮箱格式错误");
 
 			}
@@ -65,13 +65,17 @@ public class RegisteredController {
 	 * @return
 	 */
 	@RequestMapping("/activation")
-	public String Activation(String code) {
+	public ModelAndView Activation(String code) {
+		ModelAndView modelAndView = new ModelAndView();
 		System.out.println("okoko:" + code);
 		if (code != null && code.trim().length() > 0) {
 			// 先查询code是否被激活
 			String isActivation = registeredService.getUserByCode(code);
 			if (isActivation.equals("Pass")) {
+				String message = "ok";
 				registeredService.activation(code);
+				modelAndView.addObject("message", message);
+				modelAndView.setViewName("forward:/homePage/session.do");
 			}
 
 		}

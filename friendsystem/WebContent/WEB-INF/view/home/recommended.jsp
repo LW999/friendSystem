@@ -21,7 +21,7 @@
 		<ul class="list">
 			<c:forEach items="${listRandomUserDTO}" var="listR">
 				<li><a href="${listR.user.userId }" target="_blank"
-					class="avatar"> <img src="${listR.user.userPortrait }"></a> <!-- <a class="follow" ><i class="iconfont ic-follow"></i>关注 </a>  -->
+					class="avatar"> <img src="${pageContext.request.contextPath}/img/user.do?fileFileName=${listR.user.userPortrait }"></a> <!-- <a class="follow" ><i class="iconfont ic-follow"></i>关注 </a>  -->
 					<!--   如果是游客就跳转到登陆界面 --> <c:choose>
 						<c:when test="${sessionScope.session.userType eq 'tourists'}">
 							<a href="${pageContext.request.contextPath }/jump/login.do"
@@ -30,7 +30,7 @@
 						</c:when>
 						<c:otherwise>
 							<a id="${listR.user.userId }"
-								href="javascript:jj();"
+								href="javascript:jj('${listR.user.userId }');"
 								class="following ddd" style="color: #42c02e"><i
 								class="iconfont ic-follow" style="color: #42c02e"></i>关注 </a>
 
