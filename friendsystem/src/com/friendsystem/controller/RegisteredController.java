@@ -28,7 +28,7 @@ public class RegisteredController {
 		if (mail != null && mail.trim().length() > 0 && password != null && password.trim().length() > 0 && name != null
 				&& name.trim().length() > 0) {
 			String check = registeredService.getUserByMail(mail);
-			if (check.equals("Pass")) {
+			if (check.trim().equals("pass")) {
 				// 可以使用该邮箱
 				String number = registeredService.saveUserAndSedMail(mail, password, name);
 				System.out.println("成功！" + number);

@@ -3,8 +3,10 @@ package com.friendsystem.controller;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.friendsystem.pojo.User;
@@ -55,6 +57,7 @@ public class JumpController {
 		modelAndView.setViewName("/userSetting/basic");
 		return modelAndView;
 	}
+
 	/**
 	 * 跳转到个人设置
 	 */
@@ -64,5 +67,13 @@ public class JumpController {
 		modelAndView.setViewName("/userSetting/personal");
 		return modelAndView;
 	}
-
+	/**
+	 * 跳转到发表文章
+	 */
+	@RequestMapping("createArticle")
+	public ModelAndView createArticle() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("user/writeArticle");
+		return modelAndView;
+	}
 }

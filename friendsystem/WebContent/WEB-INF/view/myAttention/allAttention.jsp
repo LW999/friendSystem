@@ -28,35 +28,36 @@
 				<div>
 					<ul class="note-list">
 						<c:forEach items="${listAllUserArticleDTO }" var="listAUDTO">
-	
-							<li class="have-img"><a
-								href="#"
-								target="_blank" class="wrap-img"><img
-									src="${listAUDTO.user.userPortrait}"></a>
+
+							<li class="have-img">
+								<a href="#" target="_blank" class="wrap-img">
+									<img src="${listAUDTO.user.userPortrait}">
+								</a>
 								<div class="content">
 									<div class="author">
-										<a href="#" target="_blank" class="avatar"><img
-											src="${listAUDTO.user.userPortrait}"></a>
+										<a href="#" target="_blank" class="avatar">
+											<img src="${listAUDTO.user.userPortrait}">
+										</a>
 										<div class="info">
 											<a href="#" target="_blank" class="nickname"></a>
 											<span>发表了文章 ·${listAUDTO.article.articleCreatetime} </span>
 										</div>
 									</div>
-									<a
-										href="#"
-										target="_blank" class="title">${listAUDTO.article.articleTitle}</a>
+									<a href="#" target="_blank" class="title">${listAUDTO.article.articleTitle}</a>
 									<p class="abstract">作者简介：${listAUDTO.user.userSynopsis}
 										作品简介：平静的小城，突然惊现连环杀人案。宛若幽灵一般的凶手残忍地将被害者杀害...</p>
 									<div class="meta">
 										<div class="origin-author">
 											<a href="/u/22e02eafab5c" target="_blank">${listAUDTO.user.userName}</a>
 										</div>
-										<a href="/p/c1cc83e74393#comments" target="_blank"><i
-											class="iconfont ic-list-comments"></i> 21</a> <span><i
-											class="iconfont ic-list-like"></i>${listAUDTO.like}</span>
+										<a href="/p/c1cc83e74393#comments" target="_blank">
+											<i class="iconfont ic-list-comments"></i> 21
+										</a>
+										<span><i class="iconfont ic-list-like"></i>${listAUDTO.like}</span>
 										<!---->
 									</div>
-								</div></li>
+								</div>
+							</li>
 						</c:forEach>
 						<!---->
 						<a class="load-more">阅读更多</a>

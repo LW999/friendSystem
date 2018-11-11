@@ -27,6 +27,7 @@ import com.friendsystem.DTO.User_AllArticlesAndLikeDTO;
 import com.friendsystem.pojo.User;
 import com.friendsystem.service.UserService;
 import com.friendsystem.util.ImgUtil;
+import com.sun.java.swing.plaf.motif.resources.motif;
 
 /**
  * 用户的一些操作
@@ -138,14 +139,32 @@ public class UserController {
 
 	/**
 	 * 个人资料修改
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	@RequestMapping("personal")
 	public void personalData(@ModelAttribute("session") User userSession, Model model, String user_Id,
 			HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String message = "";
-		
+
 		response.getWriter().println(message);
+	}
+
+	/**
+	 * 用户保存文章并且显示未发布的文章
+	 * 
+	 * @throws IOException
+	 */
+	@RequestMapping("createArticle")
+	public void createArticle(@ModelAttribute("session") User userSession, Model model, String titleName,
+			String content, MultipartFile pictureFile, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		System.out.println("DDDDDDDDDDDDD");
+		System.out.println("OKOK" + pictureFile.toString());
+		String dddd = ImgUtil.upload(request, pictureFile);
+		System.out.println(">>>>>>>>>>>>>>" + dddd);
+		System.out.println("content:" + content);
+		System.out.println("titleName:" + titleName);
 	}
 
 }

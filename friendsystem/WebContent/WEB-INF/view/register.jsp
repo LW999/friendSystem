@@ -24,14 +24,17 @@
 <body class="no-padding reader-black-font" lang="zh-CN">
 	<div class="sign">
 		<div class="logo">
-			<a href=""><img
-				src="${pageContext.request.contextPath }/img/logo.png" alt="Logo"></a>
+			<a href="">
+				<img src="${pageContext.request.contextPath }/img/logo.png"
+					alt="Logo">
+			</a>
 		</div>
 		<div class="main">
 			<h4 class="title">
 				<div class="normal-title">
 					<a class=""
-						href="${pageContext.request.contextPath }/jump/login.do">登录</a> <b>·</b>
+						href="${pageContext.request.contextPath }/jump/login.do">登录</a>
+					<b>·</b>
 					<a id="js-sign-up-btn" class="active"
 						href="${pageContext.request.contextPath }/jump/reg.do">注册</a>
 				</div>
@@ -42,23 +45,29 @@
 					accept-charset="UTF-8" method="POST">
 					<div class="input-prepend restyle">
 						<input placeholder="你的昵称" value="" name="name" type="text"
-							class="form-control"> <i class="iconfont ic-user"></i>
+							class="form-control">
+						<i class="iconfont ic-user"></i>
 					</div>
 
 					<div class="input-prepend restyle no-radius js-normal">
 						<input placeholder="邮箱账号" name="mail" type="email"
-							class="form-control"> <i class="iconfont ic-email"></i>
+							class="form-control">
+						<i class="iconfont ic-email"></i>
 					</div>
 					<!--password-->
 					<div class="input-prepend">
 						<input placeholder="设置密码" name="password" type="password"
-							class="form-control"> <i class="iconfont ic-password"></i>
+							class="form-control">
+						<i class="iconfont ic-password"></i>
 					</div>
 					<input name="commit" value="注册" class="sign-up-button"
 						id="sign_up_btn" data-disable-with="注册" type="submit">
 					<p class="sign-up-msg">
-						点击 “注册” 即表示您同意并愿意遵守阿伟规则<br> <a target="_blank" href="#">阿伟协议</a>
-						和 <a target="_blank" href="#">隐私政策</a> 。
+						点击 “注册” 即表示您同意并愿意遵守阿伟规则<br>
+						<a target="_blank" href="#">阿伟协议</a>
+						和
+						<a target="_blank" href="#">隐私政策</a>
+						。
 					</p>
 				</form>
 			</div>

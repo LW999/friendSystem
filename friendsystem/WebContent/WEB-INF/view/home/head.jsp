@@ -24,8 +24,9 @@
 
 		<!-- 右上角 -->
 		<!-- 未登录显示登录/注册/写文章 -->
-		<a class="btn write-btn" target="_blank" href="/writer#/"> <i
-			class="iconfont ic-write"></i>写文章
+		<a class="btn write-btn" target="_blank"
+			href="${pageContext.request.contextPath}/jump/createArticle.do">
+			<i class="iconfont ic-write"></i>写文章
 		</a>
 		<c:if test="${sessionScope.session.userType eq 'tourists'}">
 			<a class="btn sign-up"
@@ -42,7 +43,8 @@
 				<div class="user">
 					<div data-hover="dropdown">
 						<a class="avatar" href=""> <img
-							src="${pageContext.request.contextPath}/img/user.do?fileFileName=${sessionScope.session.userPortrait }" alt="130">
+							src="${pageContext.request.contextPath}/img/user.do?fileFileName=${sessionScope.session.userPortrait }"
+							alt="130">
 						</a>
 					</div>
 					<ul class="dropdown-menu">

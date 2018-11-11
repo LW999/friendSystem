@@ -44,8 +44,10 @@
 						<tr>
 							<td class="setting-title">微信二维码</td>
 							<td class="weixin-qrcode"><input type="file" class="hide">
-								<a class="btn btn-hollow"><input type="file" class="hide">
-									更换图片 </a>
+								<a class="btn btn-hollow">
+									<input type="file" class="hide">
+									更换图片
+								</a>
 								<p class="pull-right">上传后会在个人主页显示图标</p></td>
 						</tr>
 					</tbody>

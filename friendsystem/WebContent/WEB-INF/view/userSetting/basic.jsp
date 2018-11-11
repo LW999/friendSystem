@@ -12,7 +12,7 @@
 	href="${pageContext.request.contextPath }/img/logo.ico" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/toastr.css">
-<title>Friends—设置</title>
+<title>${sessionScope.session.userName }—设置</title>
 </head>
 <body class="reader-black-font" style="overflow-y: scroll;" lang="zh-CN">
 	<!-- 全局顶部导航栏 -->

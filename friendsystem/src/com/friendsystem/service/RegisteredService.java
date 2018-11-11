@@ -46,7 +46,7 @@ public class RegisteredService {
 					}
 					return "HasBeenRegistered";// 返回已被激活
 				}
-				return "Pass";// 可以使用该邮箱
+				return "pass";// 可以使用该邮箱
 			}
 			return "InvalidFormat";// 邮箱格式错误
 		}
