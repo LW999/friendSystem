@@ -256,6 +256,7 @@ public class UserService {
 		Article article = new Article();
 		article.setArticleId(BuildUuid.getUuid());
 		article.setArticleByUser(userSession.getUserId());
+		article.setArticleContent(content);	
 		article.setArticleTitle(titleName);
 		article.setArticleImg(imgPath);
 		article.setArticleIsDelete("0");
@@ -280,8 +281,7 @@ public class UserService {
 		com.friendsystem.pojo.ArticleExample.Criteria criteria = articleExample.createCriteria();
 		criteria.andArticleByUserEqualTo(userSession.getUserId());
 		listA = articleMapper.selectByExample(articleExample);
-		
-		
+
 		return listA;
 	}
 

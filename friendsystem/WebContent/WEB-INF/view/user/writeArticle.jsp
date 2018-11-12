@@ -8,9 +8,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath }/css/web-bfc15fabb3b20492f7d4.css" />
+	href="${pageContext.request.contextPath }/css/entry-378ceb50d759a4e567e3.css" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath }/css/entry-dc1e51fe2b436e18f5ee.css" />
+	href="${pageContext.request.contextPath }/css/web-bfc15fabb3b20492f7d4.css" />
+<!-- 图标 -->
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath }/img/logo.ico" />
 
 <style type="text/css">
 .toolbar {
@@ -41,55 +44,47 @@
 	<!-- 全局顶部导航栏 -->
 	<!-- 头部 -->
 	<%@include file="/WEB-INF/view/home/head.jsp"%>
-	<div class="container setting" style="width: 1140px">
+	<div class="container subscription">
 		<div class="row">
 
-			<div class="aside" style="width: 180px;margin-right: 10px;left: 325px;">
-				<ul>
-					<li class="router-link-exact-active active"><a
-						href="/settings/basic">
-							<div class="setting-icon">
-								<i class="iconfont ic-article-s"></i>
-							</div> <span>未发布文章</span> <!---->
-					</a></li>
+			<!-- 左边 -->
+			<%@include file="left.jsp"%>
 
-				</ul>
-			</div>
-			<form
-				action="${pageContext.request.contextPath}/user/createArticle.do"
-				method="post" enctype="multipart/form-data">
-				<input type="hidden" id="w" value="" name="content">
-				<div class="col-xs-16 col-xs-offset-8 main"
-					style="margin-left: 210px;">
+			<div class="col-xs-16 col-xs-offset-8 main">
+				<div>
 					<!--换成编辑器-->
-					<div id="div1" class="toolbar" style="width: 500px"></div>
-					<div style="padding: 5px 0;">
-						<input type="text" placeholder="請輸入標題" id="title" name="titleName">
-					</div>
-					<div id="div2" class="text">
-						<!--可使用 min-height 实现编辑区域自动增加高度-->
-						<p>使用 base64 保存图片</p>
+					<form
+						action="${pageContext.request.contextPath}/user/createArticle.do"
+						method="post" enctype="multipart/form-data">
+						<input type="hidden" id="w" value="" name="content">
+						<div id="div1" class="toolbar" style="width: 500px"></div>
+						<div style="padding: 5px 0;">
+							<input type="text" placeholder="請輸入標題" id="title"
+								name="titleName">
+						</div>
+						<div id="div2" class="text">
+							<!--可使用 min-height 实现编辑区域自动增加高度-->
+							<p>使用 base64 保存图片</p>
 
+						</div>
+						<br />
+						<!-- <button onclick="myFirst()">获取text</button> -->
+						<tbody class="information">
+							<tr>
+								<td class="weixin-qrcode"><img src="" id="selectImg2"
+									style="height: 139px; width: 139px;" alt="未上传首页封面"> <a
+									class="btn btn-hollow"><input type="file" class="hide"
+										name="pictureFile" onchange="xmTanUploadImg2(this)"
+										id="fileName"> 上传首页封面图 </a></td>
+							</tr>
+						</tbody>
 
-					</div>
-					<br />
-					<!-- <button onclick="myFirst()">获取text</button> -->
-					<tbody class="information">
-						<tr>
-							<td class="weixin-qrcode"><img src="" id="selectImg2"
-								style="height: 139px; width: 139px;" alt="未上传首页封面"> <a
-								class="btn btn-hollow"><input type="file" class="hide"
-									name="pictureFile" onchange="xmTanUploadImg2(this)"
-									id="fileName"> 上传首页封面图 </a></td>
-						</tr>
-					</tbody>
-
-					<button onclick="myFirst()" class="btn btn-hollow">保存</button>
-					<a class="btn btn-delete" style="margin-left: 260px;"> <i
-						class="iconfont ic-write"></i>发布
-					</a>
-
+						<button onclick="myFirst()" class="btn btn-hollow">保存</button>
+						<a class="btn btn-delete" style="margin-left: 260px;"> <i
+							class="iconfont ic-write"></i>发布
+						</a>
 				</div>
+			</div>
 		</div>
 
 		</form>
