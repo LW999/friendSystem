@@ -156,15 +156,14 @@ public class UserController {
 	 * @throws IOException
 	 */
 	@RequestMapping("createArticle")
-	public void createArticle(@ModelAttribute("session") User userSession, Model model, String titleName,
+	public ModelAndView createArticle(@ModelAttribute("session") User userSession, Model model, String titleName,
 			String content, MultipartFile pictureFile, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		System.out.println("DDDDDDDDDDDDD");
-		System.out.println("OKOK" + pictureFile.toString());
-		String dddd = ImgUtil.upload(request, pictureFile);
-		System.out.println(">>>>>>>>>>>>>>" + dddd);
-		System.out.println("content:" + content);
-		System.out.println("titleName:" + titleName);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("");
+		String imgPath = ImgUtil.upload(request, pictureFile);
+		String message = userService.addArticle(userSession, titleName, content, imgPath);
+		return modelAndView;
 	}
 
 }

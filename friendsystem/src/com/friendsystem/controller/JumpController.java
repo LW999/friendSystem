@@ -1,18 +1,24 @@
 package com.friendsystem.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.friendsystem.pojo.Article;
 import com.friendsystem.pojo.User;
 import com.friendsystem.service.UserService;
 
 @Controller
+@SessionAttributes("session")
 @RequestMapping("jump")
 public class JumpController {
 	@Resource(name = "userService")
@@ -67,12 +73,15 @@ public class JumpController {
 		modelAndView.setViewName("/userSetting/personal");
 		return modelAndView;
 	}
+
 	/**
 	 * 跳转到发表文章
 	 */
 	@RequestMapping("createArticle")
-	public ModelAndView createArticle() {
+	public ModelAndView createArticle(@ModelAttribute("session") User userSession, Model model) {
 		ModelAndView modelAndView = new ModelAndView();
+		List<Article> listA = new ArrayList<>();
+		listA = userService.getMYArticle(userSession);
 		modelAndView.setViewName("user/writeArticle");
 		return modelAndView;
 	}

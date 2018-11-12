@@ -243,4 +243,46 @@ public class UserService {
 		return user;
 	}
 
+	/**
+	 * 用户保存一篇新的文章
+	 * 
+	 * @param userSession
+	 * @param titleName
+	 * @param content
+	 * @param imgPath
+	 * @return
+	 */
+	public String addArticle(User userSession, String titleName, String content, String imgPath) {
+		Article article = new Article();
+		article.setArticleId(BuildUuid.getUuid());
+		article.setArticleByUser(userSession.getUserId());
+		article.setArticleTitle(titleName);
+		article.setArticleImg(imgPath);
+		article.setArticleIsDelete("0");
+		article.setArticleIsRelease("0");
+		article.setArticleViews("0");
+		article.setArticleCreatetime(TimeUtil.getStringSecond());
+		article.setArticleModifytime(TimeUtil.getStringSecond());
+		articleMapper.insert(article);
+		String message = "ok";
+		return message;
+	}
+
+	/**
+	 * 查看我所有未发表的文章
+	 * 
+	 * @param userSession
+	 * @return
+	 */
+	public List<Article> getMYArticle(User userSession) {
+		List<Article> listA = new ArrayList<>();
+		ArticleExample articleExample = new ArticleExample();
+		com.friendsystem.pojo.ArticleExample.Criteria criteria = articleExample.createCriteria();
+		criteria.andArticleByUserEqualTo(userSession.getUserId());
+		listA = articleMapper.selectByExample(articleExample);
+		
+		
+		return listA;
+	}
+
 }
