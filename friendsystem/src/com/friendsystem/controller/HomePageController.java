@@ -52,7 +52,7 @@ public class HomePageController {
 	 * @return
 	 */
 	@RequestMapping("/index")
-	public ModelAndView homePage(@ModelAttribute("session") User userSession,Model map) {
+	public ModelAndView homePage(@ModelAttribute("session") User userSession, Model map) {
 		// 使用 ModelAndView mod = new ModelAndView();
 		ModelAndView mod = new ModelAndView();
 		if (userSession.getUserType().equals("tourists")) {
@@ -72,10 +72,10 @@ public class HomePageController {
 		List<User_LikeDTO> listRandomUserDTO = homeService.getRandomUsers(userSession);
 		// 需要页面显示5个随机推荐的作者
 		mod.addObject("listRandomUserDTO", listRandomUserDTO);
+		System.out.println("hahahhahah:" + listRandomArticlesDTO.size());
 		mod.addObject("listProject", listProject);
 		mod.addObject("listRecommended", listRecommended);
 		mod.addObject("listRandomArticlesDTO", listRandomArticlesDTO);
-		mod.setViewName("/home/project");
 		mod.setViewName("/home/home");
 		return mod;
 
@@ -96,8 +96,10 @@ public class HomePageController {
 		return modelAndView;
 
 	}
+
 	/**
 	 * 点击显示详细文章
+	 * 
 	 * @return
 	 */
 	@RequestMapping("articleDetail")
@@ -107,5 +109,5 @@ public class HomePageController {
 		article_DetailsDTO = operationService.getArticleDetail(article_Id);
 		return modelAndView;
 	}
-	
+
 }

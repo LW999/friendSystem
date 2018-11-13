@@ -372,7 +372,7 @@
 	</update>
 	<select id="selectByRand" resultMap="BaseResultMap">
 		select * from article order
-		by RAND() LIMIT 10
+		by RAND() LIMIT 8
 	</select>
 	<select id="getThreeArticle" resultMap="BaseResultMap"
 		parameterType="java.lang.String">

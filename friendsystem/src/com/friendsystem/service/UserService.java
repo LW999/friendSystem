@@ -256,7 +256,7 @@ public class UserService {
 		Article article = new Article();
 		article.setArticleId(BuildUuid.getUuid());
 		article.setArticleByUser(userSession.getUserId());
-		article.setArticleContent(content);	
+		article.setArticleContent(content);
 		article.setArticleTitle(titleName);
 		article.setArticleImg(imgPath);
 		article.setArticleIsDelete("0");
@@ -280,9 +280,110 @@ public class UserService {
 		ArticleExample articleExample = new ArticleExample();
 		com.friendsystem.pojo.ArticleExample.Criteria criteria = articleExample.createCriteria();
 		criteria.andArticleByUserEqualTo(userSession.getUserId());
+		criteria.andArticleIsReleaseEqualTo("0");
 		listA = articleMapper.selectByExample(articleExample);
-
 		return listA;
+	}
+
+	/**
+	 * 根据文章ID查询未发表的文章
+	 * 
+	 * @param articleId
+	 * @return
+	 */
+	public Article getArticleById(String article_Id) {
+		System.out.println("ID:" + article_Id);
+		if (article_Id != null && article_Id.trim().length() > 0) {
+			Article article = articleMapper.selectByPrimaryKey(article_Id);
+			System.out.println("文章：" + article);
+			return article;
+		}
+		return null;
+	}
+
+	/**
+	 * 更新文章
+	 * 
+	 * @param article_Id
+	 * @param titleName
+	 * @param content
+	 * @param imgPath
+	 * @return
+	 */
+	public String updateArticle(String article_Id, String titleName, String content, String imgPath) {
+		Article article = articleMapper.selectByPrimaryKey(article_Id);
+		if (titleName != null && titleName.trim().length() > 0) {
+			article.setArticleTitle(titleName);
+		}
+		article.setArticleContent(content);
+		if (imgPath != null && imgPath.trim().length() > 0) {
+			article.setArticleImg(imgPath);
+		}
+		article.setArticleModifytime(TimeUtil.getStringSecond());
+		articleMapper.updateByPrimaryKey(article);
+		return "ok";
+	}
+
+	/**
+	 * 用户直接发布文章
+	 * 
+	 * @param userSession
+	 * @param titleName
+	 * @param content
+	 * @param imgPath
+	 * @return
+	 */
+	public String directlyReleaseArticle(User userSession, String titleName, String content, String imgPath) {
+		Article article = new Article();
+		if (titleName != null && titleName.trim().length() > 0) {
+			article.setArticleTitle(titleName);
+		}
+		if (content != null && content.trim().length() > 0) {
+			article.setArticleContent(content);
+		}
+		if (imgPath != null && imgPath.trim().length() > 0) {
+			article.setArticleImg(imgPath);
+		}
+		article.setArticleByUser(userSession.getUserId());
+		article.setArticleIsRelease("1");
+		article.setArticleId(BuildUuid.getUuid());
+		article.setArticleViews("0");
+		article.setArticleIsDelete("0");
+		article.setArticleCreatetime(TimeUtil.getStringSecond());
+		article.setArticleModifytime(TimeUtil.getStringSecond());
+		articleMapper.insert(article);
+		return "ok";
+	}
+
+	/**
+	 * 用户在保存的基础上发布文章
+	 * 
+	 * @param article_Id
+	 * @param titleName
+	 * @param content
+	 * @param imgPath
+	 * @return
+	 */
+	public String releaseArticle(String article_Id, String titleName, String content, String imgPath) {
+		if (article_Id != null && article_Id.trim().length() > 0) {
+			Article article = new Article();
+			article = articleMapper.selectByPrimaryKey(article_Id);
+			article.setArticleModifytime(TimeUtil.getStringSecond());
+			if (titleName != null && titleName.trim().length() > 0) {
+				article.setArticleTitle(titleName);
+			}
+			if (content != null && content.trim().length() > 0) {
+				article.setArticleContent(content);
+			}
+			if (imgPath != null && imgPath.trim().length() > 0) {
+				article.setArticleImg(imgPath);
+			}
+			article.setArticleIsRelease("1");
+			article.setArticleModifytime(TimeUtil.getStringSecond());
+			articleMapper.updateByPrimaryKey(article);
+			return "ok";
+		}
+		return null;
 	}
 
 }

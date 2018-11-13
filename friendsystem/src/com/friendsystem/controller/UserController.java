@@ -157,13 +157,46 @@ public class UserController {
 	 */
 	@RequestMapping("createArticle")
 	public ModelAndView createArticle(@ModelAttribute("session") User userSession, Model model, String titleName,
-			String content, MultipartFile pictureFile, HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("");
+			String content, MultipartFile pictureFile, HttpServletRequest request, HttpServletResponse response,
+			String article_Id) throws IOException {
+		String message = "";
 		String imgPath = ImgUtil.upload(request, pictureFile);
-		String message = userService.addArticle(userSession, titleName, content, imgPath);
+		System.out.println("是什么：" + imgPath);
+		if (article_Id != null && article_Id.trim().length() > 0) {
+			message = userService.updateArticle(article_Id, titleName, content, imgPath);
+		} else {
+
+			message = userService.addArticle(userSession, titleName, content, imgPath);
+		}
+		System.out.println("message:" + message);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("forward:/jump/createArticle.do");
 		return modelAndView;
 	}
 
+	/**
+	 * 用户发布文章
+	 * 
+	 * @throws IOException
+	 */
+	@RequestMapping("release")
+	public ModelAndView releaseArticle(@ModelAttribute("session") User userSession, Model model, String titleName,
+			String content, MultipartFile pictureFile, HttpServletRequest request, HttpServletResponse response,
+			String article_Id) throws IOException {
+		System.out.println("hahhahahh");
+		ModelAndView modelAndView = new ModelAndView();
+		// 保存照片
+		String imgPath = ImgUtil.upload(request, pictureFile);
+		String message = "";
+		// 在保存的基础上发布
+		if (article_Id != null && article_Id.trim().length() > 0) {
+			message = userService.releaseArticle(article_Id, titleName, content, imgPath);
+		}
+		// 直接发布
+		else {
+			System.out.println("直接发布为什么没有内容" + content);
+			message = userService.directlyReleaseArticle(userSession, titleName, content, imgPath);
+		}
+		return modelAndView;
+	}
 }

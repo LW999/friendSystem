@@ -65,6 +65,7 @@ public class HomeService {
 	 * @return listRecommended
 	 */
 	public List<Recommended> getRecommended() {
+		System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKK");
 		RecommendedExample recommendedExample = new RecommendedExample();
 		com.friendsystem.pojo.RecommendedExample.Criteria criteria = recommendedExample.createCriteria();
 		List<Recommended> listRecommended = recommendedMapper.selectByExample(null);
@@ -81,6 +82,11 @@ public class HomeService {
 	 */
 
 	public List<Article_Like_CollectionDTO> getRandomArticles() {
+		
+		
+	
+		
+		
 		List<Article_Like_CollectionDTO> listALCDTO = new ArrayList<>();
 		List<Article> listArticle = articleMapper.selectByRand();// 得到十条随机文章
 

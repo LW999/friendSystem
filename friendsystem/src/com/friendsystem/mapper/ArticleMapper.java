@@ -29,7 +29,7 @@ public interface ArticleMapper {
 	int updateByPrimaryKey(Article record);
 
 	/**
-	 * 随机查询10条文章
+	 * 随机查询8条文章
 	 */
 	List<Article> selectByRand();
 
