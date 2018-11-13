@@ -20,7 +20,7 @@
 		</div>
 		<ul class="list">
 			<c:forEach items="${listRandomUserDTO}" var="listR">
-				<li><a href="${listR.user.userId }" target="_blank"
+				<li><a href="${pageContext.request.contextPath}/user/myHome.do?user_Id=${listR.user.userId}" target="_blank"
 					class="avatar"> <img src="${pageContext.request.contextPath}/img/user.do?fileFileName=${listR.user.userPortrait }"></a> <!-- <a class="follow" ><i class="iconfont ic-follow"></i>关注 </a>  -->
 					<!--   如果是游客就跳转到登陆界面 --> <c:choose>
 						<c:when test="${sessionScope.session.userType eq 'tourists'}">

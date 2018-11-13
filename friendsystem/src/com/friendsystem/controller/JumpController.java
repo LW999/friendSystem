@@ -78,7 +78,7 @@ public class JumpController {
 	 * 跳转到发表文章
 	 */
 	@RequestMapping("createArticle")
-	
+
 	public ModelAndView createArticle(@ModelAttribute("session") User userSession, Model model, String article_Id) {
 		ModelAndView modelAndView = new ModelAndView();
 		List<Article> listA = new ArrayList<>();
@@ -88,10 +88,22 @@ public class JumpController {
 			Article article = userService.getArticleById(article_Id);
 			modelAndView.addObject("article", article);
 		}
-	
+
 		modelAndView.addObject("listA", listA);
 		System.out.println("KDKDKDK:" + listA.size());
 		modelAndView.setViewName("user/writeArticle");
+		return modelAndView;
+	}
+
+	/**
+	 * 跳转到推荐
+	 * 
+	 * @return
+	 */
+	@RequestMapping("recommend")
+	public ModelAndView recommend() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("myAttention/recommendAttention");
 		return modelAndView;
 	}
 }

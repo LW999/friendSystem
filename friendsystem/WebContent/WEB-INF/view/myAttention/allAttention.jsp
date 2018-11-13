@@ -31,12 +31,12 @@
 
 							<li class="have-img">
 								<a href="#" target="_blank" class="wrap-img">
-									<img src="${listAUDTO.user.userPortrait}">
+									<img src="${pageContext.request.contextPath}/img/user.do?fileFileName=${listAUDTO.user.userPortrait}">
 								</a>
 								<div class="content">
 									<div class="author">
 										<a href="#" target="_blank" class="avatar">
-											<img src="${listAUDTO.user.userPortrait}">
+											<img src="${pageContext.request.contextPath}/img/user.do?fileFileName=${listAUDTO.user.userPortrait}">
 										</a>
 										<div class="info">
 											<a href="#" target="_blank" class="nickname"></a>

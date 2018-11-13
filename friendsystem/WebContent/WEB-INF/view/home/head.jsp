@@ -24,10 +24,21 @@
 
 		<!-- 右上角 -->
 		<!-- 未登录显示登录/注册/写文章 -->
-		<a class="btn write-btn" target="_blank"
-			href="${pageContext.request.contextPath}/jump/createArticle.do">
-			<i class="iconfont ic-write"></i>写文章
-		</a>
+		<c:choose>
+			<c:when test="${sessionScope.session.userType eq 'tourists'}">
+
+				<a class="btn write-btn" target="_blank"
+					href="${pageContext.request.contextPath }/jump/login.do"> <i
+					class="iconfont ic-write"></i>写文章
+				</a>
+			</c:when>
+			<c:otherwise>
+				<a class="btn write-btn" target="_blank"
+					href="${pageContext.request.contextPath}/jump/createArticle.do">
+					<i class="iconfont ic-write"></i>写文章
+				</a>
+			</c:otherwise>
+		</c:choose>
 		<c:if test="${sessionScope.session.userType eq 'tourists'}">
 			<a class="btn sign-up"
 				href="${pageContext.request.contextPath }/jump/reg.do">注册</a>
@@ -42,28 +53,27 @@
 				<!-- 用户头像那些 -->
 				<div class="user">
 					<div data-hover="dropdown">
-						<a class="avatar" href=""> <img
+						<a class="avatar"
+							href="${pageContext.request.contextPath}/user/myHome.do?user_Id=${sessionScope.session.userId}">
+							<img
 							src="${pageContext.request.contextPath}/img/user.do?fileFileName=${sessionScope.session.userPortrait }"
 							alt="130">
 						</a>
 					</div>
 					<ul class="dropdown-menu">
-						<li><a
-							href="${pageContext.request.contextPath }/jump/setting.do"> <i
+						<li><a href="#"> <i
 								class="iconfont ic-navigation-profile"></i><span>${sessionScope.session.userName }</span>
 						</a></li>
-						<li>
-							<!-- TODO bookmarks_path --> <a href="/bookmarks"> <i
+						<li><a href="/bookmarks"> <i
 								class="iconfont ic-navigation-mark"></i><span>收藏的文章</span>
-						</a>
-						</li>
-						<li><a href="/users/d355083d142b/liked_notes"> <i
-								class="iconfont ic-navigation-like"></i><span>喜欢的文章</span>
 						</a></li>
-						<li><a href="/settings"> <i
+						<li><a href="#"> <i class="iconfont ic-navigation-like"></i><span>喜欢的文章</span>
+						</a></li>
+						<li><a
+							href="${pageContext.request.contextPath }/jump/setting.do"> <i
 								class="iconfont ic-navigation-settings"></i><span>设置</span>
 						</a></li>
-						<li><a href="/faqs"> <i
+						<li><a href="#"> <i
 								class="iconfont ic-navigation-feedback"></i><span>帮助与反馈</span>
 						</a></li>
 						<li><a rel="nofollow" data-method="delete"

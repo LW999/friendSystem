@@ -109,6 +109,29 @@ public class UserController {
 	}
 
 	/**
+	 * 我的个人主页
+	 */
+	@RequestMapping("myHome")
+	public ModelAndView myHome(String user_Id) {
+		System.out.println("我的 主页");
+		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
+		int allAttention = userService.getAttentionNumber(user_Id);
+		int fansNumber = userService.getFansNumber(user_Id);
+		int articlesNumber =UALDTO.getListA().size();
+		System.out.println("kkkkk；" + UALDTO.getListA().size());
+		System.out.println("关注；" + allAttention);
+		System.out.println("粉丝；" + fansNumber);
+		System.out.println("文章数："+articlesNumber);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("UALDTO", UALDTO);
+		modelAndView.addObject("allAttention", allAttention);
+		modelAndView.addObject("fansNumber", fansNumber);
+		modelAndView.addObject("articlesNumber", articlesNumber);
+		modelAndView.setViewName("user/myHome");
+		return modelAndView;
+	}
+
+	/**
 	 * 更改个人基础资料
 	 * 
 	 * @throws IOException

@@ -35,7 +35,7 @@
 	background-color: #ea6f5a;
 }
 </style>
-<title></title>
+<title>${sessionScope.session.userName }</title>
 </head>
 <body class="reader-black-font" style="overflow-y: scroll;" lang="zh-CN">
 	<!-- 全局顶部导航栏 -->

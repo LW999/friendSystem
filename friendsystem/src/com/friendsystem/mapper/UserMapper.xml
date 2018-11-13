@@ -484,13 +484,17 @@
 		LIMIT 12
 	</select>
 	<select id="getRandomUsersNoOneSelft" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
+		parameterType="java.util.ArrayList">
 		select * from user where
 		user_is_banned = '0'
 		AND user_type = 'user'
 		AND
 		user_is_activation = '1'
-		AND user_id NOT IN (#{userId,jdbcType=VARCHAR})
+		AND user_id 
+		<foreach item="userId" collection="list" open="not in(" close=")" separator=",">
+			#{userId}
+		</foreach>
+		<!-- NOT IN (#{userId,jdbcType=VARCHAR}) -->
 		ORDER BY
 		RAND()
 		LIMIT 5

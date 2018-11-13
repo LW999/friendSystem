@@ -1,11 +1,11 @@
 package com.friendsystem.mapper;
 
-import com.friendsystem.DTO.User_LikeDTO;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.friendsystem.pojo.User;
 import com.friendsystem.pojo.UserExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 public interface UserMapper {
 	int countByExample(UserExample example);
@@ -70,6 +70,6 @@ public interface UserMapper {
 	 * @param userId
 	 * @return
 	 */
-	List<User> getRandomUsersNoOneSelft(String userId);
+	List<User> getRandomUsersNoOneSelft(List<String> list);
 
 }

@@ -20,7 +20,7 @@
 				class="iconfont ic-addpeople" style="margin-left: 62px"></i> <span>添加关注</span></a></span>
 		<ul class="js-subscription-list">
 			<li class="router-link-exact-active active"><a
-				href="${pageContext.request.contextPath }/jump/attention.do"
+				href="${pageContext.request.contextPath}/user/myAttention.do"
 				class="wrap">
 					<div class="avatar">
 						<img
@@ -37,7 +37,7 @@
 					href="${pageContext.request.contextPath }/user/whoPeople.do?user_Id=${listPeople.userId}"
 					class="wrap">
 						<div class="avatar">
-							<img src="${listPeople.userPortrait }">
+							<img src="${pageContext.request.contextPath}/img/user.do?fileFileName=${listPeople.userPortrait }">
 						</div>
 						<div class="name">${listPeople.userName}</div> <!---->
 				</a></li>
@@ -48,7 +48,7 @@
 
 				<li class=""><a href="#" class="wrap">
 						<div class="avatar">
-							<img src="${listProject.userPortrait }">
+							<img src="${pageContext.request.contextPath}/img/user.do?fileFileName=${listProject.userPortrait }">
 						</div>
 						<div class="name">${listPeople.projectImg}</div> <!---->
 				</a></li>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.friendsystem.DTO.Article_Like_CollectionDTO;
 import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.mapper.ArticleMapper;
+import com.friendsystem.mapper.AttentionPeopleMapper;
 import com.friendsystem.mapper.CollectionMapper;
 import com.friendsystem.mapper.LikesMapper;
 import com.friendsystem.mapper.ProjectMapper;
@@ -17,6 +18,8 @@ import com.friendsystem.mapper.RecommendedMapper;
 import com.friendsystem.mapper.UserMapper;
 import com.friendsystem.pojo.Article;
 import com.friendsystem.pojo.ArticleExample;
+import com.friendsystem.pojo.AttentionPeople;
+import com.friendsystem.pojo.AttentionPeopleExample;
 import com.friendsystem.pojo.Collection;
 import com.friendsystem.pojo.CollectionExample;
 import com.friendsystem.pojo.Likes;
@@ -42,6 +45,8 @@ public class HomeService {
 	private CollectionMapper collectionMapper;// 收藏DAO
 	@Resource
 	private UserMapper userMapper;// 用户DAO
+	@Resource
+	private AttentionPeopleMapper attentionPeopleMapper;
 
 	/**
 	 * 查询所有专题
@@ -82,11 +87,7 @@ public class HomeService {
 	 */
 
 	public List<Article_Like_CollectionDTO> getRandomArticles() {
-		
-		
-	
-		
-		
+
 		List<Article_Like_CollectionDTO> listALCDTO = new ArrayList<>();
 		List<Article> listArticle = articleMapper.selectByRand();// 得到十条随机文章
 
@@ -125,7 +126,20 @@ public class HomeService {
 			// type为游客，随机五个人
 			listUsers = userMapper.getRandomUsers();
 		} else {
-			listUsers = userMapper.getRandomUsersNoOneSelft(userSession.getUserId());
+			List<String> list = new ArrayList<String>();
+			list.add(userSession.getUserId());
+			List<AttentionPeople> listAttentionPeople = new ArrayList<>();
+			AttentionPeopleExample attentionPeopleExample = new AttentionPeopleExample();
+			com.friendsystem.pojo.AttentionPeopleExample.Criteria criteria = attentionPeopleExample.createCriteria();
+			criteria.andAttentionPeopleUserOneEqualTo(userSession.getUserId());
+			listAttentionPeople = attentionPeopleMapper.selectByExample(attentionPeopleExample);
+			for (AttentionPeople attentionPeople : listAttentionPeople) {
+				User userA = new User();
+				userA = userMapper.selectByPrimaryKey(attentionPeople.getAttentionPeopleUserTwo());
+				list.add(userA.getUserId());
+
+			}
+			listUsers = userMapper.getRandomUsersNoOneSelft(list);
 		}
 		// 先遍历用户，然后遍历用户写的文章，遍历文章得到的赞
 		if (listUsers.size() > 0) {

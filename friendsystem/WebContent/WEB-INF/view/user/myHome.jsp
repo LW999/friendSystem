@@ -1,0 +1,140 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/web-bfc15fabb3b20492f7d4.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/entry-71aa880fd9d7cbb38465.css" />
+
+<!-- 图标 -->
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath }/img/logo.ico" />
+<title>${UALDTO.user.userName }</title>
+</head>
+<body class="reader-black-font" style="overflow-y: scroll;" lang="zh-CN">
+	<!-- 全局顶部导航栏 -->
+	<!-- 全局顶部导航栏 -->
+	<%@include file="/WEB-INF/view/home/head.jsp"%>
+	<div class="container person">
+		<div class="row">
+			<div class="col-xs-16 main">
+				<!--  主页的基本信息-->
+				<%@include file="top.jsp"%>
+				
+				<ul class="trigger-menu" data-pjax-container="#list-container">
+					<li class="active"><a
+						href="/u/b91cc2d507d0?order_by=shared_at"><i
+							class="iconfont ic-articles"></i> 文章</a></li>
+					<li class=""><a href="/users/b91cc2d507d0/timeline"><i
+							class="iconfont ic-feed"></i> 动态</a></li>
+					<li class=""><a href="/u/b91cc2d507d0?order_by=top"><i
+							class="iconfont ic-hot"></i> 热门</a></li>
+				</ul>
+				<div id="list-container">
+					<!-- 动态列表模块 -->
+					<ul class="note-list"
+						infinite-scroll-url="/users/b91cc2d507d0/timeline">
+
+						<!-- 遍历用户发表了文章 -->
+						<li class="have-img" id="feed-374866967"><a class="wrap-img"
+							href="/p/72c638fc6417"> <img
+								src="${pageContext.request.contextPath}/img/user.do?fileFileName=${sessionScope.session.userPortrait }"
+								alt="120">
+						</a>
+							<div class="content">
+								<div class="author">
+									<a class="avatar" href="/users/b91cc2d507d0"> <img
+										src="//upload.jianshu.io/users/upload_avatars/8972166/065e6770-aacc-4365-9abf-c46a59cdf7f6.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
+										alt="180">
+									</a>
+									<div class="info">
+										<a class="nickname" href="/u/b91cc2d507d0">冰千里</a> <span
+											data-type="share_note"
+											data-datetime="2018-11-07T17:55:39+08:00"> 发表了文章 ·
+											11.7 17:55</span>
+									</div>
+								</div>
+
+								<a class="title" href="/p/72c638fc6417">一位来访者的内心独白(上)</a>
+								<p class="abstract">准确地说，我是一名菜鸟级别的来访者，因为我只做过两次咨询，还是不同的两位咨询师。
+									说实话，我对“来访者”这个称呼并不是很满意，好像我很脆弱似的，我更喜欢称自己是心理学爱好者，...</p>
+
+								<div class="meta">
+									<a href="/p/72c638fc6417"> <i class="iconfont ic-list-read"></i>
+										70
+									</a> <a href="/p/72c638fc6417"> <i
+										class="iconfont ic-list-comments"></i> 0
+									</a> <span><i class="iconfont ic-list-like"></i> 5</span>
+								</div>
+
+							</div></li>
+
+
+
+
+						<!--右边  -->
+					</ul>
+				</div>
+			</div>
+			<div class="col-xs-7 col-xs-offset-1 aside">
+				<ul class="list user-dynamic">
+					<li class="badge-icon"><a target="_blank" href="/mobile/club">
+							<img heigth="20"
+							src="//upload.jianshu.io/user_badge/22d8d123-271c-4d80-9c59-6990844a9e37"
+							alt="22d8d123 271c 4d80 9c59 6990844a9e37" width="20"> 会员
+					</a></li>
+				</ul>
+				<div class="title">个人介绍</div>
+				<div class="description">
+					<div class="js-intro">
+						私人执业心理咨询师<br> <br>重度孤独爱好者<br> <br>痴迷心灵书写<br>
+						<br>主攻亲密关系<br> <br> <br>公众号：冰千里<br> <br>
+					</div>
+
+				</div>
+				<div id="user-publications">
+					<!---->
+				</div>
+				<div id="user-courses">
+					<!---->
+				</div>
+				<ul class="list user-dynamic">
+					<li><a href="/users/b91cc2d507d0/subscriptions"> <i
+							class="iconfont ic-collection"></i> <span>他关注的专题</span>
+					</a></li>
+					<li><a href="/users/b91cc2d507d0/liked_notes"> <i
+							class="iconfont ic-like"></i> <span>他喜欢的文章</span>
+					</a></li>
+				</ul>
+				<!-- 专题和文集 -->
+				<div></div>
+				<div class="user-action">
+					<a class="js-block-button" data-user-id="8972166"
+						href="javascript:void(null);">加入黑名单</a> · <a
+						class="js-report-button" data-reportable-id="8972166"
+						data-reportable-type="user">举报用户</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="side-tool">
+		<ul>
+			<li data-placement="left" data-toggle="tooltip" data-container="body"
+				data-original-title="回到顶部" style="display: none;"><a
+				class="function-button"><i class="iconfont ic-backtop"></i></a></li>
+			<!---->
+			<!---->
+			<!---->
+			<!---->
+			<!---->
+		</ul>
+	</div>
+
+</body>
+
+</html>

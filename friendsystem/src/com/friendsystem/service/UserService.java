@@ -195,20 +195,25 @@ public class UserService {
 			ArticleExample aExample = new ArticleExample();
 			com.friendsystem.pojo.ArticleExample.Criteria criteria = aExample.createCriteria();
 			criteria.andArticleByUserEqualTo(user_Id);
+			criteria.andArticleIsReleaseEqualTo("1");
 			List<Article> listA = articleMapper.selectByExample(aExample);
 
 			int all = 0;
+			int allView = 0;
 			int i = 0;
 			for (Article article : listA) {
 				LikesExample likesExample = new LikesExample();
 				com.friendsystem.pojo.LikesExample.Criteria criteria2 = likesExample.createCriteria();
 				criteria2.andLikearticleEqualTo(article.getArticleId());
+				int view = Integer.parseInt(article.getArticleViews());
+				allView = allView + view;
 				int like = 0;
 				like = likesMapper.countByExample(likesExample);
 				all = like + all;
 				i++;
 				if (i == listA.size()) {
 					System.out.println("hahhah ");
+					UADTO.setView(allView);
 					UADTO.setLike(all);
 				}
 
@@ -281,6 +286,7 @@ public class UserService {
 		com.friendsystem.pojo.ArticleExample.Criteria criteria = articleExample.createCriteria();
 		criteria.andArticleByUserEqualTo(userSession.getUserId());
 		criteria.andArticleIsReleaseEqualTo("0");
+		criteria.andArticleIsDeleteEqualTo("0");
 		listA = articleMapper.selectByExample(articleExample);
 		return listA;
 	}
@@ -384,6 +390,36 @@ public class UserService {
 			return "ok";
 		}
 		return null;
+	}
+
+	/**
+	 * 获得用户关注的所有数量
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public int getAttentionNumber(String userId) {
+		int number = 0;
+		AttentionPeopleExample attentionPeopleExample = new AttentionPeopleExample();
+		Criteria criteria = attentionPeopleExample.createCriteria();
+		criteria.andAttentionPeopleUserOneEqualTo(userId);
+		number = aPeopleMapper.countByExample(attentionPeopleExample);
+		return number;
+	}
+
+	/**
+	 * 获得用户的所有粉丝数
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public int getFansNumber(String userId) {
+		int number = 0;
+		AttentionPeopleExample attentionPeopleExample = new AttentionPeopleExample();
+		Criteria criteria = attentionPeopleExample.createCriteria();
+		criteria.andAttentionPeopleUserTwoEqualTo(userId);
+		number = aPeopleMapper.countByExample(attentionPeopleExample);
+		return number;
 	}
 
 }
