@@ -83,7 +83,8 @@ public class OperationService {
 			List<Likes> listLike = likeMapper.selectByExample(likeExample);
 			for (Likes likes : listLike) {
 				// 遍历喜欢的人出来
-				User userLike = userMapper.selectByPrimaryKey(likes.getLikepeople());
+				User userLike = new User();
+				userLike = userMapper.selectByPrimaryKey(likes.getLikepeople());
 				listUserLike.add(userLike);// 把遍历的人塞到集合
 			}
 			article_DetailsDTO.setListUserByLike(listUserLike);
@@ -93,6 +94,8 @@ public class OperationService {
 			com.friendsystem.pojo.ArticleExample.Criteria criteria2 = articleExample.createCriteria();
 			criteria2.andArticleByUserEqualTo(user.getUserId());
 			List<Article> listAllArticleByUser = articleMapper.selectByExample(articleExample);
+			int i = 0;
+			int all = 0;
 			if (listAllArticleByUser.size() > 0) {
 				for (Article article2 : listAllArticleByUser) {
 					// 遍历文章所得到的赞
@@ -100,17 +103,17 @@ public class OperationService {
 					com.friendsystem.pojo.LikesExample.Criteria criteria3 = likeExample.createCriteria();
 					criteria3.andLikearticleEqualTo(article2.getArticleId());
 					int likeByArticle2 = likeMapper.countByExample(likeExample2);
-					int all = 0;
+					
 					all = all + likeByArticle2;
-					for (int i = 0; i <= listAllArticleByUser.size(); i++) {
-						// 如果i等于集合的长度，吧all加入到DTO中
-						System.out.println("size:" + i);
-						if (i == listAllArticleByUser.size()) {
-							article_DetailsDTO.setAllLike(all);// 插入作者得到的所有赞
-						}
+					i++;
+					// 如果i等于集合的长度，吧all加入到DTO中
+					System.out.println("size:" + i);
+					if (i == listAllArticleByUser.size()) {
+						article_DetailsDTO.setAllLike(all);// 插入作者得到的所有赞
 					}
 				}
 			}
+
 			return article_DetailsDTO;
 		}
 		return null;

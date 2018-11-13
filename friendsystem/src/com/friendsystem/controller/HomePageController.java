@@ -107,6 +107,8 @@ public class HomePageController {
 		ModelAndView modelAndView = new ModelAndView();
 		Article_DetailsDTO article_DetailsDTO = new Article_DetailsDTO();
 		article_DetailsDTO = operationService.getArticleDetail(article_Id);
+		modelAndView.addObject("article_DetailsDTO", article_DetailsDTO);
+		modelAndView.setViewName("articleDetail/articleDetail");
 		return modelAndView;
 	}
 

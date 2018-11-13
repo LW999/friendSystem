@@ -61,10 +61,10 @@
 						</a>
 					</div>
 					<ul class="dropdown-menu">
-						<li><a href="#"> <i
+						<li><a href="${pageContext.request.contextPath}/user/myHome.do?user_Id=${sessionScope.session.userId}"> <i
 								class="iconfont ic-navigation-profile"></i><span>${sessionScope.session.userName }</span>
 						</a></li>
-						<li><a href="/bookmarks"> <i
+						<li><a href="#"> <i
 								class="iconfont ic-navigation-mark"></i><span>收藏的文章</span>
 						</a></li>
 						<li><a href="#"> <i class="iconfont ic-navigation-like"></i><span>喜欢的文章</span>

@@ -4,14 +4,16 @@ import java.util.List;
 
 import com.friendsystem.pojo.Article;
 import com.friendsystem.pojo.Collection;
+import com.friendsystem.pojo.User;
 
 /**
- * 一篇文章和点赞数+收藏数
+ * 一篇文章和点赞数+收藏数+作者
  * 
  * @author LW
  *
  */
 public class Article_Like_CollectionDTO {
+	private User user;
 	/**
 	 * 文章
 	 */
@@ -49,10 +51,18 @@ public class Article_Like_CollectionDTO {
 		this.collectionNumber = collectionNumber;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
-		return "Article_Like_CollectionDTO [article=" + article + ", likeNumber=" + likeNumber + ", collectionNumber="
-				+ collectionNumber + "]";
+		return "Article_Like_CollectionDTO [user=" + user + ", article=" + article + ", likeNumber=" + likeNumber
+				+ ", collectionNumber=" + collectionNumber + "]";
 	}
 
 }

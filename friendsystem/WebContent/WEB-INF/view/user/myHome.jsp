@@ -24,14 +24,14 @@
 			<div class="col-xs-16 main">
 				<!--  主页的基本信息-->
 				<%@include file="top.jsp"%>
-				
+
 				<ul class="trigger-menu" data-pjax-container="#list-container">
 					<li class="active"><a
-						href="/u/b91cc2d507d0?order_by=shared_at"><i
+						href="#"><i
 							class="iconfont ic-articles"></i> 文章</a></li>
-					<li class=""><a href="/users/b91cc2d507d0/timeline"><i
-							class="iconfont ic-feed"></i> 动态</a></li>
-					<li class=""><a href="/u/b91cc2d507d0?order_by=top"><i
+					<li class=""><a href="#"><i
+							class="#"></i> 动态</a></li>
+					<li class=""><a href="#"><i
 							class="iconfont ic-hot"></i> 热门</a></li>
 				</ul>
 				<div id="list-container">
@@ -40,40 +40,41 @@
 						infinite-scroll-url="/users/b91cc2d507d0/timeline">
 
 						<!-- 遍历用户发表了文章 -->
-						<li class="have-img" id="feed-374866967"><a class="wrap-img"
-							href="/p/72c638fc6417"> <img
-								src="${pageContext.request.contextPath}/img/user.do?fileFileName=${sessionScope.session.userPortrait }"
-								alt="120">
-						</a>
-							<div class="content">
-								<div class="author">
-									<a class="avatar" href="/users/b91cc2d507d0"> <img
-										src="//upload.jianshu.io/users/upload_avatars/8972166/065e6770-aacc-4365-9abf-c46a59cdf7f6.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
-										alt="180">
-									</a>
-									<div class="info">
-										<a class="nickname" href="/u/b91cc2d507d0">冰千里</a> <span
-											data-type="share_note"
-											data-datetime="2018-11-07T17:55:39+08:00"> 发表了文章 ·
-											11.7 17:55</span>
+						<c:forEach items="${UALDTO.listA }" var="listA">
+							<li class="have-img" id="feed-374866967"><a class="wrap-img"
+								href="#"> <img
+									src="${pageContext.request.contextPath}/img/user.do?fileFileName=${listA.articleImg}"
+									alt="120">
+							</a>
+								<div class="content">
+									<div class="author">
+										<a class="avatar" href="/users/b91cc2d507d0"> <img
+											src="${pageContext.request.contextPath}/img/user.do?fileFileName=${sessionScope.session.userPortrait }"
+											alt="180">
+										</a>
+										<div class="info">
+											<a class="nickname" href="#">${UALDTO.user.userName }</a>
+											<span data-type="share_note"
+												data-datetime="2018-11-07T17:55:39+08:00"> 发表了文章 ·
+												${listA.articleModifytime }</span>
+										</div>
 									</div>
-								</div>
 
-								<a class="title" href="/p/72c638fc6417">一位来访者的内心独白(上)</a>
-								<p class="abstract">准确地说，我是一名菜鸟级别的来访者，因为我只做过两次咨询，还是不同的两位咨询师。
-									说实话，我对“来访者”这个称呼并不是很满意，好像我很脆弱似的，我更喜欢称自己是心理学爱好者，...</p>
+									<a class="title" href="/p/72c638fc6417">${listA.articleTitle }</a>
+									<p class="abstract">准确地说，我是一名菜鸟级别的来访者，因为我只做过两次咨询，还是不同的两位咨询师。
+										说实话，我对“来访者”这个称呼并不是很满意，好像我很脆弱似的，我更喜欢称自己是心理学爱好者，...</p>
 
-								<div class="meta">
-									<a href="/p/72c638fc6417"> <i class="iconfont ic-list-read"></i>
-										70
-									</a> <a href="/p/72c638fc6417"> <i
-										class="iconfont ic-list-comments"></i> 0
-									</a> <span><i class="iconfont ic-list-like"></i> 5</span>
-								</div>
+									<div class="meta">
+										<a href="/p/72c638fc6417"> <i
+											class="iconfont ic-list-read"></i> ${UALDTO.view }
+										</a> <a href="/p/72c638fc6417"> <i
+											class="iconfont ic-list-comments"></i> 0
+										</a> <span><i class="iconfont ic-list-like"></i>
+											${UALDTO.like }</span>
+									</div>
 
-							</div></li>
-
-
+								</div></li>
+						</c:forEach>
 
 
 						<!--右边  -->
@@ -90,10 +91,7 @@
 				</ul>
 				<div class="title">个人介绍</div>
 				<div class="description">
-					<div class="js-intro">
-						私人执业心理咨询师<br> <br>重度孤独爱好者<br> <br>痴迷心灵书写<br>
-						<br>主攻亲密关系<br> <br> <br>公众号：冰千里<br> <br>
-					</div>
+					<div class="js-intro">${UALDTO.user.userSynopsis }</div>
 
 				</div>
 				<div id="user-publications">
@@ -103,19 +101,16 @@
 					<!---->
 				</div>
 				<ul class="list user-dynamic">
-					<li><a href="/users/b91cc2d507d0/subscriptions"> <i
-							class="iconfont ic-collection"></i> <span>他关注的专题</span>
+					<li><a href="#"> <i class="iconfont ic-collection"></i> <span>他关注的专题</span>
 					</a></li>
-					<li><a href="/users/b91cc2d507d0/liked_notes"> <i
-							class="iconfont ic-like"></i> <span>他喜欢的文章</span>
+					<li><a href="#"> <i class="iconfont ic-like"></i> <span>他喜欢的文章</span>
 					</a></li>
 				</ul>
 				<!-- 专题和文集 -->
 				<div></div>
 				<div class="user-action">
-					<a class="js-block-button" data-user-id="8972166"
-						href="javascript:void(null);">加入黑名单</a> · <a
-						class="js-report-button" data-reportable-id="8972166"
+					<a class="js-block-button" data-user-id="8972166" href="#">加入黑名单</a>
+					· <a class="js-report-button" data-reportable-id="8972166"
 						data-reportable-type="user">举报用户</a>
 				</div>
 			</div>

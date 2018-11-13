@@ -13,13 +13,8 @@
 <body>
 	<div class="aside">
 		<ul>
-			<li class="router-link-exact-active active"><a href="#">
-					<div class="setting-icon">
-						<i class="iconfont ic-settings-basic"></i>
-					</div> <span>基础设置</span> <!---->
-			</a></li>
-			<li class=""><a
-				href="${pageContext.request.contextPath }/jump/personal.do">
+			<li class="router-link-exact-active active"><a
+				href="#">
 					<div class="setting-icon">
 						<i class="iconfont ic-settings-profile"></i>
 					</div> <span>个人资料</span> <!---->

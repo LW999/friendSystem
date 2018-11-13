@@ -138,9 +138,10 @@ public class UserController {
 	 */
 	@RequestMapping(value = "basic", method = RequestMethod.POST)
 	private ModelAndView basicSetting(@ModelAttribute("session") User userSession, Model model, String textName,
-			HttpServletRequest request, HttpServletResponse response, MultipartFile pictureFile) throws IOException {
+			HttpServletRequest request, HttpServletResponse response, MultipartFile pictureFile,MultipartFile weCate,String your,String sex) throws IOException {
 		ModelAndView modelAndView = new ModelAndView();
 		String imgPath = "";
+		String imgPath2 = "";
 		String message = "";
 		if (textName.isEmpty() && pictureFile.isEmpty()) {
 			message = "noAmend";
@@ -151,7 +152,11 @@ public class UserController {
 		} else {
 			imgPath = ImgUtil.upload(request, pictureFile);
 		}
-		User userNewSession = userService.updateBasic(textName, imgPath, userSession);
+		if(weCate.isEmpty()) {}
+		else {
+			imgPath2= ImgUtil.upload(request, weCate);
+		}
+		User userNewSession = userService.updateBasic(textName, imgPath, userSession,imgPath2,sex,your);
 		model.addAttribute("session", userNewSession);
 		message = "ok";
 		modelAndView.addObject("message", message);

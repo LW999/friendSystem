@@ -232,18 +232,30 @@ public class UserService {
 	 * @param textName
 	 * @param imgPath
 	 * @param userSession
+	 * @param your
+	 * @param sex
+	 * @param imgPath2
 	 * @return
 	 */
-	public User updateBasic(String textName, String imgPath, User userSession) {
+	public User updateBasic(String textName, String imgPath, User userSession, String imgPath2, String sex,
+			String your) {
 		User user = userMapper.selectByPrimaryKey(userSession.getUserId());
-		if (textName.isEmpty()) {
-		} else {
+		if (textName != null && textName.trim().length() > 0) {
 			user.setUserName(textName);
 		}
-		if (imgPath.isEmpty()) {
-		} else {
+		if (imgPath != null && imgPath.trim().length() > 0) {
 			user.setUserPortrait(imgPath);
 		}
+		if (imgPath2 != null && imgPath2.trim().length() > 0) {
+			user.setUserWechat(imgPath2);
+		}
+		if (sex != null && sex.trim().length() > 0) {
+			user.setUserSex(sex);
+		}
+		if (your != null && your.trim().length() > 0) {
+			user.setUserSynopsis(your);
+		}
+		user.setUserModifytime(TimeUtil.getStringSecond());
 		userMapper.updateByPrimaryKey(user);
 		return user;
 	}

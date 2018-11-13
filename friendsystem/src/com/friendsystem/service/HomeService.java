@@ -102,6 +102,9 @@ public class HomeService {
 				criteria2.andCollectionArticleEqualTo(article.getArticleId());
 				int collectionNumber = collectionMapper.countByExample(collectionExample);// 得到收藏人数
 				Article_Like_CollectionDTO ALCDTO = new Article_Like_CollectionDTO();
+				User user = new User();
+				user = userMapper.selectByPrimaryKey(article.getArticleByUser());
+				ALCDTO.setUser(user);
 				ALCDTO.setArticle(article);
 				ALCDTO.setCollectionNumber(collectionNumber);
 				ALCDTO.setLikeNumber(likeNumber);

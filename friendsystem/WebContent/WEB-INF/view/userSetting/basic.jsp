@@ -45,7 +45,7 @@
 										更改头像 </a></td>
 							</tr>
 							<tr>
-								<td class="setting-title">昵称${sessionScope.session.userName }</td>
+								<td class="setting-title">昵称·${sessionScope.session.userName }</td>
 								<td id=""><input type="text"
 									placeholder="${sessionScope.session.userName }" id="textName"
 									name="textName"></td>
@@ -66,23 +66,23 @@
 						<tbody class="information">
 							<tr>
 								<td class="top-line setting-title setting-verticle">性别</td>
-								<td class="top-line"><input type="radio" value="1">
-									<span>男</span> <input type="radio" value="2"> <span>女</span>
-									<input type="radio" value="0"> <span>保密</span></td>
+								<td class="top-line"><input type="radio" value="男" name="sex">
+									<span>男</span> <input type="radio" value="女" name="sex"> <span>女</span>
+									<input type="radio" value="保密" name="sex"> <span>保密</span></td>
 							</tr>
 							<tr>
 								<td class="setting-title pull-left">个人简介</td>
 								<td>
 									<form>
-										<textarea placeholder="填写你的个人简介"></textarea>
+										<textarea placeholder="${sessionScope.session.userSynopsis }" name="your"></textarea>
 									</form>
 								</td>
 							</tr>
 							<tr>
 								<td class="setting-title">微信二维码</td>
-								<td class="weixin-qrcode"><img src="" id="selectImg2">
+								<td class="weixin-qrcode"><img src="${pageContext.request.contextPath}/img/user.do?fileFileName=${sessionScope.session.userWechat }" id="selectImg2"alt="暂无">
 									<a class="btn btn-hollow"><input type="file" class="hide"
-										onchange="xmTanUploadImg2(this)"> 更换图片 </a>
+										onchange="xmTanUploadImg2(this)" name="weCate"> 更换图片 </a>
 									<p class="pull-right">上传后会在个人主页显示图标</p></td>
 							</tr>
 						</tbody>

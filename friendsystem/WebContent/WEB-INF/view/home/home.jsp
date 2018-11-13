@@ -67,42 +67,32 @@
 				<div id="list-container">
 
 					<!-- 文章列表模块需要遍历 -->
-					<ul class="note-list" infinite-scroll-url="/">
+					<c:forEach items="${listRandomArticlesDTO }" var="listR">
+						<ul class="note-list" infinite-scroll-url="/">
 
-						<li class="have-img"><a class="wrap-img"
-							href="${pageContext.request.contextPath }/jump/test.do"
-							target="_blank"> <img class="img-blur-done"
-								src="${pageContext.request.contextPath }/img/QQ.png" alt="">
-						</a>
-							<div class="content">
-								<a class="title" target="__blank" href="">步根本不减肥，但是为什么跑</a>
-								<p class="abstract">
-									前几天接到一个推销电话，虽明确表示不需要，依然无理纠缠没完没了，渐怒火中烧，语气不善。 突然，办公室电话响起，点名找我。
-									接起电话就听到一句“我...</p>
-								<div class="meta">
-									<a class="nickname" target="_blank" href="">作者李伟</a> <a
-										target="_blank" href="#"> <i
-										class="iconfont ic-list-comments"></i> 评论数8
-									</a> <span><i class="iconfont ic-list-like"></i> 点赞数：89</span>
-								</div>
-							</div></li>
+							<li class="have-img"><a class="wrap-img"
+								href="${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id=${listR.article.articleId}"
+								target="_blank"> <img class="img-blur-done"
+									src="${pageContext.request.contextPath}/img/user.do?fileFileName=${listR.article.articleImg}"
+									alt="暂无">
+							</a>
+								<div class="content">
+									<a class="title" target="__blank"
+										href="${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id=${listR.article.articleId}">${listR.article.articleTitle}</a>
+									<p class="abstract">
+										测试Test测试Test测试Test测试Test测试Test测试Test测试Test测试Test测试Test测试Test
+										测试Test测试Test测试Test测试Test测试Test测试Test...</p>
+									<div class="meta">
+										<a class="nickname" target="_blank" href="">作者${listR.user.userName }</a>
+										<a target="_blank" href="#"> <i
+											class="iconfont ic-list-comments"></i>
+											收藏数${listR.collectionNumber }
+										</a> <span><i class="iconfont ic-list-like"></i>
+											点赞数：${listR.likeNumber }</span> <span>发表时间：${listR.article.articleModifytime }</span>
+									</div>
+								</div></li>
+					</c:forEach>
 
-						<li class="have-img"><a class="wrap-img" href="#"
-							target="_blank"> <img class="img-blur-done"
-								src="${pageContext.request.contextPath }/img/QQ.png" alt="">
-						</a>
-							<div class="content">
-								<a class="title" target="__blank" href="">步根本不减肥，但是为什么跑</a>
-								<p class="abstract">
-									前几天接到一个推销电话，虽明确表示不需要，依然无理纠缠没完没了，渐怒火中烧，语气不善。 突然，办公室电话响起，点名找我。
-									接起电话就听到一句“我...</p>
-								<div class="meta">
-									<a class="nickname" target="_blank" href="">作者李伟</a> <a
-										target="_blank" href="#"> <i
-										class="iconfont ic-list-comments"></i> 评论数8
-									</a> <span><i class="iconfont ic-list-like"></i> 点赞数：89</span>
-								</div>
-							</div></li>
 					</ul>
 				</div>
 				<a data-page="3" href="#" class="load-more">阅读更多</a>
