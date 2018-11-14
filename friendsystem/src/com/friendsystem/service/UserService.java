@@ -196,6 +196,7 @@ public class UserService {
 			com.friendsystem.pojo.ArticleExample.Criteria criteria = aExample.createCriteria();
 			criteria.andArticleByUserEqualTo(user_Id);
 			criteria.andArticleIsReleaseEqualTo("1");
+			aExample.setOrderByClause("article_modifytime DESC");
 			List<Article> listA = articleMapper.selectByExample(aExample);
 
 			int all = 0;

@@ -117,11 +117,11 @@ public class UserController {
 		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
 		int allAttention = userService.getAttentionNumber(user_Id);
 		int fansNumber = userService.getFansNumber(user_Id);
-		int articlesNumber =UALDTO.getListA().size();
+		int articlesNumber = UALDTO.getListA().size();
 		System.out.println("kkkkk；" + UALDTO.getListA().size());
 		System.out.println("关注；" + allAttention);
 		System.out.println("粉丝；" + fansNumber);
-		System.out.println("文章数："+articlesNumber);
+		System.out.println("文章数：" + articlesNumber);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("UALDTO", UALDTO);
 		modelAndView.addObject("allAttention", allAttention);
@@ -138,7 +138,8 @@ public class UserController {
 	 */
 	@RequestMapping(value = "basic", method = RequestMethod.POST)
 	private ModelAndView basicSetting(@ModelAttribute("session") User userSession, Model model, String textName,
-			HttpServletRequest request, HttpServletResponse response, MultipartFile pictureFile,MultipartFile weCate,String your,String sex) throws IOException {
+			HttpServletRequest request, HttpServletResponse response, MultipartFile pictureFile, MultipartFile weCate,
+			String your, String sex) throws IOException {
 		ModelAndView modelAndView = new ModelAndView();
 		String imgPath = "";
 		String imgPath2 = "";
@@ -152,11 +153,11 @@ public class UserController {
 		} else {
 			imgPath = ImgUtil.upload(request, pictureFile);
 		}
-		if(weCate.isEmpty()) {}
-		else {
-			imgPath2= ImgUtil.upload(request, weCate);
+		if (weCate.isEmpty()) {
+		} else {
+			imgPath2 = ImgUtil.upload(request, weCate);
 		}
-		User userNewSession = userService.updateBasic(textName, imgPath, userSession,imgPath2,sex,your);
+		User userNewSession = userService.updateBasic(textName, imgPath, userSession, imgPath2, sex, your);
 		model.addAttribute("session", userNewSession);
 		message = "ok";
 		modelAndView.addObject("message", message);
@@ -225,6 +226,8 @@ public class UserController {
 			System.out.println("直接发布为什么没有内容" + content);
 			message = userService.directlyReleaseArticle(userSession, titleName, content, imgPath);
 		}
+		modelAndView.addObject("user_Id", userSession.getUserId());
+		modelAndView.setViewName("forward:/homeService/index.do");
 		return modelAndView;
 	}
 }

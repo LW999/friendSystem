@@ -28,8 +28,8 @@
 					<div>
 						<div class="main-top">
 							<a href="#" target="_blank" class="avatar"><img
-								src="${UALDTO.user.userPortrait }"></a> <a
-								href="/u/080bb4eac1c9" target="_blank" class="btn btn-hollow">
+								src="${pageContext.request.contextPath}/img/user.do?fileFileName=${UALDTO.user.userPortrait }"></a> <a
+								href="#" target="_blank" class="btn btn-hollow">
 								个人主页<i class="iconfont ic-link"></i>
 							</a> <a href="/notifications#/chats/new?mail_to=13213889"
 								target="_blank" class="btn btn-hollow">发简信</a>

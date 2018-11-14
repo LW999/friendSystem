@@ -10,7 +10,7 @@
 	<div class="recommend-collection">
 		<c:forEach items="${listProject}" var="listP">
 			<a class="collection" target="_blank" href="#"> <img
-				src="${listP.projectImg}" alt="">
+				src="${listP.projectImg}" alt="暂无">
 				<div class="name">${listP.projectName }</div>
 			</a>
 		</c:forEach>
@@ -18,11 +18,5 @@
 			class="iconfont ic-link"></i>
 		</a>
 	</div>
-	<%-- <form action="${pageContext.request.contextPath }/rest/pro.do" method="post" id="index"></form>
-	<script>
-		window.onload = function() {
-			document.getElementById("index").submit();
-		}
-	</script> --%>
 </body>
 </html>

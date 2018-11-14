@@ -48,7 +48,7 @@
 							</a>
 								<div class="content">
 									<div class="author">
-										<a class="avatar" href="/users/b91cc2d507d0"> <img
+										<a class="avatar" href="#"> <img
 											src="${pageContext.request.contextPath}/img/user.do?fileFileName=${sessionScope.session.userPortrait }"
 											alt="180">
 										</a>
@@ -60,7 +60,7 @@
 										</div>
 									</div>
 
-									<a class="title" href="/p/72c638fc6417">${listA.articleTitle }</a>
+									<a class="title" href="${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id=${listA.articleId}">${listA.articleTitle }</a>
 									<p class="abstract">准确地说，我是一名菜鸟级别的来访者，因为我只做过两次咨询，还是不同的两位咨询师。
 										说实话，我对“来访者”这个称呼并不是很满意，好像我很脆弱似的，我更喜欢称自己是心理学爱好者，...</p>
 
