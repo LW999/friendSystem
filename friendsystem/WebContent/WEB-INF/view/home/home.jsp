@@ -86,9 +86,9 @@
 										<a class="nickname" target="_blank" href="">作者${listR.user.userName }</a>
 										<a target="_blank" href="#"> <i
 											class="iconfont ic-list-comments"></i>
-											收藏数${listR.collectionNumber }
+											浏览量:${listR.article.articleViews }
 										</a> <span><i class="iconfont ic-list-like"></i>
-											点赞数：${listR.likeNumber }</span> <span>发表时间：${listR.article.articleModifytime }</span>
+											点赞数:${listR.likeNumber }</span> <span>发表时间：${listR.article.articleModifytime }</span>
 									</div>
 								</div></li>
 					</c:forEach>

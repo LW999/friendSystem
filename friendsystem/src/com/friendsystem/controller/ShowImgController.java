@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShowImgController {
 	@RequestMapping("user")
 	public String IoReadImage(String fileFileName,HttpServletResponse response) throws IOException {
-		System.out.println("====ppp");
 		fileFileName = new String(fileFileName.getBytes("ISO8859-1"), "UTF-8");// 解决图片中文路径乱码
-		String linkurl = "C:\\img\\user\\" + fileFileName;
+		String linkurl = "C:\\img\\friends\\" + fileFileName;
 		FileInputStream in = new FileInputStream(linkurl);
 		ServletOutputStream out = null;
 		response.setContentType("image/png");

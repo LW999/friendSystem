@@ -167,7 +167,7 @@ right
 							<!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
 							<span class="publish-time">${article_DetailsDTO.article.articleModifytime}</span>
 							<span class="wordage">字数 715</span> <span class="views-count">阅读
-								0</span><span class="comments-count">评论</span><span class="likes-count">喜欢
+							${article_DetailsDTO.article.articleViews}	</span><span class="comments-count">评论</span><span class="likes-count">喜欢
 								${article_DetailsDTO.like }</span>
 						</div>
 					</div>
@@ -209,7 +209,7 @@ right
 						</a> <a class="btn btn-success follow"><i
 							class="iconfont ic-follow"></i><span>关注</span></a> <a class="title"
 							href="/u/cee06b2093af">${article_DetailsDTO.user.userName } </a>
-						<p>浏览量：0，被 2人关注，获得了${article_DetailsDTO.allLike } 个喜欢</p>
+						<p>总浏览量${views}，被 2人关注，获得了${article_DetailsDTO.allLike } 个喜欢</p>
 					</div>
 					<div class="signature">个人简介:${article_DetailsDTO.user.userSynopsis }</div>
 				</div>

@@ -75,7 +75,7 @@
 		</div>
 	</div>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath }/js/jquery1.8.2.js"></script>
+		src="${pageContext.request.contextPath }/js/jquery-2.11.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath }/js/toastr.js"></script>
 	<script type="text/javascript">

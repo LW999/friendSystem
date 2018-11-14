@@ -105,9 +105,15 @@ public class HomePageController {
 	@RequestMapping("articleDetail")
 	public ModelAndView articleDetails(String article_Id) {
 		ModelAndView modelAndView = new ModelAndView();
+		// 浏览量加1
+		operationService.addView(article_Id);
 		Article_DetailsDTO article_DetailsDTO = new Article_DetailsDTO();
 		article_DetailsDTO = operationService.getArticleDetail(article_Id);
+		// 根据文章找到作者获得的所有阅读量
+		int allViews = operationService.getView(article_Id);
+		// 根据文章ID找到作者获得的所有
 		modelAndView.addObject("article_DetailsDTO", article_DetailsDTO);
+		modelAndView.addObject("views", allViews);
 		modelAndView.setViewName("articleDetail/articleDetail");
 		return modelAndView;
 	}

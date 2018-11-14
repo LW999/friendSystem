@@ -103,7 +103,7 @@ public class OperationService {
 					com.friendsystem.pojo.LikesExample.Criteria criteria3 = likeExample.createCriteria();
 					criteria3.andLikearticleEqualTo(article2.getArticleId());
 					int likeByArticle2 = likeMapper.countByExample(likeExample2);
-					
+
 					all = all + likeByArticle2;
 					i++;
 					// 如果i等于集合的长度，吧all加入到DTO中
@@ -118,5 +118,45 @@ public class OperationService {
 		}
 		return null;
 
+	}
+
+	/**
+	 * 给点击的文章加1浏览量
+	 * 
+	 * @param article_Id
+	 */
+	public void addView(String article_Id) {
+		Article article = new Article();
+		article = articleMapper.selectByPrimaryKey(article_Id);
+		int view = Integer.parseInt(article.getArticleViews());
+		view = view + 1;
+		article.setArticleViews(view + "");
+		articleMapper.updateByPrimaryKey(article);
+	}
+
+	/**
+	 * 
+	 * 根据文章ID获取该作者所获得的所有浏览量
+	 * 
+	 * @param article_Id
+	 * @return
+	 */
+	public int getView(String article_Id) {
+		User user = new User();
+		Article article = new Article();
+		article = articleMapper.selectByPrimaryKey(article_Id);
+		user = userMapper.selectByPrimaryKey(article.getArticleByUser());
+		List<Article> lArticles = new ArrayList<>();
+		ArticleExample articleExample = new ArticleExample();
+		com.friendsystem.pojo.ArticleExample.Criteria criteria = articleExample.createCriteria();
+		criteria.andArticleByUserEqualTo(user.getUserId());
+		lArticles = articleMapper.selectByExample(articleExample);
+		int all = 0;
+		for (Article article2 : lArticles) {
+			int view = 0;
+			view = Integer.parseInt(article2.getArticleViews());
+			all = all + view;
+		}
+		return all;
 	}
 }

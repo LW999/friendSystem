@@ -26,13 +26,11 @@
 				<%@include file="top.jsp"%>
 
 				<ul class="trigger-menu" data-pjax-container="#list-container">
-					<li class="active"><a
-						href="#"><i
+					<li class="active"><a href="#"><i
 							class="iconfont ic-articles"></i> 文章</a></li>
-					<li class=""><a href="#"><i
-							class="#"></i> 动态</a></li>
-					<li class=""><a href="#"><i
-							class="iconfont ic-hot"></i> 热门</a></li>
+					<li class=""><a href="#"><i class="#"></i> 动态</a></li>
+					<li class=""><a href="#"><i class="iconfont ic-hot"></i>
+							热门</a></li>
 				</ul>
 				<div id="list-container">
 					<!-- 动态列表模块 -->
@@ -53,20 +51,22 @@
 											alt="180">
 										</a>
 										<div class="info">
-											<a class="nickname" href="#">${UALDTO.user.userName }</a>
-											<span data-type="share_note"
+											<a class="nickname" href="#">${UALDTO.user.userName }</a> <span
+												data-type="share_note"
 												data-datetime="2018-11-07T17:55:39+08:00"> 发表了文章 ·
 												${listA.articleModifytime }</span>
 										</div>
 									</div>
 
-									<a class="title" href="${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id=${listA.articleId}">${listA.articleTitle }</a>
+									<a class="title"
+										href="${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id=${listA.articleId}"
+										target="_blank">${listA.articleTitle }</a>
 									<p class="abstract">准确地说，我是一名菜鸟级别的来访者，因为我只做过两次咨询，还是不同的两位咨询师。
 										说实话，我对“来访者”这个称呼并不是很满意，好像我很脆弱似的，我更喜欢称自己是心理学爱好者，...</p>
 
 									<div class="meta">
-										<a href="/p/72c638fc6417"> <i
-											class="iconfont ic-list-read"></i> ${UALDTO.view }
+										<a href="#"> <i
+											class="iconfont ic-list-read"></i> ${listA.articleViews }
 										</a> <a href="/p/72c638fc6417"> <i
 											class="iconfont ic-list-comments"></i> 0
 										</a> <span><i class="iconfont ic-list-like"></i>

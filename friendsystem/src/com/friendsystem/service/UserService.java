@@ -435,4 +435,29 @@ public class UserService {
 		return number;
 	}
 
+	/**
+	 * 根据文章ID删除文章
+	 * 
+	 * @param article_Id
+	 * @return
+	 */
+	public String delArticle(String article_Id) {
+		String message = "";
+		Article article = new Article();
+		article = articleMapper.selectByPrimaryKey(article_Id);
+		if (article != null) {
+			String judge = "";
+			judge = article.getArticleIsDelete();
+			if (judge.equals("1")) {
+				message = "repeat";// 已经删除，重复操作
+			} else {
+				article.setArticleIsDelete("1");
+				article.setArticleModifytime(TimeUtil.getStringSecond());
+				articleMapper.updateByPrimaryKey(article);
+				message = "ok";// 删除成功
+			}
+		}
+		return message;
+	}
+
 }
