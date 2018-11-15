@@ -121,7 +121,7 @@
 	<jsp:include page="bottom.jsp"></jsp:include>
 
 
-	<script type="application/json" data-name="page-data">
+	<%-- <script type="application/json" data-name="page-data">
 		{}
 	</script>
 	<script src="${pageContext.request.contextPath }/js/one.js"
@@ -131,7 +131,7 @@
 	<script src="${pageContext.request.contextPath }/js/there.js"
 		crossorigin="anonymous"></script>
 	<script src="${pageContext.request.contextPath }/js/fore.js"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"></script> --%>
 
 
 	<script type="text/javascript">

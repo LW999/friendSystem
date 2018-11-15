@@ -196,6 +196,7 @@ public class UserService {
 			com.friendsystem.pojo.ArticleExample.Criteria criteria = aExample.createCriteria();
 			criteria.andArticleByUserEqualTo(user_Id);
 			criteria.andArticleIsReleaseEqualTo("1");
+			criteria.andArticleIsDeleteEqualTo("0");
 			aExample.setOrderByClause("article_modifytime DESC");
 			List<Article> listA = articleMapper.selectByExample(aExample);
 
@@ -449,12 +450,13 @@ public class UserService {
 			String judge = "";
 			judge = article.getArticleIsDelete();
 			if (judge.equals("1")) {
-				message = "repeat";// 已经删除，重复操作
+				message = "error";// 已经删除，重复操作
 			} else {
 				article.setArticleIsDelete("1");
+				article.setArticleIsRelease("0");
 				article.setArticleModifytime(TimeUtil.getStringSecond());
 				articleMapper.updateByPrimaryKey(article);
-				message = "ok";// 删除成功
+				message = "success";// 删除成功
 			}
 		}
 		return message;

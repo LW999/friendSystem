@@ -183,4 +183,17 @@ public class TestWeiWei {
 		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
 		System.out.println("ddd" + UALDTO);
 	}
+
+	@Test
+	public void suijizuozhe() {
+		User userSession = new User();
+		userSession.setUserType("user");
+		userSession.setUserId("a5b7021f-e2f9-4924-b403-40d7583ea339");
+		List<User_LikeDTO> listRandomUserDTO = homeService.getRandomUsers(userSession);
+		int i = 1;
+		for (User_LikeDTO user_LikeDTO : listRandomUserDTO) {
+			System.out.println("hahha:" + i + ":" + user_LikeDTO.getUser().getUserId());
+			i++;
+		}
+	}
 }

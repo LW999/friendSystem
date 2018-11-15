@@ -253,6 +253,7 @@ public class UserController {
 	@RequestMapping("del")
 	public void delArticle(HttpServletRequest request, HttpServletResponse response, String article_Id)
 			throws IOException {
+		System.out.println("kkkkkkkkkkk");
 		if (article_Id != null && article_Id.trim().length() > 0) {
 			response.setContentType("text/html; charset=utf-8");
 			String message = userService.delArticle(article_Id);

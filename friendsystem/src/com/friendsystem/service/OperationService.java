@@ -10,10 +10,13 @@ import org.springframework.stereotype.Service;
 import com.friendsystem.DTO.Article_DetailsDTO;
 import com.friendsystem.DTO.User_ArticleDTO;
 import com.friendsystem.mapper.ArticleMapper;
+import com.friendsystem.mapper.AttentionPeopleMapper;
 import com.friendsystem.mapper.LikesMapper;
 import com.friendsystem.mapper.UserMapper;
 import com.friendsystem.pojo.Article;
 import com.friendsystem.pojo.ArticleExample;
+import com.friendsystem.pojo.AttentionPeople;
+import com.friendsystem.pojo.AttentionPeopleExample;
 import com.friendsystem.pojo.Likes;
 import com.friendsystem.pojo.LikesExample;
 import com.friendsystem.pojo.LikesExample.Criteria;
@@ -27,22 +30,42 @@ public class OperationService {
 	private ArticleMapper articleMapper;
 	@Resource
 	private LikesMapper likeMapper;
+	@Resource
+	private AttentionPeopleMapper attentionPeopleMapper;// 关注DAO
 
 	/**
 	 * 查询更多作者
 	 * 
 	 * @return listMoreUsers
 	 */
-	public List<User_ArticleDTO> getMoreAuthou() {
+	public List<User_ArticleDTO> getMoreAuthou(User userSession) {
 		List<User_ArticleDTO> listMoreUsers = new ArrayList<>();
 		List<User> listUsers = new ArrayList<>();
-		listUsers = userMapper.getMoreRandomUsers();
+		if (userSession.getUserType().equals("tourists")) {
+			// type为游客，随机五个人
+			listUsers = userMapper.getMoreRandomUsers();
+		}
+		else {
+			List<String> list = new ArrayList<String>();
+			list.add(userSession.getUserId());
+			List<AttentionPeople> listAttentionPeople = new ArrayList<>();
+			AttentionPeopleExample attentionPeopleExample = new AttentionPeopleExample();
+			com.friendsystem.pojo.AttentionPeopleExample.Criteria criteria = attentionPeopleExample.createCriteria();
+			criteria.andAttentionPeopleUserOneEqualTo(userSession.getUserId());
+			listAttentionPeople = attentionPeopleMapper.selectByExample(attentionPeopleExample);
+			for (AttentionPeople attentionPeople : listAttentionPeople) {
+				User userA = new User();
+				userA = userMapper.selectByPrimaryKey(attentionPeople.getAttentionPeopleUserTwo());
+				list.add(userA.getUserId());
+
+			}
+			listUsers = userMapper.getRandomUsersNoOneSelft(list);
+		}
 		if (listMoreUsers.size() > 0) {
 			for (User user : listUsers) {
 				List<Article> listArticle = articleMapper.getThreeArticle(user.getUserId());
 				User_ArticleDTO UADTO = new User_ArticleDTO();
 				if (listArticle.size() > 0) {
-
 					UADTO.setListArticle(listArticle);
 				}
 				UADTO.setUser(user);

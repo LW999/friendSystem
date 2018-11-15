@@ -88,7 +88,6 @@ public class JumpController {
 			Article article = userService.getArticleById(article_Id);
 			modelAndView.addObject("article", article);
 		}
-
 		modelAndView.addObject("listA", listA);
 		System.out.println("KDKDKDK:" + listA.size());
 		modelAndView.setViewName("user/writeArticle");

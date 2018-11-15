@@ -10,6 +10,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/css/entry-71aa880fd9d7cbb38465.css" />
 
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/toastr.css">
 <!-- 图标 -->
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath }/img/logo.ico" />
@@ -47,7 +49,7 @@
 								<div class="content">
 									<div class="author">
 										<a class="avatar" href="#"> <img
-											src="${pageContext.request.contextPath}/img/user.do?fileFileName=${sessionScope.session.userPortrait }"
+											src="${pageContext.request.contextPath}/img/user.do?fileFileName=${UALDTO.user.userPortrait }"
 											alt="180">
 										</a>
 										<div class="info">
@@ -65,12 +67,24 @@
 										说实话，我对“来访者”这个称呼并不是很满意，好像我很脆弱似的，我更喜欢称自己是心理学爱好者，...</p>
 
 									<div class="meta">
-										<a href="#"> <i
-											class="iconfont ic-list-read"></i> ${listA.articleViews }
+										<a href="#"> <i class="iconfont ic-list-read"></i>
+											${listA.articleViews }
 										</a> <a href="/p/72c638fc6417"> <i
 											class="iconfont ic-list-comments"></i> 0
 										</a> <span><i class="iconfont ic-list-like"></i>
 											${UALDTO.like }</span>
+
+										<c:choose>
+											<c:when test="${sessionScope.session.userType eq 'tourists'}">
+											</c:when>
+											<c:otherwise>
+												<button class="btn btn-delete" style="margin-left: 260px;"
+													onclick="javascript:jj('${listA.articleId }');">
+													<i class="iconfont ic-delete"></i>删除
+												</button>
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 
 								</div></li>
@@ -129,7 +143,24 @@
 			<!---->
 		</ul>
 	</div>
-
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/jquery-2.11.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/toastr.js"></script>
+	<script type="text/javascript">
+		function jj(id) {
+			$.get("${pageContext.request.contextPath}/user/del.do?article_Id="
+					+ id + "", function(data) {
+				console.log('dd:' + data)
+				if (data.trim() == "success") {
+					toastr.success("删除成功成功")
+				}
+				if (data.trim() == "error") {
+					toastr.warning("已删除，请刷新")
+				}
+			})
+		}
+	</script>
 </body>
 
 </html>

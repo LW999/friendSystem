@@ -3,11 +3,14 @@ package com.friendsystem.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -70,7 +73,6 @@ public class HomePageController {
 		List<Article_Like_CollectionDTO> listRandomArticlesDTO = homeService.getRandomArticles();
 		// 需要页面显示5个随机推荐的作者
 		List<User_LikeDTO> listRandomUserDTO = homeService.getRandomUsers(userSession);
-		// 需要页面显示5个随机推荐的作者
 		mod.addObject("listRandomUserDTO", listRandomUserDTO);
 		System.out.println("hahahhahah:" + listRandomArticlesDTO.size());
 		mod.addObject("listProject", listProject);
@@ -87,14 +89,13 @@ public class HomePageController {
 	 * @return
 	 */
 	@RequestMapping("moreAuthou")
-	public ModelAndView moreAuthou() {
+	public void moreAuthou(@ModelAttribute("session") User userSession, Model model, HttpServletRequest request,
+			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
-		List<User_ArticleDTO> listMoreAuthou = operationService.getMoreAuthou();
+		List<User_ArticleDTO> listMoreAuthou = operationService.getMoreAuthou(userSession);
 		if (listMoreAuthou.size() > 0) {
 			modelAndView.addObject("listMoreAuthou", listMoreAuthou);
 		}
-		return modelAndView;
-
 	}
 
 	/**
@@ -118,4 +119,15 @@ public class HomePageController {
 		return modelAndView;
 	}
 
+	/**
+	 * 换一批作者
+	 */
+	@RequestMapping("otherUser")
+	@ResponseBody
+	public List<User_LikeDTO> otherUser(@ModelAttribute("session") User userSession, Model model,
+			HttpServletRequest request, HttpServletResponse response, String page) {
+		System.out.println("DDDDDD>:" + page);
+		List<User_LikeDTO> listRandomUserDTO = homeService.getRandomUsers(userSession);
+		return listRandomUserDTO;
+	}
 }

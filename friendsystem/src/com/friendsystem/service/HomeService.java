@@ -46,7 +46,7 @@ public class HomeService {
 	@Resource
 	private UserMapper userMapper;// 用户DAO
 	@Resource
-	private AttentionPeopleMapper attentionPeopleMapper;
+	private AttentionPeopleMapper attentionPeopleMapper;// 关注DAO
 
 	/**
 	 * 查询所有专题
@@ -119,6 +119,7 @@ public class HomeService {
 	}
 
 	/**
+	 * 显示推荐作者
 	 * 
 	 * @return listRandomUsers
 	 */
@@ -156,7 +157,7 @@ public class HomeService {
 				List<Article> listArticleByUser = articleMapper.selectByExample(articleExample);// 得到用户所写的文章
 				// 定义点赞数
 				int all = 0;
-				int i = 1;
+				int i = 0;
 				for (Article article : listArticleByUser) {
 					// 遍历文章所得到的赞
 					LikesExample likeExample = new LikesExample();

@@ -14,12 +14,12 @@
 <body>
 	<div class="recommended-authors">
 		<div class="title">
-			<span>推荐作者</span> <a class="page-change"><i
+			<span>推荐作者</span> <a class="page-change" onclick="ww(this)"><i
 				class="iconfont ic-search-change" style="transform: rotate(0deg);"></i>
 				换一批 </a>
 		</div>
-		<ul class="list">
-			<c:forEach items="${listRandomUserDTO}" var="listR">
+		<ul class="list" id="qwe">
+		<%-- 	<c:forEach items="${listRandomUserDTO}" var="listR">
 				<li><a href="${pageContext.request.contextPath}/user/myHome.do?user_Id=${listR.user.userId}" target="_blank"
 					class="avatar"> <img src="${pageContext.request.contextPath}/img/user.do?fileFileName=${listR.user.userPortrait }"></a> <!-- <a class="follow" ><i class="iconfont ic-follow"></i>关注 </a>  -->
 					<!--   如果是游客就跳转到登陆界面 --> <c:choose>
@@ -42,7 +42,7 @@
 					<a href="#" target="_blank" class="name"> ${listR.user.userName }
 				</a>
 					<p>一共获得了${listR.like}个喜欢</p></li>
-			</c:forEach>
+			</c:forEach> --%>
 
 		</ul>
 		<a href="" target="_blank" class="find-more"> 查看全部<i
@@ -52,6 +52,7 @@
 		src="${pageContext.request.contextPath }/js/jquery-2.11.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath }/js/toastr.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/homePage.js"></script>
 	<script type="text/javascript">
 		$(".ddd")
 				.hover(
@@ -60,7 +61,7 @@
 							if (l.indexOf("已关注") != -1) {
 								$(this)
 										.html(
-												'<i class="iconfont ic-unfollow"></i>取消关注')
+												'<i class="iconfont ic-unfollow "></i>取消关注')
 								$(this).css("color", "#000");
 							}
 
@@ -84,7 +85,7 @@
 								if (data.trim() == 'success') {
 									$('#' + id)
 											.html(
-													'<i class="iconfont ic-followed" style="color: #42c02e"></i>已关注')
+													'<i class="iconfont ic-followed" ></i>已关注')
 								} else if (data.trim() == 'cancelAttention') {
 									$('#' + id)
 											.html(
@@ -99,6 +100,37 @@
 								}
 							})
 		}
+		
+		function clearUl() {
+			$("#qwe").children().remove();
+		}
+		ww();
+		function ww() {
+			var s = '${sessionScope.session.userType}';
+			$.post("${pageContext.request.contextPath}/homePage/otherUser.do",{
+				"page" : 'dd'
+			},function(data){
+				console.log(data)
+				clearUl();
+				
+				$.each(data,function(){
+					var k = '<li><a href=\"${pageContext.request.contextPath}/user/myHome.do?user_Id='+this.user.userId+'\" target=\"_blank\" class=\"avatar\">'
+							+'<img src=\"${pageContext.request.contextPath}/img/user.do?fileFileName='+this.user.userPortrait+'\"></a>' ;
+							
+							if(s == 'tourists'){
+								k = k+'<a href=\"${pageContext.request.contextPath }/jump/login.do\" class=\"following\" style=\"color: #42c02e\">'+'<i class=\"iconfont ic-follow\" style=\"color: #42c02e\">'+'</i>关注 </a>';
+							}else{
+								k = k+'<a id=\"'+this.user.userId+'\" href=\"javascript:jj(\''+this.user.userId+'\');\" class=\"following ddd\" style=\"color: #42c02e\">'+'<i class=\"iconfont ic-follow\" style=\"color: #42c02e\"></i>关注 </a>';
+							}
+							k = k+'<a href=\"#\" target=\"_blank\" class=\"name\"> '+this.user.userName+'</a>'+'<p>一共获得了'+this.like+'个喜欢</p>'+'</li>';
+							
+							$("#qwe").append(k);
+					
+				});
+				
+			},"json");
+		} 
+		
 	</script>
 </body>
 </html>
