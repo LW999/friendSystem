@@ -67,9 +67,9 @@
 				<div id="list-container">
 
 					<!-- 文章列表模块需要遍历 -->
-					<c:forEach items="${listRandomArticlesDTO }" var="listR">
-						<ul class="note-list" infinite-scroll-url="/">
 
+					<ul class="note-list" infinite-scroll-url="/">
+						<c:forEach items="${listRandomArticlesDTO }" var="listR">
 							<li class="have-img"><a class="wrap-img"
 								href="${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id=${listR.article.articleId}"
 								target="_blank"> <img class="img-blur-done"
@@ -91,9 +91,9 @@
 											点赞数:${listR.likeNumber }</span> <span>发表时间：${listR.article.articleModifytime }</span>
 									</div>
 								</div></li>
-					</c:forEach>
-
+						</c:forEach>
 					</ul>
+					
 				</div>
 				<a data-page="3" href="#" class="load-more">阅读更多</a>
 			</div>
@@ -121,7 +121,7 @@
 	<jsp:include page="bottom.jsp"></jsp:include>
 
 
-	<%-- <script type="application/json" data-name="page-data">
+<script type="application/json" data-name="page-data">
 		{}
 	</script>
 	<script src="${pageContext.request.contextPath }/js/one.js"
@@ -131,10 +131,14 @@
 	<script src="${pageContext.request.contextPath }/js/there.js"
 		crossorigin="anonymous"></script>
 	<script src="${pageContext.request.contextPath }/js/fore.js"
-		crossorigin="anonymous"></script> --%>
+		crossorigin="anonymous"></script>
 
 
 	<script type="text/javascript">
+	ww();
+	function ww() {
+		
+	}
 		function myfun() {
 			var va2 = "${message}";
 			if (va2 == "noSession") {

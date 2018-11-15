@@ -55,6 +55,7 @@ public class HomePageController {
 	 * @return
 	 */
 	@RequestMapping("/index")
+	@ResponseBody
 	public ModelAndView homePage(@ModelAttribute("session") User userSession, Model map) {
 		// 使用 ModelAndView mod = new ModelAndView();
 		ModelAndView mod = new ModelAndView();
@@ -79,6 +80,7 @@ public class HomePageController {
 		mod.addObject("listRecommended", listRecommended);
 		mod.addObject("listRandomArticlesDTO", listRandomArticlesDTO);
 		mod.setViewName("/home/home");
+		
 		return mod;
 
 	}

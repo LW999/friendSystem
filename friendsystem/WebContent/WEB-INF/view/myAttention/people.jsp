@@ -37,7 +37,7 @@
 								<a href="#" target="_blank" class="name">${UALDTO.user.userName }</a>
 								<img
 									src="//upload.jianshu.io/user_badge/1014d32a-bf93-4005-aa0c-fac198d25377"
-									data-toggle="tooltip" data-original-title="帅帅的阿伟"
+									data-toggle="tooltip" data-original-title="优秀"
 									class="badge-icon">
 								<!---->
 							</div>

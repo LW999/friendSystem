@@ -80,7 +80,7 @@
 											<c:otherwise>
 												<button class="btn btn-delete" style="margin-left: 260px;"
 													onclick="javascript:jj('${listA.articleId }');">
-													<i class="iconfont ic-delete"></i>删除
+													<i class="iconfont ic-delete"></i> 删除
 												</button>
 											</c:otherwise>
 										</c:choose>
