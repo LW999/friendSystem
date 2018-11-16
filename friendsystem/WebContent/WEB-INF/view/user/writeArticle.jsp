@@ -77,11 +77,10 @@
 					<div id="div1" class="toolbar"></div>
 					<div style="padding: 5px 0;">
 						<input type="text" placeholder="${article.articleTitle }"
-							id="title" name="titleName">
+							id="title" name="titleName"><p class="pull-right">请输入标题</p>
 					</div>
 					<div id="div2" class="text">
 						<!--可使用 min-height 实现编辑区域自动增加高度-->
-						<p>使用 base64 保存图片</p>
 						${article.articleContent }
 
 					</div>
@@ -101,13 +100,12 @@
 					<button class="btn btn-delete" style="margin-left: 260px;"
 						onclick="release()">
 						<i class="iconfont ic-write"></i>发布
-					</button>
+					</button></form>
 			</div>
 
 		</div>
-		</from>
+		
 	</div>
-	${article.articleImg }
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath }/js/jquery-2.11.min.js"></script>
 	<script type="text/javascript"

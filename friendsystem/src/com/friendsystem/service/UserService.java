@@ -30,6 +30,7 @@ import com.friendsystem.pojo.Likes;
 import com.friendsystem.pojo.LikesExample;
 import com.friendsystem.pojo.Project;
 import com.friendsystem.util.BuildUuid;
+import com.friendsystem.util.RemoveHTML;
 import com.friendsystem.util.TimeUtil;
 import com.friendsystem.pojo.User;
 import com.friendsystem.pojo.UserExample;
@@ -204,6 +205,9 @@ public class UserService {
 			int allView = 0;
 			int i = 0;
 			for (Article article : listA) {
+				String outline = "";
+				outline = RemoveHTML.Html2Text(article.getArticleContent());
+				article.setOutline(outline);
 				LikesExample likesExample = new LikesExample();
 				com.friendsystem.pojo.LikesExample.Criteria criteria2 = likesExample.createCriteria();
 				criteria2.andLikearticleEqualTo(article.getArticleId());

@@ -80,8 +80,8 @@
 									<a class="title" target="__blank"
 										href="${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id=${listR.article.articleId}">${listR.article.articleTitle}</a>
 									<p class="abstract">
-										测试Test测试Test测试Test测试Test测试Test测试Test测试Test测试Test测试Test测试Test
-										测试Test测试Test测试Test测试Test测试Test测试Test...</p>
+										${listR.outline }...
+										</p>
 									<div class="meta">
 										<a class="nickname" target="_blank" href="">作者${listR.user.userName }</a>
 										<a target="_blank" href="#"> <i
@@ -124,14 +124,8 @@
 <script type="application/json" data-name="page-data">
 		{}
 	</script>
-	<script src="${pageContext.request.contextPath }/js/one.js"
-		crossorigin="anonymous"></script>
-	<script src="${pageContext.request.contextPath }/js/two.js"
-		crossorigin="anonymous"></script>
-	<script src="${pageContext.request.contextPath }/js/there.js"
-		crossorigin="anonymous"></script>
-	<script src="${pageContext.request.contextPath }/js/fore.js"
-		crossorigin="anonymous"></script>
+	<script src="${pageContext.request.contextPath }/js/two.js"></script>
+	<script src="${pageContext.request.contextPath }/js/there.js"></script>
 
 
 	<script type="text/javascript">

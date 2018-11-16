@@ -23,6 +23,7 @@ import com.friendsystem.pojo.Recommended;
 import com.friendsystem.pojo.User;
 import com.friendsystem.service.HomeService;
 import com.friendsystem.service.OperationService;
+import com.friendsystem.util.RemoveHTML;
 
 @Controller
 @SessionAttributes("session")
@@ -74,13 +75,15 @@ public class HomePageController {
 		List<Article_Like_CollectionDTO> listRandomArticlesDTO = homeService.getRandomArticles();
 		// 需要页面显示5个随机推荐的作者
 		List<User_LikeDTO> listRandomUserDTO = homeService.getRandomUsers(userSession);
+
 		mod.addObject("listRandomUserDTO", listRandomUserDTO);
 		System.out.println("hahahhahah:" + listRandomArticlesDTO.size());
 		mod.addObject("listProject", listProject);
 		mod.addObject("listRecommended", listRecommended);
+
 		mod.addObject("listRandomArticlesDTO", listRandomArticlesDTO);
 		mod.setViewName("/home/home");
-		
+
 		return mod;
 
 	}

@@ -50,6 +50,18 @@ public class Article {
 	 * 文章专题
 	 */
 	private String articleProject;
+	/**
+	 * 临时数据文章简介
+	 */
+	private String outline;
+
+	public String getOutline() {
+		return outline;
+	}
+
+	public void setOutline(String outline) {
+		this.outline = outline;
+	}
 
 	public String getArticleId() {
 		return articleId;
@@ -145,7 +157,7 @@ public class Article {
 				+ articleContent + ", articleByUser=" + articleByUser + ", articleIsRelease=" + articleIsRelease
 				+ ", articleIsDelete=" + articleIsDelete + ", articleViews=" + articleViews + ", articleImg="
 				+ articleImg + ", articleCreatetime=" + articleCreatetime + ", articleModifytime=" + articleModifytime
-				+ ", articleProject=" + articleProject + "]";
+				+ ", articleProject=" + articleProject + ", outline=" + outline + "]";
 	}
-	
+
 }

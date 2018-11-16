@@ -1,9 +1,7 @@
 package com.friendsystem.DTO;
 
-import java.util.List;
 
 import com.friendsystem.pojo.Article;
-import com.friendsystem.pojo.Collection;
 import com.friendsystem.pojo.User;
 
 /**
@@ -26,6 +24,10 @@ public class Article_Like_CollectionDTO {
 	 * 该文章的收藏数
 	 */
 	private int collectionNumber;
+	/**
+	 * 文章简介
+	 */
+	private String outline = "";
 
 	public Article getArticle() {
 		return article;
@@ -59,10 +61,19 @@ public class Article_Like_CollectionDTO {
 		this.user = user;
 	}
 
+	public String getOutline() {
+		return outline;
+	}
+
+	public void setOutline(String outline) {
+		this.outline = outline;
+	}
+
 	@Override
 	public String toString() {
 		return "Article_Like_CollectionDTO [user=" + user + ", article=" + article + ", likeNumber=" + likeNumber
-				+ ", collectionNumber=" + collectionNumber + "]";
+				+ ", collectionNumber=" + collectionNumber + ", outline=" + outline + "]";
 	}
+
 
 }

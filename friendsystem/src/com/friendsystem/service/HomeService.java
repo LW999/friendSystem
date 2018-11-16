@@ -2,11 +2,8 @@ package com.friendsystem.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
 import com.friendsystem.DTO.Article_Like_CollectionDTO;
 import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.mapper.ArticleMapper;
@@ -29,8 +26,8 @@ import com.friendsystem.pojo.ProjectExample;
 import com.friendsystem.pojo.ProjectExample.Criteria;
 import com.friendsystem.pojo.Recommended;
 import com.friendsystem.pojo.RecommendedExample;
-import com.friendsystem.pojo.User;;
-
+import com.friendsystem.pojo.User;
+import com.friendsystem.util.RemoveHTML;;
 @Service("homeService")
 public class HomeService {
 	@Resource
@@ -47,13 +44,11 @@ public class HomeService {
 	private UserMapper userMapper;// 用户DAO
 	@Resource
 	private AttentionPeopleMapper attentionPeopleMapper;// 关注DAO
-
 	/**
 	 * 查询所有专题
 	 * 
 	 * @return
 	 */
-
 	public List<Project> getAllProject() {
 		ProjectExample projectExample = new ProjectExample();
 		Criteria criteria = projectExample.createCriteria();
@@ -63,7 +58,6 @@ public class HomeService {
 		}
 		return null;
 	}
-
 	/**
 	 * 查询所有推荐
 	 * 
@@ -76,21 +70,16 @@ public class HomeService {
 		List<Recommended> listRecommended = recommendedMapper.selectByExample(null);
 		if (listRecommended.size() > 0) {
 			return listRecommended;
-
 		}
 		return null;
 	}
-
 	/**
 	 * 
 	 * @return listALCDTO
 	 */
-
 	public List<Article_Like_CollectionDTO> getRandomArticles() {
-
 		List<Article_Like_CollectionDTO> listALCDTO = new ArrayList<>();
 		List<Article> listArticle = articleMapper.selectByRand();// 得到十条随机文章
-
 		if (listArticle.size() > 0) {
 			for (Article article : listArticle) {
 				LikesExample likeExample = new LikesExample();
@@ -104,6 +93,9 @@ public class HomeService {
 				Article_Like_CollectionDTO ALCDTO = new Article_Like_CollectionDTO();
 				User user = new User();
 				user = userMapper.selectByPrimaryKey(article.getArticleByUser());
+				String outline = "";
+				outline = RemoveHTML.Html2Text(article.getArticleContent());
+				ALCDTO.setOutline(outline);
 				ALCDTO.setUser(user);
 				ALCDTO.setArticle(article);
 				ALCDTO.setCollectionNumber(collectionNumber);
@@ -113,11 +105,9 @@ public class HomeService {
 				}
 			}
 			return listALCDTO;
-
 		}
 		return null;
 	}
-
 	/**
 	 * 显示推荐作者
 	 * 
@@ -141,7 +131,6 @@ public class HomeService {
 				User userA = new User();
 				userA = userMapper.selectByPrimaryKey(attentionPeople.getAttentionPeopleUserTwo());
 				list.add(userA.getUserId());
-
 			}
 			listUsers = userMapper.getRandomUsersNoOneSelft(list);
 		}
@@ -153,7 +142,6 @@ public class HomeService {
 				com.friendsystem.pojo.ArticleExample.Criteria criteria = articleExample.createCriteria();
 				criteria.andArticleByUserEqualTo(user.getUserId());
 				criteria.andArticleIsDeleteEqualTo("0");
-
 				List<Article> listArticleByUser = articleMapper.selectByExample(articleExample);// 得到用户所写的文章
 				// 定义点赞数
 				int all = 0;
@@ -169,16 +157,13 @@ public class HomeService {
 					// 如果i等于集合的长度，吧all加入到DTO中
 					if (i == listArticleByUser.size()) {
 						ULDTO.setLike(all);
-
 					}
 				}
 				ULDTO.setUser(user);
 				listRandomUsers.add(ULDTO);
-
 			}
 			return listRandomUsers;
 		}
 		return null;
 	}
-
 }

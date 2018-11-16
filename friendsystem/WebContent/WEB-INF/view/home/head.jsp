@@ -171,13 +171,7 @@
 	<script type="application/json" data-name="page-data">
 		{}
 	</script>
-	<script src="${pageContext.request.contextPath }/js/one.js"
-		crossorigin="anonymous"></script>
-	<script src="${pageContext.request.contextPath }/js/two.js"
-		crossorigin="anonymous"></script>
-	<script src="${pageContext.request.contextPath }/js/there.js"
-		crossorigin="anonymous"></script>
-	<script src="${pageContext.request.contextPath }/js/fore.js"
-		crossorigin="anonymous"></script>
+	<script src="${pageContext.request.contextPath }/js/two.js"></script>
+	<script src="${pageContext.request.contextPath }/js/there.js"></script>
 </body>
 </html>

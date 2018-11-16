@@ -14,8 +14,8 @@
 <body>
 	<div class="recommended-authors">
 		<div class="title">
-			<span>推荐作者</span> <a class="page-change" onclick="ww(this)"><i
-				class="iconfont ic-search-change" style="transform: rotate(0deg);"></i>
+			<span>推荐作者</span> <a class="page-change" onclick="www(this)"><i
+				class="iconfont ic-search-change" style="transform: rotate(5deg);"></i>
 				换一批 </a>
 		</div>
 		<ul class="list" id="qwe">
@@ -52,85 +52,77 @@
 		src="${pageContext.request.contextPath }/js/jquery-2.11.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath }/js/toastr.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/homePage.js"></script>
-	<script type="text/javascript">
-		$(".ddd")
-				.hover(
-						function() {
-							var l = $(this).html();
-							if (l.indexOf("已关注") != -1) {
-								$(this)
-										.html(
-												'<i class="iconfont ic-unfollow "></i>取消关注')
-								$(this).css("color", "#000");
-							}
-
-						},
-						function() {
-							var l = $(this).html();
-							if (l.indexOf("取消关注") != -1) {
-								$(this)
-										.html(
-												'<i class="iconfont ic-follow" style="color: #000">已关注</i>')
-								$(this).removeCSS("color");
-							}
-						});
-		function jj(id) {
-			$
-					.get(
-							"${pageContext.request.contextPath}/user/attentionUser.do?user_Id="
-									+ id + "",
-							function(data) {
-								console.log('dd:' + data)
-								if (data.trim() == 'success') {
-									$('#' + id)
-											.html(
-													'<i class="iconfont ic-followed" ></i>已关注')
-								} else if (data.trim() == 'cancelAttention') {
-									$('#' + id)
-											.html(
-													'<i class="iconfont ic-follow" style="color: #42c02e">关注</i>')
-								}
-
-								if (data.trim() == "success") {
-									toastr.success("关注成功")
-								}
-								if (data.trim() == "cancelAttention") {
-									toastr.warning("取消关注")
-								}
-							})
-		}
 		
+	<script type="text/javascript">
+	www();
+	function www() {
+		var s = '${sessionScope.session.userType}';
+		$.post("${pageContext.request.contextPath}/homePage/otherUser.do",
+				{
+			"page" : 'dd'
+		},function(data){
+			
+			console.log(data)
+			clearUl();
+			$.each(data,function(){
+				var k = '<li><a href=\"${pageContext.request.contextPath}/user/myHome.do?user_Id='+this.user.userId+'\" target=\"_blank\" class=\"avatar\">'
+						+'<img src=\"${pageContext.request.contextPath}/img/user.do?fileFileName='+this.user.userPortrait+'\"></a>' ;
+						
+						if(s == 'tourists'){
+							k = k+'<a href=\"${pageContext.request.contextPath }/jump/login.do\" class=\"following\" style=\"color: #42c02e\">'+'<i class=\"iconfont ic-follow\" style=\"color: #42c02e\">'+'</i>关注 </a>';
+						}else{
+							k = k+'<a id=\"'+this.user.userId+'\" href=\"javascript:jj(\''+this.user.userId+'\');\" class=\"following ddd\" style=\"color: #42c02e\">'+'<i class=\"iconfont ic-follow\" style=\"color: #42c02e\"></i>关注 </a>';
+						}
+						k = k+'<a href=\"#\" target=\"_blank\" class=\"name\"> '+this.user.userName+'</a>'+'<p>一共获得了'+this.like+'个喜欢</p>'+'</li>';
+						
+						$("#qwe").append(k);
+				
+			});
+			attentionHover();
+		},"json");
+		
+	}
+		function attentionHover(){
+			$(".ddd").hover(function() {	
+				var l = $(this).html();
+				if (l.indexOf("已关注") != -1) {
+					$(this).html('<i class="iconfont ic-unfollow "></i>取消关注')
+					$(this).css("color", "#000");
+				}
+			},
+			function() {
+				var l = $(this).html();
+				if (l.indexOf("取消关注") != -1) {
+					$(this).html('<i class="iconfont ic-follow" style="color: #000">已关注</i>')
+					console.log('d:',$(this))
+					$(this).css("color","#000");
+				}
+			});
+		}
+	
+		function jj(id) {
+			$.get("${pageContext.request.contextPath}/user/attentionUser.do?user_Id="+ id + "",
+			function(data) {
+				if (data.trim() == 'success') {
+					$('#' + id).html('<i class="iconfont ic-followed" style="color: #000"></i>已关注')
+					$('#' + id).css("color","#000");
+				} else if (data.trim() == 'cancelAttention') {
+					$('#' + id).html('<i class="iconfont ic-follow" style="color: #42c02e">关注</i>')
+				}
+				if (data.trim() == "success") {
+					toastr.success("关注成功")
+				}
+				if (data.trim() == "cancelAttention") {
+					toastr.warning("取消关注")
+				}
+			})
+		}
 		function clearUl() {
 			$("#qwe").children().remove();
 		}
-		ww();
-		function ww() {
-			var s = '${sessionScope.session.userType}';
-			$.post("${pageContext.request.contextPath}/homePage/otherUser.do",{
-				"page" : 'dd'
-			},function(data){
-				console.log(data)
-				clearUl();
-				
-				$.each(data,function(){
-					var k = '<li><a href=\"${pageContext.request.contextPath}/user/myHome.do?user_Id='+this.user.userId+'\" target=\"_blank\" class=\"avatar\">'
-							+'<img src=\"${pageContext.request.contextPath}/img/user.do?fileFileName='+this.user.userPortrait+'\"></a>' ;
-							
-							if(s == 'tourists'){
-								k = k+'<a href=\"${pageContext.request.contextPath }/jump/login.do\" class=\"following\" style=\"color: #42c02e\">'+'<i class=\"iconfont ic-follow\" style=\"color: #42c02e\">'+'</i>关注 </a>';
-							}else{
-								k = k+'<a id=\"'+this.user.userId+'\" href=\"javascript:jj(\''+this.user.userId+'\');\" class=\"following ddd\" style=\"color: #42c02e\">'+'<i class=\"iconfont ic-follow\" style=\"color: #42c02e\"></i>关注 </a>';
-							}
-							k = k+'<a href=\"#\" target=\"_blank\" class=\"name\"> '+this.user.userName+'</a>'+'<p>一共获得了'+this.like+'个喜欢</p>'+'</li>';
-							
-							$("#qwe").append(k);
-					
-				});
-				
-			},"json");
-		} 
-		
-	</script>
+	</script> 
+	
+	
+	
 </body>
 </html>
