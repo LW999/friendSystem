@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.friendsystem.DTO.Article_Like_CollectionDTO;
+import com.friendsystem.DTO.LikeDTO;
 import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.mapper.ArticleMapper;
 import com.friendsystem.mapper.AttentionPeopleMapper;
@@ -27,7 +28,10 @@ import com.friendsystem.pojo.ProjectExample.Criteria;
 import com.friendsystem.pojo.Recommended;
 import com.friendsystem.pojo.RecommendedExample;
 import com.friendsystem.pojo.User;
-import com.friendsystem.util.RemoveHTML;;
+import com.friendsystem.util.BuildUuid;
+import com.friendsystem.util.RemoveHTML;
+import com.friendsystem.util.TimeUtil;;
+
 @Service("homeService")
 public class HomeService {
 	@Resource
@@ -44,6 +48,7 @@ public class HomeService {
 	private UserMapper userMapper;// 用户DAO
 	@Resource
 	private AttentionPeopleMapper attentionPeopleMapper;// 关注DAO
+
 	/**
 	 * 查询所有专题
 	 * 
@@ -58,6 +63,7 @@ public class HomeService {
 		}
 		return null;
 	}
+
 	/**
 	 * 查询所有推荐
 	 * 
@@ -73,6 +79,7 @@ public class HomeService {
 		}
 		return null;
 	}
+
 	/**
 	 * 
 	 * @return listALCDTO
@@ -108,6 +115,7 @@ public class HomeService {
 		}
 		return null;
 	}
+
 	/**
 	 * 显示推荐作者
 	 * 
@@ -165,5 +173,42 @@ public class HomeService {
 			return listRandomUsers;
 		}
 		return null;
+	}
+
+	public LikeDTO getLikes(String article_Id, String user_Id) {
+		LikeDTO likeDTO = new LikeDTO();
+		String message = "";
+		
+		/* Article article = new Article(); */
+		LikesExample likesExample = new LikesExample();
+		com.friendsystem.pojo.LikesExample.Criteria criteria = likesExample.createCriteria();
+		criteria.andLikepeopleEqualTo(user_Id);
+		criteria.andLikearticleEqualTo(article_Id);
+		List<Likes> listLike = likeMapper.selectByExample(likesExample);// 查询用户是否点赞
+		LikesExample likesExample2 = new LikesExample();
+		com.friendsystem.pojo.LikesExample.Criteria criteria2 = likesExample2.createCriteria();
+		criteria2.andLikearticleEqualTo(article_Id);
+		int likes = likeMapper.countByExample(likesExample2);// 该文章的点赞数
+		if (listLike.size() > 0) {
+			message = "cancel";
+			likes = likes - 1;
+			likeDTO.setLikes(likes);
+			likeDTO.setMessage(message);
+			likeMapper.deleteByPrimaryKey(listLike.get(0).getLikeid());
+
+		} else {
+			message = "success";
+			likes = likes + 1;
+			likeDTO.setLikes(likes);
+			likeDTO.setMessage(message);
+			Likes likes2 = new Likes();
+			likes2.setLikeid(BuildUuid.getUuid());
+			likes2.setLikearticle(article_Id);
+			likes2.setLikecreatetime(TimeUtil.getStringSecond());
+			likes2.setLikemodifytime(TimeUtil.getStringSecond());
+			likes2.setLikepeople(user_Id);
+			likeMapper.insert(likes2);
+		}
+		return likeDTO;
 	}
 }

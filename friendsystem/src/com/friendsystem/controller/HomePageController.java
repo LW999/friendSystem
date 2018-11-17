@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.friendsystem.DTO.Article_DetailsDTO;
 import com.friendsystem.DTO.Article_Like_CollectionDTO;
+import com.friendsystem.DTO.LikeDTO;
 import com.friendsystem.DTO.User_ArticleDTO;
 import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.pojo.Project;
@@ -73,11 +74,15 @@ public class HomePageController {
 		List<Recommended> listRecommended = homeService.getRecommended();
 		// 需要页面随机显示的文章
 		List<Article_Like_CollectionDTO> listRandomArticlesDTO = homeService.getRandomArticles();
-		// 需要页面显示5个随机推荐的作者
-		List<User_LikeDTO> listRandomUserDTO = homeService.getRandomUsers(userSession);
+		/*
+		 * // 需要页面显示5个随机推荐的作者 List<User_LikeDTO> listRandomUserDTO =
+		 * homeService.getRandomUsers(userSession);
+		 */
 
-		mod.addObject("listRandomUserDTO", listRandomUserDTO);
-		System.out.println("hahahhahah:" + listRandomArticlesDTO.size());
+		/*
+		 * mod.addObject("listRandomUserDTO", listRandomUserDTO);
+		 * System.out.println("hahahhahah:" + listRandomArticlesDTO.size());
+		 */
 		mod.addObject("listProject", listProject);
 		mod.addObject("listRecommended", listRecommended);
 
@@ -134,5 +139,23 @@ public class HomePageController {
 		System.out.println("DDDDDD>:" + page);
 		List<User_LikeDTO> listRandomUserDTO = homeService.getRandomUsers(userSession);
 		return listRandomUserDTO;
+	}
+
+	/**
+	 * 喜欢某篇文章
+	 * 
+	 */
+	@RequestMapping("likeArticle")
+	@ResponseBody
+	public LikeDTO likeArticle(String article_Id, String user_Id) {
+		System.out.println("文章：" + article_Id);
+		System.out.println("user:" + user_Id);
+		if (article_Id != null && article_Id.length() > 0 && user_Id != null && user_Id.trim().length() > 0) {
+			LikeDTO likeDTO = new LikeDTO();
+			likeDTO = homeService.getLikes(article_Id, user_Id);
+			System.out.println("KKKKK:" + likeDTO.getMessage());
+			return likeDTO;
+		}
+		return null;
 	}
 }

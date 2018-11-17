@@ -61,7 +61,7 @@
 				{
 			"page" : 'dd'
 		},function(data){
-			
+		
 			console.log(data)
 			clearUl();
 			$.each(data,function(){

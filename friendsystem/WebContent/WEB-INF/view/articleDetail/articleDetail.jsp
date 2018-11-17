@@ -10,6 +10,11 @@
 	href="${pageContext.request.contextPath }/css/entry-00e12f5a757a30f65da3.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/css/web-bfc15fabb3b20492f7d4.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/toastr.css">
+<!-- 图标 -->
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath }/img/logo.ico" />
 <style type="text/css">
 @charset "UTF-8";
 /*
@@ -104,11 +109,17 @@
 background-position
 
 
+
+
 :
+
 
  
 
+
 right
+
+
 
 
 ;
@@ -124,11 +135,17 @@ keyframes likeBlast-data-v-6ddd02c6 { 0% {
 background-position
 
 
+
+
 :
+
 
  
 
+
 right
+
+
 
 
 ;
@@ -167,7 +184,8 @@ right
 							<!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
 							<span class="publish-time">${article_DetailsDTO.article.articleModifytime}</span>
 							<span class="wordage">字数 715</span> <span class="views-count">阅读
-							${article_DetailsDTO.article.articleViews}	</span><span class="comments-count">评论</span><span class="likes-count">喜欢
+								${article_DetailsDTO.article.articleViews} </span><span
+								class="comments-count">评论</span><span class="likes-count">喜欢
 								${article_DetailsDTO.like }</span>
 						</div>
 					</div>
@@ -216,13 +234,18 @@ right
 
 				<div class="meta-bottom">
 					<div data-v-6ddd02c6="" class="like">
+
 						<div data-v-6ddd02c6="" class="btn like-group">
+							<!-- btn like-group like-animation -->
+
 							<div data-v-6ddd02c6="" class="btn-like">
-								<a data-v-6ddd02c6="">喜欢</a>
+								<a data-v-6ddd02c6="" >喜欢</a>
 							</div>
-							<div data-v-6ddd02c6="" class="modal-wrap">
-								<a data-v-6ddd02c6="">${article_DetailsDTO.like }</a>
+
+							<div data-v-6ddd02c6="" class="modal-wrap" id="qwe">
+								<a data-v-6ddd02c6="" onclick="like(this)" >${article_DetailsDTO.like }</a>
 							</div>
+
 						</div>
 						<!---->
 					</div>
@@ -294,7 +317,7 @@ right
 											<div data-v-f3bf5228="" class="v-tooltip-container"
 												style="z-index: 0;">
 												<div class="v-tooltip-content">
-													<a href="/u/6c43219713a5" target="_blank" class="avatar"><img
+													<a href="#" target="_blank" class="avatar"><img
 														src="//upload.jianshu.io/users/upload_avatars/8312573/0a89da57-65e5-423c-8d8a-f257eba1388a.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/114/h/114"></a>
 												</div>
 												<!---->
@@ -402,8 +425,30 @@ right
 
 	</div>
 
-<%-- 	<%@include file="more.jsp"%>
+	<%-- 	<%@include file="more.jsp"%>
  --%>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/jquery-2.11.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/toastr.js"></script>
+	<script type="text/javascript">
+		function like(obj) {
+			var g = obj;
+			var $obj = $(obj)
+				$.post("${pageContext.request.contextPath}/homePage/likeArticle.do",{
+					"article_Id" : '${article_DetailsDTO.article.articleId }',
+					"user_Id" : '${sessionScope.session.userId}'
+				},function(data){
+					$obj.text(data.likes)
+					if('cancel' == data.message.trim()){
+						$obj.parent().parent().removeClass("like-animation");
+					}else{
+						$obj.parent().parent().addClass("like-animation");
+					}
+				},"json");
+		}
+	</script>
+
 
 </body>
 

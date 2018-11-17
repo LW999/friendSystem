@@ -126,7 +126,7 @@ public class OperationService {
 					com.friendsystem.pojo.LikesExample.Criteria criteria3 = likeExample.createCriteria();
 					criteria3.andLikearticleEqualTo(article2.getArticleId());
 					int likeByArticle2 = likeMapper.countByExample(likeExample2);
-
+					
 					all = all + likeByArticle2;
 					i++;
 					// 如果i等于集合的长度，吧all加入到DTO中
