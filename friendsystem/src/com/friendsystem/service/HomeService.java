@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.friendsystem.DTO.Article_Like_CollectionDTO;
 import com.friendsystem.DTO.LikeDTO;
+import com.friendsystem.DTO.UserLikeAndTimeDTO;
 import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.mapper.ArticleMapper;
 import com.friendsystem.mapper.AttentionPeopleMapper;
@@ -178,7 +179,7 @@ public class HomeService {
 	public LikeDTO getLikes(String article_Id, String user_Id) {
 		LikeDTO likeDTO = new LikeDTO();
 		String message = "";
-		
+
 		/* Article article = new Article(); */
 		LikesExample likesExample = new LikesExample();
 		com.friendsystem.pojo.LikesExample.Criteria criteria = likesExample.createCriteria();
@@ -210,5 +211,33 @@ public class HomeService {
 			likeMapper.insert(likes2);
 		}
 		return likeDTO;
+	}
+
+	/**
+	 * 查看文章点赞的有什么用户
+	 * 
+	 * @param article_Id
+	 * @return
+	 */
+	public List<UserLikeAndTimeDTO> getUserLike(String article_Id) {
+		List<UserLikeAndTimeDTO> listU = new ArrayList<>();
+
+		List<Likes> listLike = new ArrayList<>();
+		List<User> listUser = new ArrayList<>();
+		LikesExample likesExample = new LikesExample();
+		com.friendsystem.pojo.LikesExample.Criteria criteria = likesExample.createCriteria();
+		criteria.andLikearticleEqualTo(article_Id);
+		listLike = likeMapper.selectByExample(likesExample);
+		if (listLike.size() > 0) {
+			for (Likes likes : listLike) {
+				UserLikeAndTimeDTO DTO = new UserLikeAndTimeDTO();
+				User user = new User();
+				user = userMapper.selectByPrimaryKey(likes.getLikepeople());
+				DTO.setUser(user);
+				DTO.setTime(likes.getLikecreatetime());
+				listU.add(DTO);
+			}
+		}
+		return listU;
 	}
 }

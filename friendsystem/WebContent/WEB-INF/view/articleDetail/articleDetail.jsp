@@ -111,13 +111,31 @@ background-position
 
 
 
+
+
+
+
+
+
 :
+
+
+
 
 
  
 
 
+
+
+
 right
+
+
+
+
+
+
 
 
 
@@ -137,13 +155,31 @@ background-position
 
 
 
+
+
+
+
+
+
 :
+
+
+
 
 
  
 
 
+
+
+
 right
+
+
+
+
+
+
 
 
 
@@ -234,196 +270,256 @@ right
 
 				<div class="meta-bottom">
 					<div data-v-6ddd02c6="" class="like">
+						<c:choose>
+							<c:when test="${isLike eq 'no'}">
+								<div data-v-6ddd02c6="" class="btn like-group">
+							</c:when>
+							<c:when test="${isLike eq 'already2'}">
+								<div data-v-6ddd02c6="" class="btn like-group">
+							</c:when>
+							<c:otherwise>
+								<div data-v-6ddd02c6="" class="btn like-group like-animation">
+							</c:otherwise>
 
-						<div data-v-6ddd02c6="" class="btn like-group">
-							<!-- btn like-group like-animation -->
+						</c:choose>
 
-							<div data-v-6ddd02c6="" class="btn-like">
-								<a data-v-6ddd02c6="" >喜欢</a>
-							</div>
+						<!-- btn like-group like-animation -->
 
-							<div data-v-6ddd02c6="" class="modal-wrap" id="qwe">
-								<a data-v-6ddd02c6="" onclick="like(this)" >${article_DetailsDTO.like }</a>
-							</div>
+						<div data-v-6ddd02c6="" class="btn-like">
+							<a data-v-6ddd02c6="" 
+								onclick="userlike()" data-toggle="modal" data-target="#myModal">喜欢 
+								<i class="iconfont ic-like"></i></a>
+								<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+   									 打开模态框
+ 								 </button> -->
+								
+						</div>
+						<div data-v-6ddd02c6="" class="modal-wrap">
+							<c:choose>
+								<c:when test="${sessionScope.session.userType eq 'tourists'}">
+									<a data-v-6ddd02c6=""
+										href="${pageContext.request.contextPath }/jump/login.do">点赞
+										${article_DetailsDTO.like }</a>
+								</c:when>
+								<c:when test="${sessionScope.session.userType eq 'user'}">
+									<a data-v-6ddd02c6="" onclick="like(this)">点赞
+										${article_DetailsDTO.like }</a>
+								</c:when>
+							</c:choose>
+
 
 						</div>
+
+					</div>
+					<!---->
+				</div>
+				<div id="comment-list" class="comment-list">
+					<div>
+						<form class="new-comment">
+							<a class="avatar"><img
+								src="${pageContext.request.contextPath}/img/user.do?fileFileName=bb38223dcca747baa7a10b4850a6f049.png"></a>
+							<div class="sign-container">
+								<a
+									href="/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-comment-form"
+									class="btn btn-sign">登录</a> <span>后发表评论</span>
+							</div>
+						</form>
 						<!---->
 					</div>
-					<div id="comment-list" class="comment-list">
+					<!---->
+					<div class="comments-placeholder" style="display: none;">
+						<div class="author">
+							<div class="avatar"></div>
+							<div class="info">
+								<div class="name"></div>
+								<div class="meta"></div>
+							</div>
+						</div>
+						<div class="text"></div>
+						<div class="text animation-delay"></div>
+						<div class="tool-group">
+							<i class="iconfont ic-zan-active"></i>
+							<div class="zan"></div>
+							<i class="iconfont ic-list-comments"></i>
+							<div class="zan"></div>
+						</div>
+					</div>
+					<div id="normal-comment-list" class="normal-comment-list">
 						<div>
-							<form class="new-comment">
-								<a class="avatar"><img
-									src="${pageContext.request.contextPath}/img/user.do?fileFileName=bb38223dcca747baa7a10b4850a6f049.png"></a>
-								<div class="sign-container">
-									<a
-										href="/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-comment-form"
-										class="btn btn-sign">登录</a> <span>后发表评论</span>
+							<div>
+								<div class="top-title">
+									<span>25条评论</span> <a class="author-only">只看作者</a> <a
+										class="close-btn" style="display: none;">关闭评论</a>
+									<div class="pull-right">
+										<a class="active">按时间倒序</a> <a class="">按时间正序</a>
+									</div>
 								</div>
-							</form>
+							</div>
+							<!---->
+							<!---->
+							<div class="comments-placeholder" style="display: none;">
+								<div class="author">
+									<div class="avatar"></div>
+									<div class="info">
+										<div class="name"></div>
+										<div class="meta"></div>
+									</div>
+								</div>
+								<div class="text"></div>
+								<div class="text animation-delay"></div>
+								<div class="tool-group">
+									<i class="iconfont ic-zan-active"></i>
+									<div class="zan"></div>
+									<i class="iconfont ic-list-comments"></i>
+									<div class="zan"></div>
+								</div>
+							</div>
+
+							<div id="comment-29705040" class="comment">
+								<div>
+									<div class="author">
+										<div data-v-f3bf5228="" class="v-tooltip-container"
+											style="z-index: 0;">
+											<div class="v-tooltip-content">
+												<a href="#" target="_blank" class="avatar"><img
+													src="//upload.jianshu.io/users/upload_avatars/8312573/0a89da57-65e5-423c-8d8a-f257eba1388a.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/114/h/114"></a>
+											</div>
+											<!---->
+										</div>
+										<div class="info">
+											<a href="/u/6c43219713a5" target="_blank" class="name">暖暖的柠檬树</a>
+											<!---->
+											<!---->
+											<div class="meta">
+												<span>10楼 · 2018.10.17 21:20</span>
+											</div>
+										</div>
+									</div>
+									<div class="comment-wrap">
+										<p>
+											大道至简<img src="//static.jianshu.io/assets/emojis/+1.png"
+												alt=":+1:" title=":+1:" class="emoji" width="20" height="20"><img
+												src="//static.jianshu.io/assets/emojis/+1.png" alt=":+1:"
+												title=":+1:" class="emoji" width="20" height="20">
+										</p>
+										<div class="tool-group">
+											<a data-v-cdecbe24="" id="like-button-29705040"
+												class="like-button"><span data-v-cdecbe24="">赞</span></a> <a
+												class=""><i class="iconfont ic-comment"></i> <span>回复</span></a>
+											<!---->
+											<!---->
+										</div>
+									</div>
+								</div>
+								<div class="sub-comment-list hide">
+									<!---->
+									<!---->
+								</div>
+							</div>
+
+							<div id="comment-29539196" class="comment">
+								<div>
+									<div class="author">
+										<div data-v-f3bf5228="" class="v-tooltip-container"
+											style="z-index: 0;">
+											<div class="v-tooltip-content">
+												<a href="/u/336801e4b84d" target="_blank" class="avatar"><img
+													src="//upload.jianshu.io/users/upload_avatars/3773633/6c967515-aadf-451c-85f2-de2748a3b380.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/114/h/114"></a>
+											</div>
+											<!---->
+										</div>
+										<div class="info">
+											<a href="/u/336801e4b84d" target="_blank" class="name">高颖苗Darren</a>
+											<!---->
+											<!---->
+											<div class="meta">
+												<span>8楼 · 2018.10.12 23:26</span>
+											</div>
+										</div>
+									</div>
+									<div class="comment-wrap">
+										<p>还门道呢，想骗你钱而已，自己还没赚的够开花呢，会傻不拉几的告你一个陌生人？</p>
+										<div class="tool-group">
+											<a data-v-cdecbe24="" id="like-button-29539196"
+												class="like-button"><span data-v-cdecbe24="">赞</span></a> <a
+												class=""><i class="iconfont ic-comment"></i> <span>回复</span></a>
+											<!---->
+											<!---->
+										</div>
+									</div>
+								</div>
+								<div class="sub-comment-list hide">
+									<!---->
+									<!---->
+								</div>
+							</div>
+
+							<div id="comment-28793185" class="sub-comment">
+								<p>
+								<div data-v-f3bf5228="" class="v-tooltip-container"
+									style="z-index: 0;">
+									<div class="v-tooltip-content">
+										<a href="/u/c1ee0cbb0bfb" target="_blank">星流瀑布</a>：
+									</div>
+									<!---->
+								</div>
+								<span><a href="/u/79174c45f369" class="maleskine-author"
+									target="_blank" data-user-slug="79174c45f369">@米米心</a>
+									我有门道，可以聊聊</span>
+								</p>
+								<div class="sub-tool-group">
+									<span>2018.09.19 07:39</span> <a class=""><i
+										class="iconfont ic-comment"></i> <span>回复</span></a>
+									<!---->
+									<!---->
+								</div>
+							</div>
+
+							<!---->
 							<!---->
 						</div>
 						<!---->
-						<div class="comments-placeholder" style="display: none;">
-							<div class="author">
-								<div class="avatar"></div>
-								<div class="info">
-									<div class="name"></div>
-									<div class="meta"></div>
-								</div>
-							</div>
-							<div class="text"></div>
-							<div class="text animation-delay"></div>
-							<div class="tool-group">
-								<i class="iconfont ic-zan-active"></i>
-								<div class="zan"></div>
-								<i class="iconfont ic-list-comments"></i>
-								<div class="zan"></div>
-							</div>
-						</div>
-						<div id="normal-comment-list" class="normal-comment-list">
-							<div>
-								<div>
-									<div class="top-title">
-										<span>25条评论</span> <a class="author-only">只看作者</a> <a
-											class="close-btn" style="display: none;">关闭评论</a>
-										<div class="pull-right">
-											<a class="active">按时间倒序</a> <a class="">按时间正序</a>
-										</div>
-									</div>
-								</div>
-								<!---->
-								<!---->
-								<div class="comments-placeholder" style="display: none;">
-									<div class="author">
-										<div class="avatar"></div>
-										<div class="info">
-											<div class="name"></div>
-											<div class="meta"></div>
-										</div>
-									</div>
-									<div class="text"></div>
-									<div class="text animation-delay"></div>
-									<div class="tool-group">
-										<i class="iconfont ic-zan-active"></i>
-										<div class="zan"></div>
-										<i class="iconfont ic-list-comments"></i>
-										<div class="zan"></div>
-									</div>
-								</div>
-
-								<div id="comment-29705040" class="comment">
-									<div>
-										<div class="author">
-											<div data-v-f3bf5228="" class="v-tooltip-container"
-												style="z-index: 0;">
-												<div class="v-tooltip-content">
-													<a href="#" target="_blank" class="avatar"><img
-														src="//upload.jianshu.io/users/upload_avatars/8312573/0a89da57-65e5-423c-8d8a-f257eba1388a.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/114/h/114"></a>
-												</div>
-												<!---->
-											</div>
-											<div class="info">
-												<a href="/u/6c43219713a5" target="_blank" class="name">暖暖的柠檬树</a>
-												<!---->
-												<!---->
-												<div class="meta">
-													<span>10楼 · 2018.10.17 21:20</span>
-												</div>
-											</div>
-										</div>
-										<div class="comment-wrap">
-											<p>
-												大道至简<img src="//static.jianshu.io/assets/emojis/+1.png"
-													alt=":+1:" title=":+1:" class="emoji" width="20"
-													height="20"><img
-													src="//static.jianshu.io/assets/emojis/+1.png" alt=":+1:"
-													title=":+1:" class="emoji" width="20" height="20">
-											</p>
-											<div class="tool-group">
-												<a data-v-cdecbe24="" id="like-button-29705040"
-													class="like-button"><span data-v-cdecbe24="">赞</span></a> <a
-													class=""><i class="iconfont ic-comment"></i> <span>回复</span></a>
-												<!---->
-												<!---->
-											</div>
-										</div>
-									</div>
-									<div class="sub-comment-list hide">
-										<!---->
-										<!---->
-									</div>
-								</div>
-
-								<div id="comment-29539196" class="comment">
-									<div>
-										<div class="author">
-											<div data-v-f3bf5228="" class="v-tooltip-container"
-												style="z-index: 0;">
-												<div class="v-tooltip-content">
-													<a href="/u/336801e4b84d" target="_blank" class="avatar"><img
-														src="//upload.jianshu.io/users/upload_avatars/3773633/6c967515-aadf-451c-85f2-de2748a3b380.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/114/h/114"></a>
-												</div>
-												<!---->
-											</div>
-											<div class="info">
-												<a href="/u/336801e4b84d" target="_blank" class="name">高颖苗Darren</a>
-												<!---->
-												<!---->
-												<div class="meta">
-													<span>8楼 · 2018.10.12 23:26</span>
-												</div>
-											</div>
-										</div>
-										<div class="comment-wrap">
-											<p>还门道呢，想骗你钱而已，自己还没赚的够开花呢，会傻不拉几的告你一个陌生人？</p>
-											<div class="tool-group">
-												<a data-v-cdecbe24="" id="like-button-29539196"
-													class="like-button"><span data-v-cdecbe24="">赞</span></a> <a
-													class=""><i class="iconfont ic-comment"></i> <span>回复</span></a>
-												<!---->
-												<!---->
-											</div>
-										</div>
-									</div>
-									<div class="sub-comment-list hide">
-										<!---->
-										<!---->
-									</div>
-								</div>
-
-								<div id="comment-28793185" class="sub-comment">
-									<p>
-									<div data-v-f3bf5228="" class="v-tooltip-container"
-										style="z-index: 0;">
-										<div class="v-tooltip-content">
-											<a href="/u/c1ee0cbb0bfb" target="_blank">星流瀑布</a>：
-										</div>
-										<!---->
-									</div>
-									<span><a href="/u/79174c45f369" class="maleskine-author"
-										target="_blank" data-user-slug="79174c45f369">@米米心</a>
-										我有门道，可以聊聊</span>
-									</p>
-									<div class="sub-tool-group">
-										<span>2018.09.19 07:39</span> <a class=""><i
-											class="iconfont ic-comment"></i> <span>回复</span></a>
-										<!---->
-										<!---->
-									</div>
-								</div>
-
-								<!---->
-								<!---->
-							</div>
-							<!---->
-						</div>
 					</div>
 				</div>
 			</div>
-			<!---->
 		</div>
-
+		<!---->
 	</div>
+	<!-- ；模态框显示 -->
+	 <!-- 模态框 -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog" style="left: 34%;top: 20%;width: 600px;">
+      <div class="modal-content">
+   
+        <!-- 模态框头部 -->
+        <div class="modal-header" style="border-bottom-width: 0px; padding-bottom: 10px; padding-top: 20px;">
+          <table >
+          	<tr>
+          	<td><h4 class="modal-title">喜欢的人</h4></td>
+          	
+          	</tr>
+          	
+          </table>
+        
+          
+        </div>
+   
+        <!-- 模态框主体 -->
+        <div class="modal-body" style="padding-top: 10px;">
+        	<ul id = "userRRR" style="list-style: none;">
+        		<li>1das<span>hhahha</span></li>
+        	</ul>
+        </div>
+   
+        <!-- 模态框底部 -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        </div>
+   
+      </div>
+    </div>
+  </div>
+  
 
 	<%-- 	<%@include file="more.jsp"%>
  --%>
@@ -431,22 +527,51 @@ right
 		src="${pageContext.request.contextPath }/js/jquery-2.11.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath }/js/toastr.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/bootstrap-3.37.min.js"></script>
 	<script type="text/javascript">
 		function like(obj) {
 			var g = obj;
 			var $obj = $(obj)
-				$.post("${pageContext.request.contextPath}/homePage/likeArticle.do",{
-					"article_Id" : '${article_DetailsDTO.article.articleId }',
-					"user_Id" : '${sessionScope.session.userId}'
-				},function(data){
-					$obj.text(data.likes)
-					if('cancel' == data.message.trim()){
-						$obj.parent().parent().removeClass("like-animation");
-					}else{
-						$obj.parent().parent().addClass("like-animation");
-					}
-				},"json");
+			$
+					.post(
+							"${pageContext.request.contextPath}/homePage/likeArticle.do",
+							{
+								"article_Id" : '${article_DetailsDTO.article.articleId }',
+								"user_Id" : '${sessionScope.session.userId}'
+							}, function(data) {
+								$obj.text('点赞 ' + data.likes)
+								if ('cancel' == data.message.trim()) {
+									$obj.parent().parent().removeClass(
+											"like-animation");
+									toastr.warning("取消点赞")
+								} else {
+									$obj.parent().parent().addClass(
+											"like-animation");
+									toastr.success("点赞成功")
+								}
+							}, "json");
 		}
+	function userlike() {
+			
+			$.post("${pageContext.request.contextPath}/homePage/userLike.do",
+					{"article_Id" : '${article_DetailsDTO.article.articleId }'
+				},function(date){
+					clearUl();
+					var skr ='';
+					$.each(date,function(i){
+						
+						skr =skr + '<li>'+ '<table class=\"table\" style=\"margin-bottom: 0px;\"> <tr><td style=\"width: 66px;\">'+'<a class=\"avatar\" style=\"width: 32px;height: 32px;\">' +  '<img style=\"margin-left: 10px;\"src=\"${pageContext.request.contextPath}/img/user.do?fileFileName='+date[i].user.userPortrait +'\">'+ '</a></td>'+ '<td><a>'+ date[i].user.userName + '</a></td>' +'<td><p class=\"pull-right\">' + date[i].time + '</p></td></tr></table>'+'</li>';
+						
+					});
+					$("#userRRR").append(skr);
+			 
+				},"json");
+		} 
+	
+	function clearUl() {
+		$("#userRRR").children().remove();
+	}
 	</script>
 
 

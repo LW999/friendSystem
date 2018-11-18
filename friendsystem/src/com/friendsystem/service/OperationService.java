@@ -44,8 +44,7 @@ public class OperationService {
 		if (userSession.getUserType().equals("tourists")) {
 			// type为游客，随机五个人
 			listUsers = userMapper.getMoreRandomUsers();
-		}
-		else {
+		} else {
 			List<String> list = new ArrayList<String>();
 			list.add(userSession.getUserId());
 			List<AttentionPeople> listAttentionPeople = new ArrayList<>();
@@ -126,11 +125,10 @@ public class OperationService {
 					com.friendsystem.pojo.LikesExample.Criteria criteria3 = likeExample.createCriteria();
 					criteria3.andLikearticleEqualTo(article2.getArticleId());
 					int likeByArticle2 = likeMapper.countByExample(likeExample2);
-					
+
 					all = all + likeByArticle2;
 					i++;
 					// 如果i等于集合的长度，吧all加入到DTO中
-					System.out.println("size:" + i);
 					if (i == listAllArticleByUser.size()) {
 						article_DetailsDTO.setAllLike(all);// 插入作者得到的所有赞
 					}
@@ -181,5 +179,29 @@ public class OperationService {
 			all = all + view;
 		}
 		return all;
+	}
+
+	/**
+	 *
+	 * 查看用户是否点赞
+	 * 
+	 * @param article_Id
+	 * @param userId
+	 * @return
+	 */
+	public String isLike(String article_Id, String userId) {
+		List<Likes> likes = new ArrayList<>();
+		LikesExample likesExample = new LikesExample();
+		Criteria criteria = likesExample.createCriteria();
+		criteria.andLikearticleEqualTo(article_Id);
+		criteria.andLikepeopleEqualTo(userId);
+		likes = likeMapper.selectByExample(likesExample);
+		String message = "";
+		if (likes.size() > 0) {
+			message = "already";// 已经dianz
+		} else {
+			message = "no";// 没有点赞
+		}
+		return message;
 	}
 }

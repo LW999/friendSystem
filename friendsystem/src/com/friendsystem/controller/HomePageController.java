@@ -1,5 +1,6 @@
 package com.friendsystem.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.friendsystem.DTO.Article_DetailsDTO;
 import com.friendsystem.DTO.Article_Like_CollectionDTO;
 import com.friendsystem.DTO.LikeDTO;
+import com.friendsystem.DTO.UserLikeAndTimeDTO;
 import com.friendsystem.DTO.User_ArticleDTO;
 import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.pojo.Project;
@@ -114,8 +116,18 @@ public class HomePageController {
 	 * @return
 	 */
 	@RequestMapping("articleDetail")
-	public ModelAndView articleDetails(String article_Id) {
+	public ModelAndView articleDetails(String article_Id, @ModelAttribute("session") User userSession, Model model) {
 		ModelAndView modelAndView = new ModelAndView();
+		String isLike = "";
+		if (userSession.getUserType().equals("tourists")) {
+			isLike = "already2";
+		} else {
+			// 查看是否点赞
+			isLike = operationService.isLike(article_Id, userSession.getUserId());
+			System.out.println("hdashdoiashdoihasd:" + isLike);
+		}
+		modelAndView.addObject("isLike", isLike);
+		System.out.println("hhahhahahha:" + isLike);
 		// 浏览量加1
 		operationService.addView(article_Id);
 		Article_DetailsDTO article_DetailsDTO = new Article_DetailsDTO();
@@ -157,5 +169,17 @@ public class HomePageController {
 			return likeDTO;
 		}
 		return null;
+	}
+
+	/**
+	 * 查看点赞用户
+	 */
+	@RequestMapping("userLike")
+	@ResponseBody
+	public List<UserLikeAndTimeDTO> likeTime(String article_Id) {
+		System.out.println("DDDDDDDDDDDDDDDD~~~~~~" + article_Id);
+		List<UserLikeAndTimeDTO> ListUserTime = new ArrayList<>();
+		ListUserTime = homeService.getUserLike(article_Id);
+		return ListUserTime;
 	}
 }
