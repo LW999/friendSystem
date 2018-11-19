@@ -50,13 +50,9 @@ public class UserController {
 	@RequestMapping("attentionUser")
 	public void attentionUser(@ModelAttribute("session") User userSession, Model model, String user_Id,
 			HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println("???dsd?=" + user_Id);
-		System.out.println("????=" + userSession);
 		response.setContentType("text/html; charset=utf-8");
-		System.out.println("ID :" + user_Id);
 		if (user_Id != null && user_Id.trim().length() > 0) {
 			String message = userService.getMessage(user_Id, userSession);
-			System.out.println("检查：" + message);
 			response.getWriter().println(message);
 		}
 
@@ -97,14 +93,12 @@ public class UserController {
 	 */
 	@RequestMapping("whoPeople")
 	public ModelAndView whoPeople(@ModelAttribute("session") User userSession, Model map, String user_Id) {
-		System.out.println("作者ID:" + user_Id);
 		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
 		ALLUserAttentionDTO allUserAttentionDTO = userService.getAllUserAttention(userSession);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("UALDTO", UALDTO);
 		modelAndView.addObject("allUserAttentionDTO", allUserAttentionDTO);
 		modelAndView.setViewName("/myAttention/people");
-		System.out.println("DTO:" + UALDTO);
 		return modelAndView;
 	}
 
@@ -113,7 +107,6 @@ public class UserController {
 	 */
 	@RequestMapping("myHome")
 	public ModelAndView myHome(String user_Id) {
-		System.out.println("我的 主页");
 		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
 		int allAttention = userService.getAttentionNumber(user_Id);
 		int fansNumber = userService.getFansNumber(user_Id);
@@ -131,7 +124,6 @@ public class UserController {
 	 */
 	@RequestMapping("myselfHome")
 	public ModelAndView myselfHome(@ModelAttribute("session") User userSession, Model model) {
-		System.out.println("我的 主页");
 		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(userSession.getUserId());
 		int allAttention = userService.getAttentionNumber(userSession.getUserId());
 		int fansNumber = userService.getFansNumber(userSession.getUserId());
@@ -205,14 +197,12 @@ public class UserController {
 			String article_Id) throws IOException {
 		String message = "";
 		String imgPath = ImgUtil.upload(request, pictureFile);
-		System.out.println("是什么：" + imgPath);
 		if (article_Id != null && article_Id.trim().length() > 0) {
 			message = userService.updateArticle(article_Id, titleName, content, imgPath);
 		} else {
 
 			message = userService.addArticle(userSession, titleName, content, imgPath);
 		}
-		System.out.println("message:" + message);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("forward:/jump/createArticle.do");
 		return modelAndView;
@@ -227,7 +217,6 @@ public class UserController {
 	public ModelAndView releaseArticle(@ModelAttribute("session") User userSession, Model model, String titleName,
 			String content, MultipartFile pictureFile, HttpServletRequest request, HttpServletResponse response,
 			String article_Id) throws IOException {
-		System.out.println("hahhahahh");
 		ModelAndView modelAndView = new ModelAndView();
 		// 保存照片
 		String imgPath = ImgUtil.upload(request, pictureFile);
@@ -238,7 +227,6 @@ public class UserController {
 		}
 		// 直接发布
 		else {
-			System.out.println("直接发布为什么没有内容" + content);
 			message = userService.directlyReleaseArticle(userSession, titleName, content, imgPath);
 		}
 		modelAndView.addObject("user_Id", userSession.getUserId());
@@ -253,7 +241,6 @@ public class UserController {
 	@RequestMapping("del")
 	public void delArticle(HttpServletRequest request, HttpServletResponse response, String article_Id)
 			throws IOException {
-		System.out.println("kkkkkkkkkkk");
 		if (article_Id != null && article_Id.trim().length() > 0) {
 			response.setContentType("text/html; charset=utf-8");
 			String message = userService.delArticle(article_Id);

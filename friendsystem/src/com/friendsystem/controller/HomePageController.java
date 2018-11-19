@@ -18,7 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.friendsystem.DTO.Article_DetailsDTO;
 import com.friendsystem.DTO.Article_Like_CollectionDTO;
 import com.friendsystem.DTO.LikeDTO;
+import com.friendsystem.DTO.UserAttentionDTO;
 import com.friendsystem.DTO.UserLikeAndTimeDTO;
+import com.friendsystem.DTO.User_AllArticlesAndLikeDTO;
 import com.friendsystem.DTO.User_ArticleDTO;
 import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.pojo.Project;
@@ -26,6 +28,7 @@ import com.friendsystem.pojo.Recommended;
 import com.friendsystem.pojo.User;
 import com.friendsystem.service.HomeService;
 import com.friendsystem.service.OperationService;
+import com.friendsystem.service.UserService;
 import com.friendsystem.util.RemoveHTML;
 
 @Controller
@@ -35,6 +38,10 @@ public class HomePageController {
 
 	@Resource(name = "homeService")
 	private HomeService homeService;
+	
+	@Resource(name = "userService")
+	private UserService userService;
+
 
 	@Resource(name = "operationService")
 	private OperationService operationService;
@@ -65,9 +72,7 @@ public class HomePageController {
 		ModelAndView mod = new ModelAndView();
 		if (userSession.getUserType().equals("tourists")) {
 			// 需要页面显示5个随机推荐的作者
-			System.out.println("没有Session");
 		} else {
-			System.out.println("Session" + userSession.getUserId());
 		}
 
 		// 需要标签
@@ -124,10 +129,8 @@ public class HomePageController {
 		} else {
 			// 查看是否点赞
 			isLike = operationService.isLike(article_Id, userSession.getUserId());
-			System.out.println("hdashdoiashdoihasd:" + isLike);
 		}
 		modelAndView.addObject("isLike", isLike);
-		System.out.println("hhahhahahha:" + isLike);
 		// 浏览量加1
 		operationService.addView(article_Id);
 		Article_DetailsDTO article_DetailsDTO = new Article_DetailsDTO();
@@ -148,7 +151,6 @@ public class HomePageController {
 	@ResponseBody
 	public List<User_LikeDTO> otherUser(@ModelAttribute("session") User userSession, Model model,
 			HttpServletRequest request, HttpServletResponse response, String page) {
-		System.out.println("DDDDDD>:" + page);
 		List<User_LikeDTO> listRandomUserDTO = homeService.getRandomUsers(userSession);
 		return listRandomUserDTO;
 	}
@@ -160,12 +162,9 @@ public class HomePageController {
 	@RequestMapping("likeArticle")
 	@ResponseBody
 	public LikeDTO likeArticle(String article_Id, String user_Id) {
-		System.out.println("文章：" + article_Id);
-		System.out.println("user:" + user_Id);
 		if (article_Id != null && article_Id.length() > 0 && user_Id != null && user_Id.trim().length() > 0) {
 			LikeDTO likeDTO = new LikeDTO();
 			likeDTO = homeService.getLikes(article_Id, user_Id);
-			System.out.println("KKKKK:" + likeDTO.getMessage());
 			return likeDTO;
 		}
 		return null;
@@ -177,9 +176,33 @@ public class HomePageController {
 	@RequestMapping("userLike")
 	@ResponseBody
 	public List<UserLikeAndTimeDTO> likeTime(String article_Id) {
-		System.out.println("DDDDDDDDDDDDDDDD~~~~~~" + article_Id);
 		List<UserLikeAndTimeDTO> ListUserTime = new ArrayList<>();
 		ListUserTime = homeService.getUserLike(article_Id);
 		return ListUserTime;
+	}
+
+	/**
+	 * 查看用户关注的所有人
+	 */
+	@RequestMapping("userAttention")
+	public ModelAndView userAttention(@ModelAttribute("session") User userSession, Model model, String user_Id) {
+		ModelAndView modelAndView = new ModelAndView();
+		if (user_Id != null && user_Id.trim().length() > 0) {
+				List<UserAttentionDTO> listU = new ArrayList<>();
+				listU = homeService.getUserAttention(user_Id,userSession);
+				User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
+				int allAttention = userService.getAttentionNumber(user_Id);
+				int fansNumber = userService.getFansNumber(user_Id);
+				int articlesNumber = UALDTO.getListA().size();
+				int userLikes = userService.getlike(user_Id);
+				modelAndView.addObject("userLikes", userLikes);//收到的喜欢
+				modelAndView.addObject("UALDTO", UALDTO);
+				modelAndView.addObject("allAttention", allAttention);
+				modelAndView.addObject("fansNumber", fansNumber);
+				modelAndView.addObject("articlesNumber", articlesNumber);
+				modelAndView.addObject("listU", listU);
+		}
+		modelAndView.setViewName("user/myAttention");
+		return modelAndView;
 	}
 }

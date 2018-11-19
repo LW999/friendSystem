@@ -22,8 +22,6 @@ public class RegisteredController {
 
 	@RequestMapping("/reg")
 	public ModelAndView Registered(String name, String password, String mail) throws Exception {
-		System.out.println("opopopo");
-		System.out.println("kkk:" + mail + password + name);
 		ModelAndView modelAndView = new ModelAndView();
 		if (mail != null && mail.trim().length() > 0 && password != null && password.trim().length() > 0 && name != null
 				&& name.trim().length() > 0) {
@@ -31,23 +29,19 @@ public class RegisteredController {
 			if (check.trim().equals("pass")) {
 				// 可以使用该邮箱
 				String number = registeredService.saveUserAndSedMail(mail, password, name);
-				System.out.println("成功！" + number);
 				modelAndView.addObject("check", check);
 			}
 			if (check.equals("NoActivation")) {
 				// 已经注册但是未激活
-				System.out.println("失败！已经注册但是未激活" + check);
 				modelAndView.addObject("check", check);
 
 			}
 			if (check.equals("HasBeenRegistered")) {
-				System.out.println("失败！该邮箱已经被注册" + check);
 				modelAndView.addObject("check", check);
 				// 该邮箱已经被注册
 			}
 			if (check.equals("InvalidFormat")) {
 
-				System.out.println("邮箱格式错误");
 
 			}
 			modelAndView.addObject("check", check);
@@ -67,7 +61,6 @@ public class RegisteredController {
 	@RequestMapping("/activation")
 	public ModelAndView Activation(String code) {
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("okoko:" + code);
 		if (code != null && code.trim().length() > 0) {
 			// 先查询code是否被激活
 			String isActivation = registeredService.getUserByCode(code);

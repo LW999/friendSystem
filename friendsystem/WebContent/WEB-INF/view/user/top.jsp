@@ -27,21 +27,21 @@
 			<ul>
 				<li>
 					<div class="meta-block">
-						<a href="/users/b91cc2d507d0/following">
+						<a href="${pageContext.request.contextPath}/homePage/userAttention.do?user_Id=${UALDTO.user.userId }">
 							<p>${allAttention}</p> 关注 <i class="iconfont ic-arrow"></i>
 						</a>
 					</div>
 				</li>
 				<li>
 					<div class="meta-block">
-						<a href="/users/b91cc2d507d0/followers">
+						<a href="">
 							<p>${fansNumber }</p> 粉丝 <i class="iconfont ic-arrow"></i>
 						</a>
 					</div>
 				</li>
 				<li>
 					<div class="meta-block">
-						<a href="/u/b91cc2d507d0">
+						<a href="">
 							<p>${articlesNumber }</p> 文章 <i class="iconfont ic-arrow"></i>
 						</a>
 					</div>

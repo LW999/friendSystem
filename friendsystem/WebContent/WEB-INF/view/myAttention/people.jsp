@@ -31,10 +31,10 @@
 								src="${pageContext.request.contextPath}/img/user.do?fileFileName=${UALDTO.user.userPortrait }"></a> <a
 								href="#" target="_blank" class="btn btn-hollow">
 								个人主页<i class="iconfont ic-link"></i>
-							</a> <a href="/notifications#/chats/new?mail_to=13213889"
+							</a> <a href="#"
 								target="_blank" class="btn btn-hollow">发简信</a>
 							<div class="title">
-								<a href="#" target="_blank" class="name">${UALDTO.user.userName }</a>
+								<a href="${pageContext.request.contextPath}/user/myHome.do?user_Id=${UALDTO.user.userId }" target="_blank" class="name">${UALDTO.user.userName }</a>
 								<img
 									src="//upload.jianshu.io/user_badge/1014d32a-bf93-4005-aa0c-fac198d25377"
 									data-toggle="tooltip" data-original-title="优秀"

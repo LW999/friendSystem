@@ -117,7 +117,25 @@ background-position
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 :
+
+
+
+
+
+
 
 
 
@@ -129,7 +147,25 @@ background-position
 
 
 
+
+
+
+
+
+
 right
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -161,13 +197,37 @@ background-position
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 :
 
 
 
 
 
+
+
+
+
+
+
  
+
+
+
+
+
+
 
 
 
@@ -184,12 +244,28 @@ right
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 ;
 }
 }
 .like .like-group.active .btn-like[data-v-6ddd02c6]:before {
 	background-position: right;
 }
+.w-e-text-container{
+    height: 100px !important;
+}
+
 </style>
 <!-- 图标 -->
 <link rel="shortcut icon"
@@ -286,13 +362,12 @@ right
 						<!-- btn like-group like-animation -->
 
 						<div data-v-6ddd02c6="" class="btn-like">
-							<a data-v-6ddd02c6="" 
-								onclick="userlike()" data-toggle="modal" data-target="#myModal">喜欢 
-								<i class="iconfont ic-like"></i></a>
-								<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+							<a data-v-6ddd02c6="" onclick="userlike()" data-toggle="modal"
+								data-target="#myModal">喜欢 <i class="iconfont ic-like"></i></a>
+							<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
    									 打开模态框
  								 </button> -->
-								
+
 						</div>
 						<div data-v-6ddd02c6="" class="modal-wrap">
 							<c:choose>
@@ -314,18 +389,45 @@ right
 					<!---->
 				</div>
 				<div id="comment-list" class="comment-list">
-					<div>
-						<form class="new-comment">
-							<a class="avatar"><img
-								src="${pageContext.request.contextPath}/img/user.do?fileFileName=bb38223dcca747baa7a10b4850a6f049.png"></a>
-							<div class="sign-container">
-								<a
-									href="/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-comment-form"
-									class="btn btn-sign">登录</a> <span>后发表评论</span>
+					<c:choose>
+						<c:when test="${sessionScope.session.userType eq 'tourists'}">
+							<div>
+								<form class="new-comment">
+									<a class="avatar"><img
+										src="${pageContext.request.contextPath}/img/user.do?fileFileName=bb38223dcca747baa7a10b4850a6f049.png"></a>
+									<div class="sign-container">
+										<a
+											href="/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-comment-form"
+											class="btn btn-sign">登录</a> <span>后发表评论</span>
+									</div>
+								</form>
+								<!---->
 							</div>
-						</form>
-						<!---->
-					</div>
+						</c:when>
+						<c:otherwise>
+							<div>
+								<form class="new-comment">
+									<a class="avatar"><img
+										src="${pageContext.request.contextPath}/img/user.do?fileFileName=${sessionScope.session.userPortrait }"></a>
+									
+									<!-- <div id="div1" class="follow-detail">
+									</div> -->
+									<textarea rows="" cols=""></textarea>
+									<div class="write-function-block">
+										<div data-v-b36e9416="" class="emoji-modal-wrap">
+											<a data-v-b36e9416="" class="emoji"><i data-v-b36e9416=""
+												class="iconfont ic-comment-emotions"></i></a>
+											<!---->
+										</div>
+										<div class="hint">Ctrl+Enter 发表</div>
+										<a class="btn btn-send">发送</a> <a class="cancel">取消</a>
+									</div>
+								</form>
+								<!---->
+							</div>
+						</c:otherwise>
+					</c:choose>
+
 					<!---->
 					<div class="comments-placeholder" style="display: none;">
 						<div class="author">
@@ -486,40 +588,42 @@ right
 		<!---->
 	</div>
 	<!-- ；模态框显示 -->
-	 <!-- 模态框 -->
-  <div class="modal fade" id="myModal">
-    <div class="modal-dialog" style="left: 34%;top: 20%;width: 600px;">
-      <div class="modal-content">
-   
-        <!-- 模态框头部 -->
-        <div class="modal-header" style="border-bottom-width: 0px; padding-bottom: 10px; padding-top: 20px;">
-          <table >
-          	<tr>
-          	<td><h4 class="modal-title">喜欢的人</h4></td>
-          	
-          	</tr>
-          	
-          </table>
-        
-          
-        </div>
-   
-        <!-- 模态框主体 -->
-        <div class="modal-body" style="padding-top: 10px;">
-        	<ul id = "userRRR" style="list-style: none;">
-        		<li>1das<span>hhahha</span></li>
-        	</ul>
-        </div>
-   
-        <!-- 模态框底部 -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-        </div>
-   
-      </div>
-    </div>
-  </div>
-  
+	<!-- 模态框 -->
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog" style="left: 34%; top: 20%; width: 600px;">
+			<div class="modal-content">
+
+				<!-- 模态框头部 -->
+				<div class="modal-header"
+					style="border-bottom-width: 0px; padding-bottom: 10px; padding-top: 20px;">
+					<table>
+						<tr>
+							<td><h4 class="modal-title">喜欢的人</h4></td>
+
+						</tr>
+
+					</table>
+
+
+				</div>
+
+				<!-- 模态框主体 -->
+				<div class="modal-body" style="padding-top: 10px;">
+					<ul id="userRRR" style="list-style: none;">
+						<li>1das<span>hhahha</span></li>
+					</ul>
+				</div>
+
+				<!-- 模态框底部 -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">关闭</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
 
 	<%-- 	<%@include file="more.jsp"%>
  --%>
@@ -529,6 +633,9 @@ right
 		src="${pageContext.request.contextPath }/js/toastr.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath }/js/bootstrap-3.37.min.js"></script>
+		
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/wangEditor.js"></script>
 	<script type="text/javascript">
 		function like(obj) {
 			var g = obj;
@@ -552,28 +659,55 @@ right
 								}
 							}, "json");
 		}
-	function userlike() {
-			
-			$.post("${pageContext.request.contextPath}/homePage/userLike.do",
-					{"article_Id" : '${article_DetailsDTO.article.articleId }'
-				},function(date){
-					clearUl();
-					var skr ='';
-					$.each(date,function(i){
-						
-						skr =skr + '<li>'+ '<table class=\"table\" style=\"margin-bottom: 0px;\"> <tr><td style=\"width: 66px;\">'+'<a class=\"avatar\" style=\"width: 32px;height: 32px;\">' +  '<img style=\"margin-left: 10px;\"src=\"${pageContext.request.contextPath}/img/user.do?fileFileName='+date[i].user.userPortrait +'\">'+ '</a></td>'+ '<td><a>'+ date[i].user.userName + '</a></td>' +'<td><p class=\"pull-right\">' + date[i].time + '</p></td></tr></table>'+'</li>';
-						
-					});
-					$("#userRRR").append(skr);
-			 
-				},"json");
-		} 
-	
-	function clearUl() {
-		$("#userRRR").children().remove();
-	}
-	</script>
+		function userlike() {
 
+			$
+					.post(
+							"${pageContext.request.contextPath}/homePage/userLike.do",
+							{
+								"article_Id" : '${article_DetailsDTO.article.articleId }'
+							},
+							function(date) {
+								clearUl();
+								var skr = '';
+								$
+										.each(
+												date,
+												function(i) {
+
+													skr = skr
+															+ '<li>'
+															+ '<table class=\"table\" style=\"margin-bottom: 0px;\"> <tr><td style=\"width: 66px;\">'
+															+ '<a class=\"avatar\" style=\"width: 32px;height: 32px;\">'
+															+ '<img style=\"margin-left: 10px;\"src=\"${pageContext.request.contextPath}/img/user.do?fileFileName='
+															+ date[i].user.userPortrait
+															+ '\">'
+															+ '</a></td>'
+															+ '<td><a>'
+															+ date[i].user.userName
+															+ '</a></td>'
+															+ '<td><p class=\"pull-right\">'
+															+ date[i].time
+															+ '</p></td></tr></table>'
+															+ '</li>';
+
+												});
+								$("#userRRR").append(skr);
+
+							}, "json");
+		}
+
+		function clearUl() {
+			$("#userRRR").children().remove();
+		}
+	</script>
+	<script type="text/javascript">
+		var E = window.wangEditor
+		var editor = new E('#div1')
+		editor.customConfig.menus = [ 'emoticon', // 表情
+		]
+		editor.create()
+	</script>
 
 </body>
 

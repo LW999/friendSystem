@@ -61,22 +61,22 @@
 		src="${pageContext.request.contextPath }/js/jquery-2.11.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath }/js/toastr.js"></script>
-	<script type="text/javascript">
-		function myfun() {
-			var val = "${check}";
-			var va2 = "${message}";
-			if (val == "Login") {
-				toastr.success("欢迎登陆")
+		<script type="text/javascript">
+			function myfun() {
+				var val = "${check}";
+				var va2 = "${message}";
+				if (val == "Login") {
+					toastr.info("欢迎登陆")
+				}
+				if(va2 == "error2"){
+					toastr.warning("请输入账号或密码")
+				}
+				if(va2 == "error"){
+					toastr.error("密码或账号有误")
+				}
+				
 			}
-			if(va2 == "error2"){
-				toastr.warning("请输入账号或密码")
-			}
-			if(va2 == "error"){
-				toastr.error("密码或账号有误")
-			}
-			
-		}
-		window.onload = myfun;
-	</script>
+			window.onload = myfun;
+		</script>
 </body>
 </html>

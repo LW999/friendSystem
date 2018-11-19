@@ -66,7 +66,6 @@ public class UserService {
 	 */
 	public String getMessage(String userId, User userSession) {
 		if (userId != null && userId.trim().length() > 0) {
-			System.out.println("SessionID:" + userSession.getUserId());
 			// 根据传回来的用户ID和 自身ID查询是否关注了此人
 			AttentionPeopleExample attentionPeopleExample = new AttentionPeopleExample();
 			Criteria criteria = attentionPeopleExample.createCriteria();
@@ -157,7 +156,6 @@ public class UserService {
 			for (AttentionPeople attentionPeople : listP) {
 				AllUserArticleDTO allUserArticleDTO = new AllUserArticleDTO();
 				User user = new User();
-
 				user = userMapper.selectByPrimaryKey(attentionPeople.getAttentionPeopleUserTwo());
 				if (user != null) {
 					List<Article> listA = new ArrayList<>();
@@ -218,7 +216,6 @@ public class UserService {
 				all = like + all;
 				i++;
 				if (i == listA.size()) {
-					System.out.println("hahhah ");
 					UADTO.setView(allView);
 					UADTO.setLike(all);
 				}
@@ -316,10 +313,8 @@ public class UserService {
 	 * @return
 	 */
 	public Article getArticleById(String article_Id) {
-		System.out.println("ID:" + article_Id);
 		if (article_Id != null && article_Id.trim().length() > 0) {
 			Article article = articleMapper.selectByPrimaryKey(article_Id);
-			System.out.println("文章：" + article);
 			return article;
 		}
 		return null;
@@ -464,6 +459,41 @@ public class UserService {
 			}
 		}
 		return message;
+	}
+
+	/**
+	 * 作者获得的喜欢数量
+	 * 
+	 * @param user_Id
+	 * @return
+	 */
+	public int getlike(String user_Id) {
+		int i = 0;
+		ArticleExample aExample = new ArticleExample();
+		com.friendsystem.pojo.ArticleExample.Criteria criteria = aExample.createCriteria();
+		criteria.andArticleByUserEqualTo(user_Id);
+		criteria.andArticleIsReleaseEqualTo("1");
+		criteria.andArticleIsDeleteEqualTo("0");
+		aExample.setOrderByClause("article_modifytime DESC");
+		List<Article> listA = articleMapper.selectByExample(aExample);
+		int all = 0;
+		for (Article article : listA) {
+			String outline = "";
+			outline = RemoveHTML.Html2Text(article.getArticleContent());
+			article.setOutline(outline);
+			LikesExample likesExample = new LikesExample();
+			com.friendsystem.pojo.LikesExample.Criteria criteria2 = likesExample.createCriteria();
+			criteria2.andLikearticleEqualTo(article.getArticleId());
+			int like = likesMapper.countByExample(likesExample);
+			all = like + all;
+			i++;
+			if (i == listA.size()) {
+
+			}
+
+		}
+
+		return all;
 	}
 
 }

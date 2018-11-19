@@ -35,7 +35,6 @@ public class RegisteredService {
 	 */
 	public String getUserByMail(String mail) {
 
-		System.out.println("kkk:" + mail);
 		if (mail != null && mail.trim().length() > 0) {
 			if (ValidationMail.checkEmaile(mail)) {
 
@@ -86,7 +85,6 @@ public class RegisteredService {
 			user.setUserSex("保密");
 			user.setUserCreatetime(TimeUtil.getStringSecond());
 			user.setUserModifytime(TimeUtil.getStringSecond());
-			System.out.println("user::" + user);
 			userMapper.insert(user);
 			// 给用户发送邮件
 			// 创建邮件配置
@@ -160,12 +158,9 @@ public class RegisteredService {
 			User user = userMapper.selectUserByCode(code);
 			if (user != null) {
 				if (user.getUserIsActivation().equals("1")) {
-					System.out.println("已经被激活，不能重复激活");
 					// 已经被激活，不能重复激活
 					return "RepeatActivation";
 				} else {
-					System.out.println("dddd" + user);
-					System.out.println("lllL:" + user.getCode());
 					if (user.getCode().equals(code)) {
 						return "Pass";// code一致可以通过
 					}
@@ -173,7 +168,6 @@ public class RegisteredService {
 					return "Error";
 				}
 			}
-			System.out.println("code错误");
 		}
 		return "Error";
 	}

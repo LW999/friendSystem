@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.friendsystem.DTO.Article_Like_CollectionDTO;
 import com.friendsystem.DTO.LikeDTO;
+import com.friendsystem.DTO.UserAttentionDTO;
 import com.friendsystem.DTO.UserLikeAndTimeDTO;
 import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.mapper.ArticleMapper;
@@ -29,6 +30,7 @@ import com.friendsystem.pojo.ProjectExample.Criteria;
 import com.friendsystem.pojo.Recommended;
 import com.friendsystem.pojo.RecommendedExample;
 import com.friendsystem.pojo.User;
+import com.friendsystem.pojo.UserExample;
 import com.friendsystem.util.BuildUuid;
 import com.friendsystem.util.RemoveHTML;
 import com.friendsystem.util.TimeUtil;;
@@ -71,7 +73,6 @@ public class HomeService {
 	 * @return listRecommended
 	 */
 	public List<Recommended> getRecommended() {
-		System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKK");
 		RecommendedExample recommendedExample = new RecommendedExample();
 		com.friendsystem.pojo.RecommendedExample.Criteria criteria = recommendedExample.createCriteria();
 		List<Recommended> listRecommended = recommendedMapper.selectByExample(null);
@@ -237,6 +238,89 @@ public class HomeService {
 				DTO.setTime(likes.getLikecreatetime());
 				listU.add(DTO);
 			}
+		}
+		return listU;
+	}
+
+	/**
+	 * 根据传回来的用户ID查询该User关注的所有人
+	 * @param user_Id
+	 * @return
+	 */
+	public List<UserAttentionDTO> getUserAttention(String user_Id, User userSession) {
+
+		List<UserAttentionDTO> listU = new ArrayList<>();
+
+		AttentionPeopleExample attentionPeopleExample = new AttentionPeopleExample();
+		com.friendsystem.pojo.AttentionPeopleExample.Criteria criteria = attentionPeopleExample.createCriteria();
+
+		List<AttentionPeople> listAttention = new ArrayList<>();
+		if (user_Id.equals(userSession.getUserId()) || userSession.getUserType().equals("tourists")) {
+			System.out.println("hhhh");
+			criteria.andAttentionPeopleUserOneEqualTo(user_Id);
+			listAttention = attentionPeopleMapper.selectByExample(attentionPeopleExample);
+		} else {
+			System.out.println("dddd");
+			List<AttentionPeople> listAttentionMy = new ArrayList<>();
+			AttentionPeopleExample attentionPeopleExampleMy = new AttentionPeopleExample();
+			com.friendsystem.pojo.AttentionPeopleExample.Criteria criteriaMy = attentionPeopleExampleMy
+					.createCriteria();
+			criteriaMy.andAttentionPeopleUserOneEqualTo(userSession.getUserId());
+			listAttentionMy = attentionPeopleMapper.selectByExample(attentionPeopleExampleMy);
+			List<String> values = new ArrayList<>();
+			for (AttentionPeople attentionPeople : listAttentionMy) {
+				System.out.println("ddd");
+				values.add(attentionPeople.getAttentionPeopleUserTwo());// NB
+			}
+			
+			System.out.println("valuse:" + values);
+			criteria.andAttentionPeopleUserOneEqualTo(user_Id);
+			
+			criteria.andAttentionPeopleUserTwoNotIn(values);
+			listAttention = attentionPeopleMapper.selectByExample(attentionPeopleExample);
+		}
+		for (AttentionPeople attentionPeople : listAttention) {
+			UserAttentionDTO userAttentionDTO = new UserAttentionDTO();
+			User user2 = new User();
+			user2 = userMapper.selectByPrimaryKey(attentionPeople.getAttentionPeopleUserTwo());
+			if (user2 != null) {
+				userAttentionDTO.setUser(user2);
+			}
+			AttentionPeopleExample attentionPeopleExample2 = new AttentionPeopleExample();
+			com.friendsystem.pojo.AttentionPeopleExample.Criteria criteria2 = attentionPeopleExample2.createCriteria();
+			criteria2.andAttentionPeopleUserOneEqualTo(attentionPeople.getAttentionPeopleUserTwo());
+			int attention = attentionPeopleMapper.countByExample(attentionPeopleExample2);
+			userAttentionDTO.setAttention(attention);// 用户的关注
+			AttentionPeopleExample attentionPeopleExample3 = new AttentionPeopleExample();
+			com.friendsystem.pojo.AttentionPeopleExample.Criteria criteria3 = attentionPeopleExample3.createCriteria();
+			criteria3.andAttentionPeopleUserTwoEqualTo(attentionPeople.getAttentionPeopleUserTwo());
+			int fans = attentionPeopleMapper.countByExample(attentionPeopleExample3);
+			userAttentionDTO.setFans(fans);// 用户的粉丝
+			ArticleExample articleExample = new ArticleExample();
+			com.friendsystem.pojo.ArticleExample.Criteria criteria4 = articleExample.createCriteria();
+			criteria4.andArticleByUserEqualTo(attentionPeople.getAttentionPeopleUserTwo());
+			int article = articleMapper.countByExample(articleExample);
+			userAttentionDTO.setArticle(article);// 用户发表的文章数
+			List<Article> listA = new ArrayList<>();
+			listA = articleMapper.selectByExample(articleExample);
+			int all = 0;
+			int i = 0;
+			int allview = 0;
+			for (Article article2 : listA) {
+				LikesExample likesExample = new LikesExample();
+				com.friendsystem.pojo.LikesExample.Criteria criteria5 = likesExample.createCriteria();
+				criteria5.andLikearticleEqualTo(article2.getArticleId());
+				int like = likeMapper.countByExample(likesExample);
+				String view = article2.getArticleViews();
+				allview = allview + Integer.parseInt(view);
+				i++;
+				all = all + like;
+				if (i == listA.size()) {
+					userAttentionDTO.setView(allview);
+					userAttentionDTO.setLikes(all);
+				}
+			}
+			listU.add(userAttentionDTO);
 		}
 		return listU;
 	}

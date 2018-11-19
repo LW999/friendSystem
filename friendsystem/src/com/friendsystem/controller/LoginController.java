@@ -47,7 +47,6 @@ public class LoginController {
 
 	@RequestMapping("/login")
 	public ModelAndView login(Model model, String account, String password) {
-		System.out.println("账号：" + account + "密码：" + password);
 		ModelAndView modelAndView = new ModelAndView();
 		String message;
 		if (account != null && account.trim().length() > 0 && password != null && password.trim().length() > 0) {
@@ -90,7 +89,6 @@ public class LoginController {
 	 */
 	@RequestMapping("/logout")
 	public ModelAndView logout(SessionStatus status) {
-		System.out.println("lllll");
 		ModelAndView ModelAndView = new ModelAndView();
 		ModelAndView.setViewName("forward:/homePage/session.do");
 		status.setComplete();

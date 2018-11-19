@@ -31,7 +31,6 @@ public class JumpController {
 	 */
 	@RequestMapping("/login")
 	public ModelAndView login() {
-		System.out.println("login");
 		ModelAndView modelAndView = new ModelAndView();
 		String check = "Login";
 		modelAndView.setViewName("login");
@@ -84,12 +83,10 @@ public class JumpController {
 		List<Article> listA = new ArrayList<>();
 		listA = userService.getMYArticle(userSession);
 		if (article_Id != null && article_Id.trim().length() > 0) {
-			System.out.println("进来");
 			Article article = userService.getArticleById(article_Id);
 			modelAndView.addObject("article", article);
 		}
 		modelAndView.addObject("listA", listA);
-		System.out.println("KDKDKDK:" + listA.size());
 		modelAndView.setViewName("user/writeArticle");
 		return modelAndView;
 	}
