@@ -43,9 +43,9 @@
 											<span>发表了文章 ·${listAUDTO.article.articleCreatetime} </span>
 										</div>
 									</div>
-									<a href="#" target="_blank" class="title">${listAUDTO.article.articleTitle}</a>
+									<a href="${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id=${listAUDTO.article.articleId}" target="_blank" class="title">${listAUDTO.article.articleTitle}</a>
 									<p class="abstract">作者简介：${listAUDTO.user.userSynopsis}
-										作品简介：平静的小城，突然惊现连环杀人案。宛若幽灵一般的凶手残忍地将被害者杀害...</p>
+										作品简介：${listAUDTO.outLine}...</p>
 									<div class="meta">
 										<div class="origin-author">
 											<a href="/u/22e02eafab5c" target="_blank">${listAUDTO.user.userName}</a>

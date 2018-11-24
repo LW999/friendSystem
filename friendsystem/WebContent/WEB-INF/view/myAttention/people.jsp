@@ -27,9 +27,9 @@
 				<div>
 					<div>
 						<div class="main-top">
-							<a href="#" target="_blank" class="avatar"><img
+							<a href="${pageContext.request.contextPath}/user/myHome.do?user_Id=${UALDTO.user.userId }" target="_blank" class="avatar"><img
 								src="${pageContext.request.contextPath}/img/user.do?fileFileName=${UALDTO.user.userPortrait }"></a> <a
-								href="#" target="_blank" class="btn btn-hollow">
+								href="${pageContext.request.contextPath}/user/myHome.do?user_Id=${UALDTO.user.userId }" target="_blank" class="btn btn-hollow">
 								个人主页<i class="iconfont ic-link"></i>
 							</a> <a href="#"
 								target="_blank" class="btn btn-hollow">发简信</a>
@@ -56,13 +56,11 @@
 									<li class="">
 										<!---->
 										<div class="content">
-											<a href="#" target="_blank" class="title">${A.articleTitle}</a>
-											<p class="abstract">“一天到晚装神弄鬼的，不晓得你要干些什么！去，滚去我办公室！”
-												等到孙绪真再见丁裕家，已经是次日上午。他又剃了头，孙绪真很是困惑。育坚...</p>
+											<a href="${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id=${A.articleId}" target="_blank" class="title">${A.articleTitle}</a>
+											<p class="abstract">...</p>
 											<div class="meta">
 												<!---->
-												<a href="/p/bf885466f77f" target="_blank"><i
-													class="iconfont ic-list-read"></i> 107</a> <a
+												<iclass="iconfont ic-list-read"></i> 107</a> <a
 													href="/p/bf885466f77f#comments" target="_blank"><i
 													class="iconfont ic-list-comments"></i> 0</a> <span><i
 													class="iconfont ic-list-like"></i> ${UALDTO.like}</span>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,34 +12,38 @@
 	href="${pageContext.request.contextPath }/css/entry-71aa880fd9d7cbb38465.css" />
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath }/img/logo.ico" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/toastr.css">
 <title>${UALDTO.user.userName }</title>
 </head>
 
 <body class="reader-song-font" style="overflow-y: scroll;" lang="zh-CN">
+
 	<!-- 全局顶部导航栏 -->
 	<%@include file="/WEB-INF/view/home/head.jsp"%>
 	<div class="container person">
 		<div class="row">
 			<div class="col-xs-16 main">
 				<div class="main-top">
-
-					<a class="avatar" href="#"> <img
+					<a class="avatar" href="${pageContext.request.contextPath}/user/myHome.do?user_Id=${UALDTO.user.userId }"> <img
 						src="${pageContext.request.contextPath}/img/user.do?fileFileName=${UALDTO.user.userPortrait}"
 						alt="240">
 					</a>
-
 					<!-- 关注 -->
 					<c:choose>
 						<c:when
-							test="${sessionScope.session.userId}==${UALDTO.user.userId }"></c:when>
+							test="${sessionScope.session.userId eq UALDTO.user.userId }"></c:when>
 						<c:otherwise>
 							<c:choose>
-								<c:when test="${isAttention eq 'success' }">
-									<button data-v-6292e408=""
-										class="on  user-follow-button followed">
-										<i data-v-6292e408="" class="iconfont"></i><span
-											data-v-6292e408="">已关注</span>
-									</button>
+								<c:when test="${isAttention eq 'yes' }">
+									<a href="javascript:qqq('${UALDTO.user.userId}')"
+										id="${UALDTO.user.userId}">
+										<button data-v-6292e408=""
+											class="on  user-follow-button followed">
+											<i data-v-6292e408="" class="iconfont"></i><span
+												data-v-6292e408="">已关注</span>
+										</button>
+									</a>
 								</c:when>
 								<c:otherwise>
 									<c:choose>
@@ -50,13 +55,13 @@
 												</button>
 											</a>
 										</c:when>
-
 										<c:otherwise>
-											<button data-v-6292e408="" class="off  user-follow-button">
-												<i data-v-6292e408="" class="iconfont"></i><span
-													data-v-6292e408="">关注</span>
-											</button>
-
+											<a href="javascript:qqq('${UALDTO.user.userId}');">
+												<button data-v-6292e408="" class="off  user-follow-button">
+													<i data-v-6292e408="" class="iconfont"></i><span
+														data-v-6292e408="">关注</span>
+												</button>
+											</a>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
@@ -115,13 +120,8 @@
 							test="${sessionScope.session.userId}==${UALDTO.user.userId }"></c:when>
 						<c:when test="${sessionScope.session.userType eq 'tourists'}"></c:when>
 						<c:otherwise>
-							<li class=""><a data-placeholder="user" href="#">共同关注
-									${fansNumber }</a></li>
 						</c:otherwise>
 					</c:choose>
-
-
-
 					<li class=""><a data-placeholder="user" href="#">粉丝
 							${fansNumber }</a></li>
 				</ul>
@@ -130,7 +130,7 @@
 					<ul class="user-list" infinite-scroll-url="#"
 						data-placeholder="user">
 						<c:forEach items="${listU }" var="U">
-							<li><a class="avatar" href="#"> <img
+							<li><a class="avatar" href="${pageContext.request.contextPath}/user/myHome.do?user_Id=${U.user.userId }"> <img
 									src="${pageContext.request.contextPath}/img/user.do?fileFileName=${U.user.userPortrait}"
 									alt="180">
 							</a>
@@ -143,12 +143,31 @@
 									<div class="meta">被浏览了${U.view }次，获得了 ${U.likes }个喜欢</div>
 								</div> <c:choose>
 									<c:when test="${sessionScope.session.userType eq 'tourists'}">
-										<a class="btn btn-success follow"><i
-											class="iconfont ic-follow"></i><span>关注</span></a>
+										<a href="${pageContext.request.contextPath }/jump/login.do"
+											class="btn btn-success follow"><i
+											class="iconfont ic-follow"></i><span>关注</span> </a>
 									</c:when>
 									<c:otherwise>
-										<a class="btn btn-default following"><i
-											class="iconfont ic-followed"></i><span>已关注</span></a></li>
+										<c:choose>
+											<c:when test="${U.isAttention eq 'yes' }">
+												<a class="btn btn-default following dddd"
+													id="${U.user.userId}"
+													href="javascript:aaa('${U.user.userId}')"><i
+													class="iconfont ic-followed"></i><span>已关注</span></a>
+											</c:when>
+											<c:when
+												test="${sessionScope.session.userId eq UALDTO.user.userId }">
+
+												<a class="btn btn-default following dddd"
+													href="javascript:aaa('${U.user.userId}');"
+													id="${U.user.userId}"> <i class="iconfont ic-followed"><span>已关注</span></i></a>
+											</c:when>
+											<c:otherwise>
+												<a class="btn btn-success follow dddd" id="${U.user.userId}"
+													href="javascript:aaa('${U.user.userId}')"><i
+													class="iconfont ic-follow"></i><span>关注</span></a>
+											</c:otherwise>
+										</c:choose></li>
 							</c:otherwise>
 							</c:choose>
 
@@ -224,10 +243,84 @@
 	</div>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath }/js/jquery-2.11.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/toastr.js"></script>
 	<script type="text/javascript">
 		function login() {
-			alert('dd')
 			$.post("${pageContext.request.contextPath }/jump/login.do");
+		}
+
+		function qqq(id) {
+			$
+					.post(
+							"${pageContext.request.contextPath}/user/attentionUser.do?user_Id="
+									+ id + "",
+							function(data) {
+								if (data.trim() == 'cancelAttention') {
+									$('#' + id)
+											.html(
+													'<button data-v-6292e408=\"\" class=\"off  user-follow-button\"> <i data-v-6292e408=\"\" class=\"iconfont\"></i> <span data-v-6292e408=\"\">关注</span></button>')
+								} else if (data.trim() == 'success') {
+									$('#' + id)
+											.html(
+													'<button data-v-6292e408=\"\" class=\"on  user-follow-button\"> <i data-v-6292e408=\"\" class=\"iconfont\"></i> <span data-v-6292e408=\"\">已关注</span></button>')
+								}
+								if (data.trim() == "success") {
+									toastr.success("关注成功")
+								}
+								if (data.trim() == "cancelAttention") {
+									toastr.warning("取消关注")
+								}
+							})
+		}
+
+		function aaa(id) {
+			alert('dddd');
+
+			$
+					.post(
+							"${pageContext.request.contextPath}/user/attentionUser.do?user_Id="
+									+ id + "",
+							function(data) {
+								if (data.trim() == 'cancelAttention') {
+									$('#' + id)
+											.html(
+													'<i class=\"iconfont ic-follow\"></i><span>关注</span>');
+								} else if (data.trim() == 'success') {
+									$('#' + id)
+											.html(
+													'<i class=\"iconfont ic-followed\"></i><span>已关注</span>')
+								}
+								if (data.trim() == "success") {
+									toastr.success("关注成功")
+								}
+								if (data.trim() == "cancelAttention") {
+									toastr.warning("取消关注")
+								}
+							})
+		}
+		attentionHover();
+		function attentionHover() {
+			$(".dddd")
+					.hover(
+							function() {
+								var l = $(this).html();
+								if (l.indexOf("已关注") != -1) {
+									$(this)
+											.html(
+													'<i class="iconfont ic-unfollow"></i><span>取消关注</span>')
+
+								}
+							},
+							function() {
+								var l = $(this).html();
+								if (l.indexOf("取消关注") != -1) {
+									$(this)
+											.html(
+													'<i class="iconfont ic-followed"></i><span>已关注</span>')
+
+								}
+							});
 		}
 	</script>
 

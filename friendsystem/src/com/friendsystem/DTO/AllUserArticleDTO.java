@@ -19,6 +19,19 @@ public class AllUserArticleDTO {
 	 */
 	private Article article;
 	/**
+	 * 文章简介
+	 */
+	private String outLine;
+
+	public String getOutLine() {
+		return outLine;
+	}
+
+	public void setOutLine(String outLine) {
+		this.outLine = outLine;
+	}
+
+	/**
 	 * 该文章获得的赞
 	 */
 	private int like = 0;
@@ -49,7 +62,8 @@ public class AllUserArticleDTO {
 
 	@Override
 	public String toString() {
-		return "AllUserArticleDTO [user=" + user + ", article=" + article + ", like=" + like + "]";
+		return "AllUserArticleDTO [user=" + user + ", article=" + article + ", outLine=" + outLine + ", like=" + like
+				+ "]";
 	}
 
 }

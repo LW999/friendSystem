@@ -244,6 +244,7 @@ public class HomeService {
 
 	/**
 	 * 根据传回来的用户ID查询该User关注的所有人
+	 * 
 	 * @param user_Id
 	 * @return
 	 */
@@ -255,36 +256,40 @@ public class HomeService {
 		com.friendsystem.pojo.AttentionPeopleExample.Criteria criteria = attentionPeopleExample.createCriteria();
 
 		List<AttentionPeople> listAttention = new ArrayList<>();
+		List<String> values = new ArrayList<>();// 用户关注的人
 		if (user_Id.equals(userSession.getUserId()) || userSession.getUserType().equals("tourists")) {
 			System.out.println("hhhh");
 			criteria.andAttentionPeopleUserOneEqualTo(user_Id);
 			listAttention = attentionPeopleMapper.selectByExample(attentionPeopleExample);
 		} else {
-			System.out.println("dddd");
+
 			List<AttentionPeople> listAttentionMy = new ArrayList<>();
 			AttentionPeopleExample attentionPeopleExampleMy = new AttentionPeopleExample();
 			com.friendsystem.pojo.AttentionPeopleExample.Criteria criteriaMy = attentionPeopleExampleMy
 					.createCriteria();
 			criteriaMy.andAttentionPeopleUserOneEqualTo(userSession.getUserId());
 			listAttentionMy = attentionPeopleMapper.selectByExample(attentionPeopleExampleMy);
-			List<String> values = new ArrayList<>();
 			for (AttentionPeople attentionPeople : listAttentionMy) {
-				System.out.println("ddd");
 				values.add(attentionPeople.getAttentionPeopleUserTwo());// NB
 			}
-			
-			System.out.println("valuse:" + values);
 			criteria.andAttentionPeopleUserOneEqualTo(user_Id);
-			
-			criteria.andAttentionPeopleUserTwoNotIn(values);
+			// criteria.andAttentionPeopleUserTwoNotIn(values);
 			listAttention = attentionPeopleMapper.selectByExample(attentionPeopleExample);
 		}
 		for (AttentionPeople attentionPeople : listAttention) {
+			String isAttention = "";
 			UserAttentionDTO userAttentionDTO = new UserAttentionDTO();
 			User user2 = new User();
 			user2 = userMapper.selectByPrimaryKey(attentionPeople.getAttentionPeopleUserTwo());
+
 			if (user2 != null) {
+				if (values.contains(user2.getUserId())) {
+					isAttention = "yes";
+				} else {
+					isAttention = "no";
+				}
 				userAttentionDTO.setUser(user2);
+				userAttentionDTO.setIsAttention(isAttention);
 			}
 			AttentionPeopleExample attentionPeopleExample2 = new AttentionPeopleExample();
 			com.friendsystem.pojo.AttentionPeopleExample.Criteria criteria2 = attentionPeopleExample2.createCriteria();

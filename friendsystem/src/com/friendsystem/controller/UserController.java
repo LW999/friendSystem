@@ -51,6 +51,7 @@ public class UserController {
 	public void attentionUser(@ModelAttribute("session") User userSession, Model model, String user_Id,
 			HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html; charset=utf-8");
+
 		if (user_Id != null && user_Id.trim().length() > 0) {
 			String message = userService.getMessage(user_Id, userSession);
 			response.getWriter().println(message);
@@ -106,12 +107,14 @@ public class UserController {
 	 * 我的个人主页
 	 */
 	@RequestMapping("myHome")
-	public ModelAndView myHome(String user_Id) {
+	public ModelAndView myHome(@ModelAttribute("session") User userSession, String user_Id) {
+		String isAttention = userService.getIsAttention(userSession, user_Id);
 		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
 		int allAttention = userService.getAttentionNumber(user_Id);
 		int fansNumber = userService.getFansNumber(user_Id);
 		int articlesNumber = UALDTO.getListA().size();
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("isAttention", isAttention);
 		modelAndView.addObject("UALDTO", UALDTO);
 		modelAndView.addObject("allAttention", allAttention);
 		modelAndView.addObject("fansNumber", fansNumber);
@@ -119,6 +122,7 @@ public class UserController {
 		modelAndView.setViewName("user/myHome");
 		return modelAndView;
 	}
+
 	/**
 	 * 我的个人主页
 	 */
@@ -136,7 +140,6 @@ public class UserController {
 		modelAndView.setViewName("user/myHome");
 		return modelAndView;
 	}
-		
 
 	/**
 	 * 更改个人基础资料
@@ -220,8 +223,8 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 		// 保存照片
 		String imgPath = ImgUtil.upload(request, pictureFile);
-		String message = "";
 		// 在保存的基础上发布
+		String message;
 		if (article_Id != null && article_Id.trim().length() > 0) {
 			message = userService.releaseArticle(article_Id, titleName, content, imgPath);
 		}
@@ -229,10 +232,12 @@ public class UserController {
 		else {
 			message = userService.directlyReleaseArticle(userSession, titleName, content, imgPath);
 		}
+		modelAndView.addObject("message", message);
 		modelAndView.addObject("user_Id", userSession.getUserId());
-		modelAndView.setViewName("forward:/user/myselfHome.do");
+		modelAndView.setViewName("redirect:/user/myselfHome.do");
 		return modelAndView;
 	}
+
 	/**
 	 * 用户删除文章
 	 * 

@@ -165,12 +165,13 @@ public class UserService {
 					articleExample.setOrderByClause("article_createtime DESC LIMIT 1");
 					listA = articleMapper.selectByExample(articleExample);
 					if (listA.size() > 0) {
-
 						// 获取该文章所获得的赞
 						criteria3.andLikearticleEqualTo(listA.get(0).getArticleId());
 						int like = likesMapper.countByExample(likesExample);
 						allUserArticleDTO.setUser(user);
 						allUserArticleDTO.setArticle(listA.get(0));
+						String outline = RemoveHTML.Html2Text(listA.get(0).getArticleContent());
+						allUserArticleDTO.setOutLine(outline);
 						allUserArticleDTO.setLike(like);
 						listAllUserArticleDTO.add(allUserArticleDTO);
 					}
@@ -198,7 +199,6 @@ public class UserService {
 			criteria.andArticleIsDeleteEqualTo("0");
 			aExample.setOrderByClause("article_modifytime DESC");
 			List<Article> listA = articleMapper.selectByExample(aExample);
-
 			int all = 0;
 			int allView = 0;
 			int i = 0;
@@ -359,10 +359,12 @@ public class UserService {
 		}
 		if (content != null && content.trim().length() > 0) {
 			article.setArticleContent(content);
+			article.setOutline(RemoveHTML.Html2Text(content));
 		}
 		if (imgPath != null && imgPath.trim().length() > 0) {
 			article.setArticleImg(imgPath);
 		}
+
 		article.setArticleByUser(userSession.getUserId());
 		article.setArticleIsRelease("1");
 		article.setArticleId(BuildUuid.getUuid());
@@ -397,6 +399,7 @@ public class UserService {
 			if (imgPath != null && imgPath.trim().length() > 0) {
 				article.setArticleImg(imgPath);
 			}
+			article.setOutline(RemoveHTML.Html2Text(article.getArticleContent()));
 			article.setArticleIsRelease("1");
 			article.setArticleModifytime(TimeUtil.getStringSecond());
 			articleMapper.updateByPrimaryKey(article);
@@ -404,10 +407,8 @@ public class UserService {
 		}
 		return null;
 	}
-
 	/**
 	 * 获得用户关注的所有数量
-	 * 
 	 * @param userId
 	 * @return
 	 */
@@ -494,6 +495,33 @@ public class UserService {
 		}
 
 		return all;
+	}
+
+	/**
+	 * 查看用户是否关注
+	 * 
+	 * @param userSession
+	 * @param user_Id
+	 * @return
+	 */
+	public String getIsAttention(User userSession, String user_Id) {
+		if (userSession.getUserType().equals("tourists")) {
+			return null;
+		} else {
+			AttentionPeopleExample attentionPeopleExample = new AttentionPeopleExample();
+			Criteria criteria = attentionPeopleExample.createCriteria();
+			criteria.andAttentionPeopleUserOneEqualTo(userSession.getUserId());
+			criteria.andAttentionPeopleUserTwoEqualTo(user_Id);
+			List<AttentionPeople> listP = new ArrayList<>();
+			listP = aPeopleMapper.selectByExample(attentionPeopleExample);
+			if (listP.size() > 0) {
+				System.out.println("hahhahhahahhahah");
+				return "yes";
+			} else {
+				return null;
+			}
+
+		}
 	}
 
 }

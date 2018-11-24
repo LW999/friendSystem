@@ -76,11 +76,15 @@
 										<c:choose>
 											<c:when test="${sessionScope.session.userType eq 'tourists'}">
 											</c:when>
-											<c:otherwise>
+											<c:when
+												test="${sessionScope.session.userId eq UALDTO.user.userId }">
 												<button class="btn btn-delete" style="margin-left: 260px;"
 													onclick="javascript:jj('${listA.articleId }');">
 													<i class="iconfont ic-delete"></i> 删除
 												</button>
+											</c:when>
+											<c:otherwise>
+
 											</c:otherwise>
 										</c:choose>
 
@@ -159,6 +163,8 @@
 				}
 			})
 		}
+
+		
 	</script>
 </body>
 

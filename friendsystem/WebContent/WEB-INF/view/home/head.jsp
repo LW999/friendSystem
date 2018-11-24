@@ -1,4 +1,4 @@
-·<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -17,11 +17,10 @@
 	href="${pageContext.request.contextPath }/img/logo.ico" />
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="width-limit">
 		<!-- 左上方 Logo -->
 		<!--<a class="logo" href="/"><img src="//cdn2.jianshu.io/assets/web/nav-logo-4c7bbafe27adc892f3046e6978459bac.png" alt="Nav logo"></a>-->
-
 		<!-- 右上角 -->
 		<!-- 未登录显示登录/注册/写文章 -->
 		<c:choose>
@@ -132,8 +131,6 @@
 
 							</c:otherwise>
 						</c:choose>
-
-
 						<li class="search">
 							<form target="_blank" action="#" accept-charset="UTF-8"
 								method="get">

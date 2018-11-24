@@ -38,10 +38,9 @@ public class HomePageController {
 
 	@Resource(name = "homeService")
 	private HomeService homeService;
-	
+
 	@Resource(name = "userService")
 	private UserService userService;
-
 
 	@Resource(name = "operationService")
 	private OperationService operationService;
@@ -186,21 +185,24 @@ public class HomePageController {
 	 */
 	@RequestMapping("userAttention")
 	public ModelAndView userAttention(@ModelAttribute("session") User userSession, Model model, String user_Id) {
+		
 		ModelAndView modelAndView = new ModelAndView();
 		if (user_Id != null && user_Id.trim().length() > 0) {
-				List<UserAttentionDTO> listU = new ArrayList<>();
-				listU = homeService.getUserAttention(user_Id,userSession);
-				User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
-				int allAttention = userService.getAttentionNumber(user_Id);
-				int fansNumber = userService.getFansNumber(user_Id);
-				int articlesNumber = UALDTO.getListA().size();
-				int userLikes = userService.getlike(user_Id);
-				modelAndView.addObject("userLikes", userLikes);//收到的喜欢
-				modelAndView.addObject("UALDTO", UALDTO);
-				modelAndView.addObject("allAttention", allAttention);
-				modelAndView.addObject("fansNumber", fansNumber);
-				modelAndView.addObject("articlesNumber", articlesNumber);
-				modelAndView.addObject("listU", listU);
+			String isAttention = userService.getIsAttention(userSession, user_Id);
+			List<UserAttentionDTO> listU = new ArrayList<>();
+			listU = homeService.getUserAttention(user_Id, userSession);
+			User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
+			int allAttention = userService.getAttentionNumber(user_Id);
+			int fansNumber = userService.getFansNumber(user_Id);
+			int articlesNumber = UALDTO.getListA().size();
+			int userLikes = userService.getlike(user_Id);
+			modelAndView.addObject("isAttention", isAttention);
+			modelAndView.addObject("userLikes", userLikes);// 收到的喜欢
+			modelAndView.addObject("UALDTO", UALDTO);
+			modelAndView.addObject("allAttention", allAttention);
+			modelAndView.addObject("fansNumber", fansNumber);
+			modelAndView.addObject("articlesNumber", articlesNumber);
+			modelAndView.addObject("listU", listU);
 		}
 		modelAndView.setViewName("user/myAttention");
 		return modelAndView;

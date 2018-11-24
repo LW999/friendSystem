@@ -16,6 +16,15 @@ public class UserAttentionDTO {
 	private int article;
 	private int view;
 	private int likes;
+	private String isAttention;
+
+	public String getIsAttention() {
+		return isAttention;
+	}
+
+	public void setIsAttention(String isAttention) {
+		this.isAttention = isAttention;
+	}
 
 	public User getUser() {
 		return user;
@@ -68,7 +77,7 @@ public class UserAttentionDTO {
 	@Override
 	public String toString() {
 		return "UserAttentionDTO [user=" + user + ", attention=" + attention + ", fans=" + fans + ", article=" + article
-				+ ", view=" + view + ", likes=" + likes + "]";
+				+ ", view=" + view + ", likes=" + likes + ", isAttention=" + isAttention + "]";
 	}
 
 }
