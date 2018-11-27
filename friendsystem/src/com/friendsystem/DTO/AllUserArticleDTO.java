@@ -4,7 +4,7 @@ import com.friendsystem.pojo.Article;
 import com.friendsystem.pojo.User;
 
 /**
- * 查询所有用户最新发表的文章
+ * 用户最新发表的文章
  * 
  * @author
  *

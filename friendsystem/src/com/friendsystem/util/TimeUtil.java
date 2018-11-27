@@ -2,7 +2,13 @@ package com.friendsystem.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
+import org.junit.Test;
+
+import com.huaban.analysis.jieba.JiebaSegmenter;
+import com.huaban.analysis.jieba.JiebaSegmenter.SegMode;
 
 /**
  * class 时间工具类
@@ -28,7 +34,45 @@ public class TimeUtil {
 		}
 
 	}
+	
+	@Test
+	public void testDemo() {
+	    JiebaSegmenter segmenter = new JiebaSegmenter();
+	    String[] sentences =
+	        new String[] {"java是世界上最好的语言"};
+	    for (String sentence : sentences) {
+	    	String[] fd = new String[3];
+	    	System.out.println(segmenter.process(sentence, SegMode.INDEX));
+	    }
+	}
+	
+	
+	
 
+	/**
+	 * 获取前一天的时间
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static String getStringSecondByUp() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date secondDate = new Date();
+		Calendar calendar = Calendar.getInstance(); //得到日历
+		Date dBefore = new Date();
+		calendar.setTime(secondDate);//把当前时间赋给日历
+		calendar.add(Calendar.DAY_OF_MONTH, -1);  //设置为前一天
+		dBefore = calendar.getTime();   //得到前一天的时间
+		String date = formatter.format(dBefore);
+		try {
+			dBefore = formatter.parse(date);
+			return date;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return "0000-00-00";
+		}
+
+	}
 	public static String getDayOfWeek(Date date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("E");
 		String week = sdf.format(date);

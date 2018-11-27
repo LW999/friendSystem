@@ -1,6 +1,5 @@
 package com.friendsystem.DTO;
 
-import java.util.List;
 
 import com.friendsystem.pojo.User;
 

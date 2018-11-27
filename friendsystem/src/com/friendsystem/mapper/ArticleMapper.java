@@ -34,5 +34,12 @@ public interface ArticleMapper {
 	List<Article> selectByRand();
 
 	List<Article> getThreeArticle(String userID);
-	
+	/**
+	 * 模糊查询
+	 * 
+	 * @param search
+	 * @return
+	 */
+	List<Article> selectLike(String search);
+
 }

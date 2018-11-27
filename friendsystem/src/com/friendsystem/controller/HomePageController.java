@@ -17,19 +17,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.friendsystem.DTO.Article_DetailsDTO;
 import com.friendsystem.DTO.Article_Like_CollectionDTO;
+import com.friendsystem.DTO.KeywordDTO;
 import com.friendsystem.DTO.LikeDTO;
 import com.friendsystem.DTO.UserAttentionDTO;
 import com.friendsystem.DTO.UserLikeAndTimeDTO;
 import com.friendsystem.DTO.User_AllArticlesAndLikeDTO;
 import com.friendsystem.DTO.User_ArticleDTO;
 import com.friendsystem.DTO.User_LikeDTO;
+import com.friendsystem.pojo.Keyword;
 import com.friendsystem.pojo.Project;
 import com.friendsystem.pojo.Recommended;
 import com.friendsystem.pojo.User;
 import com.friendsystem.service.HomeService;
 import com.friendsystem.service.OperationService;
 import com.friendsystem.service.UserService;
-import com.friendsystem.util.RemoveHTML;
 
 @Controller
 @SessionAttributes("session")
@@ -185,7 +186,6 @@ public class HomePageController {
 	 */
 	@RequestMapping("userAttention")
 	public ModelAndView userAttention(@ModelAttribute("session") User userSession, Model model, String user_Id) {
-		
 		ModelAndView modelAndView = new ModelAndView();
 		if (user_Id != null && user_Id.trim().length() > 0) {
 			String isAttention = userService.getIsAttention(userSession, user_Id);
@@ -206,5 +206,45 @@ public class HomePageController {
 		}
 		modelAndView.setViewName("user/myAttention");
 		return modelAndView;
+	}
+
+	/**
+	 * 关键字搜索,最多只查5条
+	 * 
+	 * @return KeywordDTO
+	 */
+	@RequestMapping("keyword")
+
+	public ModelAndView keyword(String search) {
+		System.out.println("hahah:" + search);
+		ModelAndView modelAndView = new ModelAndView();
+		KeywordDTO keywordDTO = homeService.getSearch(search);
+		modelAndView.addObject("keywordDTO", keywordDTO);
+		modelAndView.addObject("search", search);
+
+		modelAndView.setViewName("search/serchAll");
+		return modelAndView;
+	}
+
+	/**
+	 * 显示24H内的最热搜索
+	 */
+	@RequestMapping("getKeyword")
+	@ResponseBody
+	public List<Keyword> getKeyword() {
+		List<Keyword> listK = new ArrayList<>();
+		listK = homeService.getKeyword();
+		return listK;
+	}
+
+	/**
+	 * 搜索换一批
+	 */
+	@RequestMapping("change")
+	@ResponseBody
+	public List<Keyword> getChangeKeyword() {
+		List<Keyword> listK = homeService.getChange();
+
+		return listK;
 	}
 }

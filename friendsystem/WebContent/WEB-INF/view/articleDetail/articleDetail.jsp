@@ -1,20 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/css/stream.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/css/entry-00e12f5a757a30f65da3.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/css/web-bfc15fabb3b20492f7d4.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/toastr.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/stream.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/entry-00e12f5a757a30f65da3.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/web-bfc15fabb3b20492f7d4.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/toastr.css">
 <!-- 图标 -->
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath }/img/logo.ico" />
+<link rel="shortcut icon" href="${pageContext.request.contextPath }/img/logo.ico" />
 <style type="text/css">
 @charset "UTF-8";
 /*
@@ -104,78 +98,10 @@
 	background-position: left;
 }
 
-100%
-{
+100%{
 background-position
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
-
-
-
-
-
-
  
-
-
-
-
-
-
-
-
-
-
-
-right
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+:right
 ;
 }
 }
@@ -190,69 +116,7 @@ background-position
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
 right
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -262,14 +126,13 @@ right
 .like .like-group.active .btn-like[data-v-6ddd02c6]:before {
 	background-position: right;
 }
-.w-e-text-container{
-    height: 100px !important;
-}
 
+.w-e-text-container {
+	height: 100px !important;
+}
 </style>
 <!-- 图标 -->
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath }/img/logo.ico" />
+<link rel="shortcut icon" href="${pageContext.request.contextPath }/img/logo.ico" />
 <title>${article_DetailsDTO.article.articleTitle }</title>
 </head>
 <body class="reader-black-font" lang="zh-CN">
@@ -282,23 +145,26 @@ right
 
 				<!-- 作者区域 -->
 				<div class="author">
-					<a class="avatar" href="#"> <img
-						src="${pageContext.request.contextPath}/img/user.do?fileFileName=${article_DetailsDTO.user.userPortrait}"
-						alt="96">
+					<a class="avatar" href="#">
+						<img src="${pageContext.request.contextPath}/img/user.do?fileFileName=${article_DetailsDTO.user.userPortrait}" alt="96">
 					</a>
 					<div class="info">
-						<span class="name"><a href="#">${article_DetailsDTO.user.userName}</a></span>
+						<span class="name">
+							<a href="#">${article_DetailsDTO.user.userName}</a>
+						</span>
 						<!-- 关注用户按钮 -->
-						<a class="btn btn-success follow"><i
-							class="iconfont ic-follow"></i><span>关注</span></a>
+						<a class="btn btn-success follow">
+							<i class="iconfont ic-follow"></i>
+							<span>关注</span>
+						</a>
 						<!-- 文章数据信息 -->
 						<div class="meta">
 							<!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
 							<span class="publish-time">${article_DetailsDTO.article.articleModifytime}</span>
-							<span class="wordage">字数 715</span> <span class="views-count">阅读
-								${article_DetailsDTO.article.articleViews} </span><span
-								class="comments-count">评论</span><span class="likes-count">喜欢
-								${article_DetailsDTO.like }</span>
+							<span class="wordage">字数 715</span>
+							<span class="views-count">阅读 ${article_DetailsDTO.article.articleViews} </span>
+							<span class="comments-count">评论</span>
+							<span class="likes-count">喜欢 ${article_DetailsDTO.like }</span>
 						</div>
 					</div>
 					<!-- 如果是当前作者，加入编辑按钮 -->
@@ -308,8 +174,7 @@ right
 				<div data-note-content="" class="show-content">
 					<div class="show-content-free">
 						<div class="image-package">
-							<div class="image-container"
-								style="max-width: 589px; max-height: 645px; background-color: transparent;">
+							<div class="image-container" style="max-width: 589px; max-height: 645px; background-color: transparent;">
 								<div class="image-caption"></div>
 							</div>
 
@@ -320,11 +185,11 @@ right
 				</div>
 
 				<div class="show-foot">
-					<a class="notebook" href="/nb/3856427"> <i
-						class="iconfont ic-search-notebook"></i> <span>${article_DetailsDTO.user.userName }</span>
+					<a class="notebook" href="/nb/3856427">
+						<i class="iconfont ic-search-notebook"></i>
+						<span>${article_DetailsDTO.user.userName }</span>
 					</a>
-					<div class="copyright" data-toggle="tooltip" data-html="true"
-						data-original-title="转载请联系作者获得授权，并标注“简书作者”。">© 著作权归作者所有</div>
+					<div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">© 著作权归作者所有</div>
 					<div class="modal-wrap" data-report-note="">
 						<a id="report-modal">举报文章</a>
 					</div>
@@ -333,12 +198,14 @@ right
 				<!-- 文章底部作者信息 -->
 				<div class="follow-detail">
 					<div class="info">
-						<a class="avatar" href="#"> <img
-							src="${pageContext.request.contextPath}/img/user.do?fileFileName=${article_DetailsDTO.user.userPortrait}"
-							alt="96">
-						</a> <a class="btn btn-success follow"><i
-							class="iconfont ic-follow"></i><span>关注</span></a> <a class="title"
-							href="/u/cee06b2093af">${article_DetailsDTO.user.userName } </a>
+						<a class="avatar" href="#">
+							<img src="${pageContext.request.contextPath}/img/user.do?fileFileName=${article_DetailsDTO.user.userPortrait}" alt="96">
+						</a>
+						<a class="btn btn-success follow">
+							<i class="iconfont ic-follow"></i>
+							<span>关注</span>
+						</a>
+						<a class="title" href="/u/cee06b2093af">${article_DetailsDTO.user.userName } </a>
 						<p>总浏览量${views}，被 2人关注，获得了${article_DetailsDTO.allLike } 个喜欢</p>
 					</div>
 					<div class="signature">个人简介:${article_DetailsDTO.user.userSynopsis }</div>
@@ -362,8 +229,10 @@ right
 						<!-- btn like-group like-animation -->
 
 						<div data-v-6ddd02c6="" class="btn-like">
-							<a data-v-6ddd02c6="" onclick="userlike()" data-toggle="modal"
-								data-target="#myModal">喜欢 <i class="iconfont ic-like"></i></a>
+							<a data-v-6ddd02c6="" onclick="userlike()" data-toggle="modal" data-target="#myModal">
+								喜欢
+								<i class="iconfont ic-like"></i>
+							</a>
 							<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
    									 打开模态框
  								 </button> -->
@@ -372,13 +241,10 @@ right
 						<div data-v-6ddd02c6="" class="modal-wrap">
 							<c:choose>
 								<c:when test="${sessionScope.session.userType eq 'tourists'}">
-									<a data-v-6ddd02c6=""
-										href="${pageContext.request.contextPath }/jump/login.do">点赞
-										${article_DetailsDTO.like }</a>
+									<a data-v-6ddd02c6="" href="${pageContext.request.contextPath }/jump/login.do">点赞 ${article_DetailsDTO.like }</a>
 								</c:when>
 								<c:when test="${sessionScope.session.userType eq 'user'}">
-									<a data-v-6ddd02c6="" onclick="like(this)">点赞
-										${article_DetailsDTO.like }</a>
+									<a data-v-6ddd02c6="" onclick="like(this)">点赞 ${article_DetailsDTO.like }</a>
 								</c:when>
 							</c:choose>
 
@@ -393,12 +259,12 @@ right
 						<c:when test="${sessionScope.session.userType eq 'tourists'}">
 							<div>
 								<form class="new-comment">
-									<a class="avatar"><img
-										src="${pageContext.request.contextPath}/img/user.do?fileFileName=bb38223dcca747baa7a10b4850a6f049.png"></a>
+									<a class="avatar">
+										<img src="${pageContext.request.contextPath}/img/user.do?fileFileName=bb38223dcca747baa7a10b4850a6f049.png">
+									</a>
 									<div class="sign-container">
-										<a
-											href="/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-comment-form"
-											class="btn btn-sign">登录</a> <span>后发表评论</span>
+										<a href="/sign_in?utm_source=desktop&amp;utm_medium=not-signed-in-comment-form" class="btn btn-sign">登录</a>
+										<span>后发表评论</span>
 									</div>
 								</form>
 								<!---->
@@ -407,20 +273,23 @@ right
 						<c:otherwise>
 							<div>
 								<form class="new-comment">
-									<a class="avatar"><img
-										src="${pageContext.request.contextPath}/img/user.do?fileFileName=${sessionScope.session.userPortrait }"></a>
-									
+									<a class="avatar">
+										<img src="${pageContext.request.contextPath}/img/user.do?fileFileName=${sessionScope.session.userPortrait }">
+									</a>
+
 									<!-- <div id="div1" class="follow-detail">
 									</div> -->
 									<textarea rows="" cols=""></textarea>
 									<div class="write-function-block">
 										<div data-v-b36e9416="" class="emoji-modal-wrap">
-											<a data-v-b36e9416="" class="emoji"><i data-v-b36e9416=""
-												class="iconfont ic-comment-emotions"></i></a>
+											<a data-v-b36e9416="" class="emoji">
+												<i data-v-b36e9416="" class="iconfont ic-comment-emotions"></i>
+											</a>
 											<!---->
 										</div>
 										<div class="hint">Ctrl+Enter 发表</div>
-										<a class="btn btn-send">发送</a> <a class="cancel">取消</a>
+										<a class="btn btn-send">发送</a>
+										<a class="cancel">取消</a>
 									</div>
 								</form>
 								<!---->
@@ -450,10 +319,12 @@ right
 						<div>
 							<div>
 								<div class="top-title">
-									<span>25条评论</span> <a class="author-only">只看作者</a> <a
-										class="close-btn" style="display: none;">关闭评论</a>
+									<span>25条评论</span>
+									<a class="author-only">只看作者</a>
+									<a class="close-btn" style="display: none;">关闭评论</a>
 									<div class="pull-right">
-										<a class="active">按时间倒序</a> <a class="">按时间正序</a>
+										<a class="active">按时间倒序</a>
+										<a class="">按时间正序</a>
 									</div>
 								</div>
 							</div>
@@ -480,11 +351,11 @@ right
 							<div id="comment-29705040" class="comment">
 								<div>
 									<div class="author">
-										<div data-v-f3bf5228="" class="v-tooltip-container"
-											style="z-index: 0;">
+										<div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;">
 											<div class="v-tooltip-content">
-												<a href="#" target="_blank" class="avatar"><img
-													src="//upload.jianshu.io/users/upload_avatars/8312573/0a89da57-65e5-423c-8d8a-f257eba1388a.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/114/h/114"></a>
+												<a href="#" target="_blank" class="avatar">
+													<img src="//upload.jianshu.io/users/upload_avatars/8312573/0a89da57-65e5-423c-8d8a-f257eba1388a.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/114/h/114">
+												</a>
 											</div>
 											<!---->
 										</div>
@@ -499,15 +370,18 @@ right
 									</div>
 									<div class="comment-wrap">
 										<p>
-											大道至简<img src="//static.jianshu.io/assets/emojis/+1.png"
-												alt=":+1:" title=":+1:" class="emoji" width="20" height="20"><img
-												src="//static.jianshu.io/assets/emojis/+1.png" alt=":+1:"
-												title=":+1:" class="emoji" width="20" height="20">
+											大道至简
+											<img src="//static.jianshu.io/assets/emojis/+1.png" alt=":+1:" title=":+1:" class="emoji" width="20" height="20">
+											<img src="//static.jianshu.io/assets/emojis/+1.png" alt=":+1:" title=":+1:" class="emoji" width="20" height="20">
 										</p>
 										<div class="tool-group">
-											<a data-v-cdecbe24="" id="like-button-29705040"
-												class="like-button"><span data-v-cdecbe24="">赞</span></a> <a
-												class=""><i class="iconfont ic-comment"></i> <span>回复</span></a>
+											<a data-v-cdecbe24="" id="like-button-29705040" class="like-button">
+												<span data-v-cdecbe24="">赞</span>
+											</a>
+											<a class="">
+												<i class="iconfont ic-comment"></i>
+												<span>回复</span>
+											</a>
 											<!---->
 											<!---->
 										</div>
@@ -522,11 +396,11 @@ right
 							<div id="comment-29539196" class="comment">
 								<div>
 									<div class="author">
-										<div data-v-f3bf5228="" class="v-tooltip-container"
-											style="z-index: 0;">
+										<div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;">
 											<div class="v-tooltip-content">
-												<a href="/u/336801e4b84d" target="_blank" class="avatar"><img
-													src="//upload.jianshu.io/users/upload_avatars/3773633/6c967515-aadf-451c-85f2-de2748a3b380.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/114/h/114"></a>
+												<a href="/u/336801e4b84d" target="_blank" class="avatar">
+													<img src="//upload.jianshu.io/users/upload_avatars/3773633/6c967515-aadf-451c-85f2-de2748a3b380.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/114/h/114">
+												</a>
 											</div>
 											<!---->
 										</div>
@@ -542,9 +416,13 @@ right
 									<div class="comment-wrap">
 										<p>还门道呢，想骗你钱而已，自己还没赚的够开花呢，会傻不拉几的告你一个陌生人？</p>
 										<div class="tool-group">
-											<a data-v-cdecbe24="" id="like-button-29539196"
-												class="like-button"><span data-v-cdecbe24="">赞</span></a> <a
-												class=""><i class="iconfont ic-comment"></i> <span>回复</span></a>
+											<a data-v-cdecbe24="" id="like-button-29539196" class="like-button">
+												<span data-v-cdecbe24="">赞</span>
+											</a>
+											<a class="">
+												<i class="iconfont ic-comment"></i>
+												<span>回复</span>
+											</a>
 											<!---->
 											<!---->
 										</div>
@@ -558,20 +436,24 @@ right
 
 							<div id="comment-28793185" class="sub-comment">
 								<p>
-								<div data-v-f3bf5228="" class="v-tooltip-container"
-									style="z-index: 0;">
+								<div data-v-f3bf5228="" class="v-tooltip-container" style="z-index: 0;">
 									<div class="v-tooltip-content">
-										<a href="/u/c1ee0cbb0bfb" target="_blank">星流瀑布</a>：
+										<a href="/u/c1ee0cbb0bfb" target="_blank">星流瀑布</a>
+										：
 									</div>
 									<!---->
 								</div>
-								<span><a href="/u/79174c45f369" class="maleskine-author"
-									target="_blank" data-user-slug="79174c45f369">@米米心</a>
-									我有门道，可以聊聊</span>
+								<span>
+									<a href="/u/79174c45f369" class="maleskine-author" target="_blank" data-user-slug="79174c45f369">@米米心</a>
+									我有门道，可以聊聊
+								</span>
 								</p>
 								<div class="sub-tool-group">
-									<span>2018.09.19 07:39</span> <a class=""><i
-										class="iconfont ic-comment"></i> <span>回复</span></a>
+									<span>2018.09.19 07:39</span>
+									<a class="">
+										<i class="iconfont ic-comment"></i>
+										<span>回复</span>
+									</a>
 									<!---->
 									<!---->
 								</div>
@@ -594,11 +476,12 @@ right
 			<div class="modal-content">
 
 				<!-- 模态框头部 -->
-				<div class="modal-header"
-					style="border-bottom-width: 0px; padding-bottom: 10px; padding-top: 20px;">
+				<div class="modal-header" style="border-bottom-width: 0px; padding-bottom: 10px; padding-top: 20px;">
 					<table>
 						<tr>
-							<td><h4 class="modal-title">喜欢的人</h4></td>
+							<td>
+								<h4 class="modal-title">喜欢的人</h4>
+							</td>
 
 						</tr>
 
@@ -610,14 +493,16 @@ right
 				<!-- 模态框主体 -->
 				<div class="modal-body" style="padding-top: 10px;">
 					<ul id="userRRR" style="list-style: none;">
-						<li>1das<span>hhahha</span></li>
+						<li>
+							1das
+							<span>hhahha</span>
+						</li>
 					</ul>
 				</div>
 
 				<!-- 模态框底部 -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
 				</div>
 
 			</div>
@@ -627,15 +512,11 @@ right
 
 	<%-- 	<%@include file="more.jsp"%>
  --%>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath }/js/jquery-2.11.min.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath }/js/toastr.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath }/js/bootstrap-3.37.min.js"></script>
-		
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath }/js/wangEditor.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-2.11.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/toastr.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap-3.37.min.js"></script>
+
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/wangEditor.js"></script>
 	<script type="text/javascript">
 		function like(obj) {
 			var g = obj;

@@ -170,7 +170,7 @@ public class UserService {
 						int like = likesMapper.countByExample(likesExample);
 						allUserArticleDTO.setUser(user);
 						allUserArticleDTO.setArticle(listA.get(0));
-						String outline = RemoveHTML.Html2Text(listA.get(0).getArticleContent());
+						String outline = RemoveHTML.Html2Text(listA.get(0).getArticleContent(),20);
 						allUserArticleDTO.setOutLine(outline);
 						allUserArticleDTO.setLike(like);
 						listAllUserArticleDTO.add(allUserArticleDTO);
@@ -204,7 +204,7 @@ public class UserService {
 			int i = 0;
 			for (Article article : listA) {
 				String outline = "";
-				outline = RemoveHTML.Html2Text(article.getArticleContent());
+				outline = RemoveHTML.Html2Text(article.getArticleContent(),20);
 				article.setOutline(outline);
 				LikesExample likesExample = new LikesExample();
 				com.friendsystem.pojo.LikesExample.Criteria criteria2 = likesExample.createCriteria();
@@ -359,7 +359,7 @@ public class UserService {
 		}
 		if (content != null && content.trim().length() > 0) {
 			article.setArticleContent(content);
-			article.setOutline(RemoveHTML.Html2Text(content));
+			article.setOutline(RemoveHTML.Html2Text(content,20));
 		}
 		if (imgPath != null && imgPath.trim().length() > 0) {
 			article.setArticleImg(imgPath);
@@ -399,7 +399,7 @@ public class UserService {
 			if (imgPath != null && imgPath.trim().length() > 0) {
 				article.setArticleImg(imgPath);
 			}
-			article.setOutline(RemoveHTML.Html2Text(article.getArticleContent()));
+			article.setOutline(RemoveHTML.Html2Text(article.getArticleContent(),20));
 			article.setArticleIsRelease("1");
 			article.setArticleModifytime(TimeUtil.getStringSecond());
 			articleMapper.updateByPrimaryKey(article);
@@ -480,7 +480,7 @@ public class UserService {
 		int all = 0;
 		for (Article article : listA) {
 			String outline = "";
-			outline = RemoveHTML.Html2Text(article.getArticleContent());
+			outline = RemoveHTML.Html2Text(article.getArticleContent(),20);
 			article.setOutline(outline);
 			LikesExample likesExample = new LikesExample();
 			com.friendsystem.pojo.LikesExample.Criteria criteria2 = likesExample.createCriteria();

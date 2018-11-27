@@ -102,4 +102,14 @@ public class JumpController {
 		modelAndView.setViewName("myAttention/recommendAttention");
 		return modelAndView;
 	}
+	/**
+	 * 测试页面
+	 */
+	@RequestMapping("test")
+	public ModelAndView test() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("search/serchAll");
+		return modelAndView;
+	}
+	
 }

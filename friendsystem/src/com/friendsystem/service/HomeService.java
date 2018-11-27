@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import com.friendsystem.DTO.Article_DetailsDTO;
 import com.friendsystem.DTO.Article_Like_CollectionDTO;
+import com.friendsystem.DTO.KeywordDTO;
 import com.friendsystem.DTO.LikeDTO;
 import com.friendsystem.DTO.UserAttentionDTO;
 import com.friendsystem.DTO.UserLikeAndTimeDTO;
@@ -12,6 +15,7 @@ import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.mapper.ArticleMapper;
 import com.friendsystem.mapper.AttentionPeopleMapper;
 import com.friendsystem.mapper.CollectionMapper;
+import com.friendsystem.mapper.KeywordMapper;
 import com.friendsystem.mapper.LikesMapper;
 import com.friendsystem.mapper.ProjectMapper;
 import com.friendsystem.mapper.RecommendedMapper;
@@ -20,13 +24,14 @@ import com.friendsystem.pojo.Article;
 import com.friendsystem.pojo.ArticleExample;
 import com.friendsystem.pojo.AttentionPeople;
 import com.friendsystem.pojo.AttentionPeopleExample;
-import com.friendsystem.pojo.Collection;
 import com.friendsystem.pojo.CollectionExample;
+import com.friendsystem.pojo.Keyword;
+import com.friendsystem.pojo.KeywordExample;
+import com.friendsystem.pojo.KeywordExample.Criteria;
 import com.friendsystem.pojo.Likes;
 import com.friendsystem.pojo.LikesExample;
 import com.friendsystem.pojo.Project;
 import com.friendsystem.pojo.ProjectExample;
-import com.friendsystem.pojo.ProjectExample.Criteria;
 import com.friendsystem.pojo.Recommended;
 import com.friendsystem.pojo.RecommendedExample;
 import com.friendsystem.pojo.User;
@@ -51,6 +56,8 @@ public class HomeService {
 	private UserMapper userMapper;// 用户DAO
 	@Resource
 	private AttentionPeopleMapper attentionPeopleMapper;// 关注DAO
+	@Resource
+	private KeywordMapper keywordMapper;// 关键字DAO
 
 	/**
 	 * 查询所有专题
@@ -59,7 +66,7 @@ public class HomeService {
 	 */
 	public List<Project> getAllProject() {
 		ProjectExample projectExample = new ProjectExample();
-		Criteria criteria = projectExample.createCriteria();
+
 		List<Project> listProject = projectMapper.selectByExample(projectExample);
 		if (listProject.size() > 0) {
 			return listProject;
@@ -74,8 +81,7 @@ public class HomeService {
 	 */
 	public List<Recommended> getRecommended() {
 		RecommendedExample recommendedExample = new RecommendedExample();
-		com.friendsystem.pojo.RecommendedExample.Criteria criteria = recommendedExample.createCriteria();
-		List<Recommended> listRecommended = recommendedMapper.selectByExample(null);
+		List<Recommended> listRecommended = recommendedMapper.selectByExample(recommendedExample);
 		if (listRecommended.size() > 0) {
 			return listRecommended;
 		}
@@ -103,7 +109,7 @@ public class HomeService {
 				User user = new User();
 				user = userMapper.selectByPrimaryKey(article.getArticleByUser());
 				String outline = "";
-				outline = RemoveHTML.Html2Text(article.getArticleContent());
+				outline = RemoveHTML.Html2Text(article.getArticleContent(), 20);
 				ALCDTO.setOutline(outline);
 				ALCDTO.setUser(user);
 				ALCDTO.setArticle(article);
@@ -224,7 +230,6 @@ public class HomeService {
 		List<UserLikeAndTimeDTO> listU = new ArrayList<>();
 
 		List<Likes> listLike = new ArrayList<>();
-		List<User> listUser = new ArrayList<>();
 		LikesExample likesExample = new LikesExample();
 		com.friendsystem.pojo.LikesExample.Criteria criteria = likesExample.createCriteria();
 		criteria.andLikearticleEqualTo(article_Id);
@@ -258,7 +263,6 @@ public class HomeService {
 		List<AttentionPeople> listAttention = new ArrayList<>();
 		List<String> values = new ArrayList<>();// 用户关注的人
 		if (user_Id.equals(userSession.getUserId()) || userSession.getUserType().equals("tourists")) {
-			System.out.println("hhhh");
 			criteria.andAttentionPeopleUserOneEqualTo(user_Id);
 			listAttention = attentionPeopleMapper.selectByExample(attentionPeopleExample);
 		} else {
@@ -328,5 +332,139 @@ public class HomeService {
 			listU.add(userAttentionDTO);
 		}
 		return listU;
+	}
+
+	/**
+	 * 关键字搜索，最多只查5条
+	 * 
+	 * @param keyword
+	 * @return
+	 */
+	public KeywordDTO getSearch(String search) {
+		if (search != null && search.trim().length() > 0) {
+		} else {
+			search = "哈哈";
+		}
+		if (search != null && search.trim().length() > 0) {
+			KeywordExample keywordExample = new KeywordExample();
+			Criteria criteria = keywordExample.createCriteria();
+			criteria.andKeywordContentEqualTo(search);
+			criteria.andKeywordCreatetimeBetween(TimeUtil.getStringSecondByUp(), TimeUtil.getStringSecond());
+			List<Keyword> keyword = keywordMapper.selectByExample(keywordExample);
+			if (keyword.size() > 0) {
+				keyword.get(0).setKeywordNumber(keyword.get(0).getKeywordNumber() + 1);
+				keyword.get(0).setKeywordModifytime(TimeUtil.getStringSecond());
+				keywordMapper.updateByPrimaryKey(keyword.get(0));
+			} else {
+				Keyword keyword2 = new Keyword();
+				keyword2.setKeywordId(BuildUuid.getUuid());
+				keyword2.setKeywordContent(search);
+				keyword2.setKeywordNumber(1);
+				keyword2.setKeywordModifytime(TimeUtil.getStringSecond());
+				keyword2.setKeywordCreatetime(TimeUtil.getStringSecond());
+				keywordMapper.insert(keyword2);
+			}
+
+			KeywordDTO kDto = new KeywordDTO();
+			List<UserAttentionDTO> listU = new ArrayList<>();// 用户
+			List<Article_DetailsDTO> listA = new ArrayList<>();// 相关文章
+			UserExample userExample = new UserExample();
+			com.friendsystem.pojo.UserExample.Criteria criteriaU = userExample.createCriteria();
+			criteriaU.andUserNameLike("%" + search + "%");
+			List<User> listUser = userMapper.selectByExample(userExample);
+			if (listUser.size() > 0) {
+				for (User user : listUser) {
+					UserAttentionDTO userDTO = new UserAttentionDTO();
+					AttentionPeopleExample attentionPeopleExample = new AttentionPeopleExample();
+					com.friendsystem.pojo.AttentionPeopleExample.Criteria criteriaAttrntionPeople = attentionPeopleExample
+							.createCriteria();
+					user.setUserName(user.getUserName().replaceAll(search,
+							"<em class=\"search-result-highlight\">" + search + "</em>"));// 变色
+					criteriaAttrntionPeople.andAttentionPeopleUserOneEqualTo(user.getUserId());
+					userDTO.setFans(attentionPeopleMapper.countByExample(attentionPeopleExample));
+					userDTO.setUser(user);
+					listU.add(userDTO);
+				}
+
+			}
+			ArticleExample articleExample = new ArticleExample();
+			com.friendsystem.pojo.ArticleExample.Criteria criteriaArticle = articleExample.createCriteria();
+			/* criteriaArticle.andArticleTitleLike("%" + search + "%"); */
+			criteriaArticle.andArticleContentLike("%" + search + "%");
+			List<Article> listArticle = articleMapper.selectByExample(articleExample);
+			for (Article article : listArticle) {
+				String outline = "";
+				outline = RemoveHTML.Html2Text(article.getArticleContent(), 200).replaceAll(search,
+						"<em class=\"search-result-highlight\">" + search + "</em>");
+				Article_DetailsDTO article_DetailsDTO = new Article_DetailsDTO();
+				article_DetailsDTO.setArticle(article);
+				listA.add(article_DetailsDTO);
+			}
+			if (listU.size() > 0) {
+				kDto.setListU(listU);
+			}
+			if (listA.size() > 0) {
+				kDto.setListA(listA);
+			}
+			return kDto;
+		}
+		return null;
+	}
+
+	/**
+	 * 获取24H内的热门搜索
+	 * 
+	 * @return
+	 */
+	public List<Keyword> getKeyword() {
+		List<Keyword> listK = new ArrayList<>();
+		KeywordExample keywordExample = new KeywordExample();
+		Criteria criteria = keywordExample.createCriteria();
+		criteria.andKeywordCreatetimeBetween(TimeUtil.getStringSecondByUp(), TimeUtil.getStringSecond());
+
+		keywordExample.setOrderByClause("keyword_number DESC LIMIT 10");
+		listK = keywordMapper.selectByExample(keywordExample);
+		return listK;
+	}
+
+	/**
+	 * 换一批搜索
+	 * 
+	 * @return
+	 */
+	public List<Keyword> getChange() {
+		List<Keyword> listK = new ArrayList<>();
+		KeywordExample keywordExample = new KeywordExample();
+		keywordExample.setOrderByClause("RAND() DESC LIMIT 10");
+		listK = keywordMapper.selectByExample(keywordExample);
+
+		return listK;
+	}
+
+	public void test(String string) {
+		List<Article> listA = articleMapper.selectLike(string);
+		System.out.println("??" + listA.size());
+
+	}
+
+	/**
+	 * 查所有
+	 * 
+	 * @return
+	 */
+	public List<Article> getAll() {
+		List<Article> list = articleMapper.selectByExample(null);
+		return list;
+	}
+
+	public int update(Article article) {
+		int d = 0;
+		d = articleMapper.updateByPrimaryKey(article);
+		return d;
+	}
+
+	public List<User> getAllUser() {
+		List<User> list = userMapper.selectByExample(null);
+		return list;
 	}
 }

@@ -3,7 +3,7 @@ package com.friendsystem.util;
 import java.util.regex.Pattern;
 
 public class RemoveHTML {
-	public static String Html2Text(String inputString) {
+	public static String Html2Text(String inputString,int number) {
 		String htmlStr = inputString; // 含html标签的字符串
 		String textStr = "";
 		java.util.regex.Pattern p_script;
@@ -38,10 +38,10 @@ public class RemoveHTML {
 		} catch (Exception e) {
 
 		}
-		if (textStr.length() <= 60) {
+		if (textStr.length() <= number) {
 			return textStr.substring(0, textStr.length());// 返回文本字符串
 		}else {
-			return textStr.substring(0, 60);// 返回文本字符串
+			return textStr.substring(0, number);// 返回文本字符串
 		}
 	
 	}
