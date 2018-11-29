@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -67,7 +68,8 @@ public class HomePageController {
 	 */
 	@RequestMapping("/index")
 	@ResponseBody
-	public ModelAndView homePage(@ModelAttribute("session") User userSession, Model map) {
+	public ModelAndView homePage(@ModelAttribute("session") User userSession, Model map,
+			@RequestParam(value = "start", required = false, defaultValue = "0") Integer start) {
 		// 使用 ModelAndView mod = new ModelAndView();
 		ModelAndView mod = new ModelAndView();
 		if (userSession.getUserType().equals("tourists")) {
@@ -80,24 +82,35 @@ public class HomePageController {
 		// 需要推荐文章
 		List<Recommended> listRecommended = homeService.getRecommended();
 		// 需要页面随机显示的文章
-		List<Article_Like_CollectionDTO> listRandomArticlesDTO = homeService.getRandomArticles();
-		/*
-		 * // 需要页面显示5个随机推荐的作者 List<User_LikeDTO> listRandomUserDTO =
-		 * homeService.getRandomUsers(userSession);
-		 */
+		// List<Article_Like_CollectionDTO> listRandomArticlesDTO =
+		// homeService.getRandomArticles(start);
 
-		/*
-		 * mod.addObject("listRandomUserDTO", listRandomUserDTO);
-		 * System.out.println("hahahhahah:" + listRandomArticlesDTO.size());
-		 */
+		// 需要页面显示5个随机推荐的作者 List<User_LikeDTO> listRandomUserDTO
+		// =homeService.getRandomUsers(userSession);
+		//
+		//
+		// mod.addObject("listRandomUserDTO", listRandomUserDTO);
+		// System.out.println("hahahhahah:" + listRandomArticlesDTO.size());
+		//
 		mod.addObject("listProject", listProject);
 		mod.addObject("listRecommended", listRecommended);
 
-		mod.addObject("listRandomArticlesDTO", listRandomArticlesDTO);
+		// mod.addObject("listRandomArticlesDTO", listRandomArticlesDTO);
 		mod.setViewName("/home/home");
 
 		return mod;
 
+	}
+
+	/**
+	 * 首页往下加载更多文章
+	 */
+	@RequestMapping("more")
+	@ResponseBody
+	public List<Article_Like_CollectionDTO> moreArtticle(
+			@RequestParam(value = "start", required = false, defaultValue = "0") Integer start) {
+		List<Article_Like_CollectionDTO> listRandomArticlesDTO = homeService.getRandomArticles(start);
+		return listRandomArticlesDTO;
 	}
 
 	/**
@@ -185,13 +198,14 @@ public class HomePageController {
 	 * 查看用户关注的所有人
 	 */
 	@RequestMapping("userAttention")
-	public ModelAndView userAttention(@ModelAttribute("session") User userSession, Model model, String user_Id) {
+	public ModelAndView userAttention(@ModelAttribute("session") User userSession, Model model, String user_Id,
+			@RequestParam(value = "start", required = false) Integer start) {
 		ModelAndView modelAndView = new ModelAndView();
 		if (user_Id != null && user_Id.trim().length() > 0) {
 			String isAttention = userService.getIsAttention(userSession, user_Id);
 			List<UserAttentionDTO> listU = new ArrayList<>();
 			listU = homeService.getUserAttention(user_Id, userSession);
-			User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
+			User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id, start);
 			int allAttention = userService.getAttentionNumber(user_Id);
 			int fansNumber = userService.getFansNumber(user_Id);
 			int articlesNumber = UALDTO.getListA().size();

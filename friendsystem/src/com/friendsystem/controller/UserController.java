@@ -10,11 +10,13 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -92,9 +94,11 @@ public class UserController {
 	 * @param map
 	 * @return
 	 */
+
 	@RequestMapping("whoPeople")
-	public ModelAndView whoPeople(@ModelAttribute("session") User userSession, Model map, String user_Id) {
-		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
+	public ModelAndView whoPeople(@ModelAttribute("session") User userSession, Model map, String user_Id,
+			@RequestParam(value = "start", required = false, defaultValue = "0") Integer start) {
+		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id, start);
 		ALLUserAttentionDTO allUserAttentionDTO = userService.getAllUserAttention(userSession);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("UALDTO", UALDTO);
@@ -107,9 +111,10 @@ public class UserController {
 	 * 我的个人主页
 	 */
 	@RequestMapping("myHome")
-	public ModelAndView myHome(@ModelAttribute("session") User userSession, String user_Id) {
+	public ModelAndView myHome(@ModelAttribute("session") User userSession, String user_Id,
+			@RequestParam(value = "start", required = false, defaultValue = "0") Integer start) {
 		String isAttention = userService.getIsAttention(userSession, user_Id);
-		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
+		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id, start);
 		int allAttention = userService.getAttentionNumber(user_Id);
 		int fansNumber = userService.getFansNumber(user_Id);
 		int articlesNumber = UALDTO.getListA().size();
@@ -127,8 +132,10 @@ public class UserController {
 	 * 我的个人主页
 	 */
 	@RequestMapping("myselfHome")
-	public ModelAndView myselfHome(@ModelAttribute("session") User userSession, Model model) {
-		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(userSession.getUserId());
+	public ModelAndView myselfHome(@ModelAttribute("session") User userSession, Model model,
+			@RequestParam(value = "start", required = false) Integer start) {
+		System.out.println("kkkk:" + start);
+		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(userSession.getUserId(), start);
 		int allAttention = userService.getAttentionNumber(userSession.getUserId());
 		int fansNumber = userService.getFansNumber(userSession.getUserId());
 		int articlesNumber = UALDTO.getListA().size();

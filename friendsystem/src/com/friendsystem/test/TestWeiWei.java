@@ -1,9 +1,11 @@
 package com.friendsystem.test;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -181,8 +183,8 @@ public class TestWeiWei {
 	@Test
 	public void du() {
 		String user_Id = "29ff25c0-e7e9-4f96-8f83-82747bd398b1";
-		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id);
-		System.out.println("ddd" + UALDTO);
+		User_AllArticlesAndLikeDTO UALDTO = userService.getUALDTO(user_Id, 0);
+		System.out.println("ddd" + UALDTO.getListA().size());
 	}
 
 	@Test
@@ -276,14 +278,100 @@ public class TestWeiWei {
 		List<Article> lista = homeService.getAll();
 		System.out.println("KKK:" + lista.size());
 		int i = 1;
+		ArrayList<String> listFileName = new ArrayList<String>();
+		getAllFileName("C:\\img\\friends", listFileName);
 		for (Article article : lista) {
 			article.setArticleByUser(list.get(random.nextInt(list.size())).getUserId());
 			article.setArticleModifytime(TimeUtil.getStringSecond());
+			article.setArticleImg(listFileName.get(random.nextInt(listFileName.size())));
 			int s = homeService.update(article);
-		
 			System.out.println("LLL:" + s + i);
-			i= i+s;
+			i = i + s;
 		}
 
 	}
+
+	@Test
+	public void addUser20() {
+		Random random = new Random();
+		List<String> list = new ArrayList<>();
+		list.add("药药 切克闹");
+		list.add("怪咖i");
+		list.add("一二咔");
+		list.add("biu biu biu");
+		list.add("空调兽兽要来了*");
+		list.add("中国老花朵@");
+		list.add("割了动脉喝脉动@");
+		list.add("我还有点小激动!");
+		list.add("七彩鼻涕泡i!");
+		list.add("空调兽兽要来了*");
+		list.add("奥特蛋火了");
+		list.add("丑女神");
+		list.add("孟婆来杯优乐美");
+		list.add("该用户已成仙");
+		list.add("该用户无法显示昵称");
+		list.add("熊二别怕有俺在呢");
+		list.add("作业粉碎机.");
+		list.add("小怪兽ゞ");
+		list.add("法克鱿小面包");
+		list.add("24k女神经病");
+		list.add("青青草原杠把子");
+		list.add("大王叫我来巡山");
+
+		List<String> list2 = new ArrayList<>();
+		list2.add("男");
+		list2.add("女");
+		ArrayList<String> listFileName = new ArrayList<String>();
+		getAllFileName("C:\\img\\friends", listFileName);
+		System.out.println("LLLL" + listFileName.size());
+		int i = 0;
+		for (String string : list) {
+
+			User user = new User();
+			user.setUserId(BuildUuid.getUuid());
+			user.setUserAccount(GenerateAccount.nextInt8());
+			user.setUserEmail(user.getUserAccount() + "qq.com");
+			user.setUserIsBanned("0");
+			user.setUserName(list.get(i));
+			i++;
+			user.setUserPassword("123");
+			user.setUserIsActivation("1");
+			user.setUserPortrait(listFileName.get(random.nextInt(listFileName.size())));
+			user.setUserType("user");
+			user.setUserSex(list2.get(random.nextInt(list2.size())));
+			user.setUserSynopsis("大家好我系" + user.getUserName());
+			user.setUserCreatetime(TimeUtil.getStringSecond());
+			user.setUserModifytime(TimeUtil.getStringSecond());
+			homeService.addUser20(user);
+		}
+
+	}
+
+	public static String[] getFileName(String path) {
+		File file = new File(path);
+		String[] fileName = file.list();
+		return fileName;
+	}
+
+	public static void getAllFileName(String path, ArrayList<String> fileName) {
+		File file = new File(path);
+		File[] files = file.listFiles();
+		String[] names = file.list();
+		if (names != null)
+			fileName.addAll(Arrays.asList(names));
+		for (File a : files) {
+			if (a.isDirectory()) {
+				getAllFileName(a.getAbsolutePath(), fileName);
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		String[] fileName = getFileName("C:\\img\\friends");
+		ArrayList<String> listFileName = new ArrayList<String>();
+		getAllFileName("C:\\img\\friends", listFileName);
+
+	}
+
+
 }

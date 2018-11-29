@@ -92,9 +92,13 @@ public class HomeService {
 	 * 
 	 * @return listALCDTO
 	 */
-	public List<Article_Like_CollectionDTO> getRandomArticles() {
+	public List<Article_Like_CollectionDTO> getRandomArticles(int startRow2) {
 		List<Article_Like_CollectionDTO> listALCDTO = new ArrayList<>();
-		List<Article> listArticle = articleMapper.selectByRand();// 得到十条随机文章
+		ArticleExample articleExample = new ArticleExample();
+		articleExample.setPageSize(10);
+		articleExample.setStartRow(startRow2 * articleExample.getPageSize());
+		articleExample.setOrderByClause("RAND()");
+		List<Article> listArticle = articleMapper.selectByExample(articleExample);// 得到十条随机文章
 		if (listArticle.size() > 0) {
 			for (Article article : listArticle) {
 				LikesExample likeExample = new LikesExample();
@@ -109,7 +113,7 @@ public class HomeService {
 				User user = new User();
 				user = userMapper.selectByPrimaryKey(article.getArticleByUser());
 				String outline = "";
-				outline = RemoveHTML.Html2Text(article.getArticleContent(), 20);
+				outline = RemoveHTML.Html2Text(article.getArticleContent(), 100);
 				ALCDTO.setOutline(outline);
 				ALCDTO.setUser(user);
 				ALCDTO.setArticle(article);
@@ -466,5 +470,14 @@ public class HomeService {
 	public List<User> getAllUser() {
 		List<User> list = userMapper.selectByExample(null);
 		return list;
+	}
+
+	/**
+	 * 添加20人
+	 * 
+	 * @param user
+	 */
+	public void addUser20(User user) {
+		userMapper.insert(user);
 	}
 }

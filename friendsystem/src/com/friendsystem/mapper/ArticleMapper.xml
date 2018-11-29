@@ -113,6 +113,10 @@
 		<if test="orderByClause != null">
 			order by ${orderByClause}
 		</if>
+		<!-- 分页 -->
+		<if test="startRow != null and pageSize != null and pageSize != 0">
+			limit #{startRow},#{pageSize}
+		</if>
 	</select>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">

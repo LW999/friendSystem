@@ -25,22 +25,19 @@
 					<div class="carousel-inner">
 						<div class="item active">
 							<div class="banner">
-								<a target="_blank" href="#">
-									<img src="${pageContext.request.contextPath }/img/timg.jpg" alt="1">
+								<a target="_blank" href="#"> <img src="${pageContext.request.contextPath }/img/timg.jpg" alt="1">
 								</a>
 							</div>
 						</div>
 						<div class="item">
 							<div class="banner" data-banner-name="赛末点02">
-								<a target="_blank" href="#">
-									<img src="${pageContext.request.contextPath }/img/59c8621b2b5f2.png" alt="540">
+								<a target="_blank" href="#"> <img src="${pageContext.request.contextPath }/img/59c8621b2b5f2.png" alt="540">
 								</a>
 							</div>
 						</div>
 						<div class="item">
 							<div class="banner" data-banner-name="赛末点02">
-								<a target="_blank" href="#">
-									<img src="${pageContext.request.contextPath }/img/59c8621b2b5f2.png" alt="540">
+								<a target="_blank" href="#"> <img src="${pageContext.request.contextPath }/img/59c8621b2b5f2.png" alt="540">
 								</a>
 							</div>
 						</div>
@@ -51,44 +48,35 @@
 						<li data-target="#indexCarousel" data-slide-to="2" class=""></li>
 
 					</ol>
-					<a class="left carousel-control" href="#indexCarousel" role="button" data-slide="prev">
-						<i class="iconfont ic-previous-s"></i>
-					</a>
-					<a class="right carousel-control" href="#indexCarousel" role="button" data-slide="next">
-						<i class="iconfont ic-next-s"></i>
+					<a class="left carousel-control" href="#indexCarousel" role="button" data-slide="prev"> <i class="iconfont ic-previous-s"></i>
+					</a> <a class="right carousel-control" href="#indexCarousel" role="button" data-slide="next"> <i class="iconfont ic-next-s"></i>
 					</a>
 				</div>
 				<!--专题分类需要遍历-->
 				<%@include file="project.jsp"%>
-				<div class="split-line"></div>
+					<div class="split-line">
+						<a class="page-change" onclick="article()" style=" margin-left: 88%;">
+							<i class="iconfont ic-search-change" style="transform: rotate(5deg);"></i>换一批 
+						</a>
+					</div>
 				<div id="list-container">
 
 					<!-- 文章列表模块需要遍历 -->
 
-					<ul class="note-list" infinite-scroll-url="/">
-						<c:forEach items="${listRandomArticlesDTO }" var="listR">
-							<li class="have-img">
-								<a class="wrap-img" href="${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id=${listR.article.articleId}" target="_blank">
-									<img class="img-blur-done" src="${pageContext.request.contextPath}/img/user.do?fileFileName=${listR.article.articleImg}" alt="暂无">
-								</a>
+					<ul class="note-list" infinite-scroll-url="/" id="article">
+						<%-- <c:forEach items="${listRandomArticlesDTO }" var="listR">
+							<li class="have-img"><a class="wrap-img" href="${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id=${listR.article.articleId}" target="_blank"> <img class="img-blur-done" src="${pageContext.request.contextPath}/img/user.do?fileFileName=${listR.article.articleImg}" alt="暂无">
+							</a>
 								<div class="content">
 									<a class="title" target="__blank" href="${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id=${listR.article.articleId}">${listR.article.articleTitle}</a>
 									<p class="abstract">${listR.outline }...</p>
 									<div class="meta">
-										<a class="nickname" target="_blank" href="">作者${listR.user.userName }</a>
-										<a target="_blank" href="#">
-											<i class="iconfont ic-list-comments"></i>
-											浏览量:${listR.article.articleViews }
-										</a>
-										<span>
-											<i class="iconfont ic-list-like"></i>
-											点赞数:${listR.likeNumber }
-										</span>
-										<span>发表时间：${listR.article.articleModifytime }</span>
+										<a class="nickname" target="_blank" href="">作者${listR.user.userName }</a> <a target="_blank" href="#"> <i class="iconfont ic-list-comments"></i> 浏览量:${listR.article.articleViews }
+										</a> <span> <i class="iconfont ic-list-like"></i> 点赞数:${listR.likeNumber }
+										</span> <span>发表时间：${listR.article.articleModifytime }</span>
 									</div>
-								</div>
-							</li>
-						</c:forEach>
+								</div></li>
+						</c:forEach> --%>
 					</ul>
 
 				</div>
@@ -102,11 +90,8 @@
 	</div>
 	<div class="side-tool">
 		<ul>
-			<li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style="">
-				<a class="function-button">
-					<i class="iconfont ic-backtop"></i>
-				</a>
-			</li>
+			<li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style=""><a class="function-button"> <i class="iconfont ic-backtop"></i>
+			</a></li>
 			<!---->
 			<!---->
 			<!---->
@@ -128,20 +113,26 @@
 
 
 	<script type="text/javascript">
-		ww();
-		function ww() {
-
+	article();
+	function article() {
+			$.post("${pageContext.request.contextPath}/homePage/more.do",{
+				"start" : '5'
+			},
+				function(date) {
+				 $("#article").children().remove(); 
+					$.each(date,function() {
+					var k = '<li class=\"have-img\"><a class=\"wrap-img\" href=\"${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id='+this.article.articleId+'\" target="_blank\">'
+					k=k+'<img class=\"img-blur-don\" src=\"${pageContext.request.contextPath}/img/user.do?fileFileName='+this.article.articleImg+'\" alt=\"暂无\"></a>';
+					k=k+'<div class=\"content\">';
+					k=k+'<a class=\"title\" target=\"__blank\" href=\"${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id='+this.article.articleId+'\">'+this.article.articleTitle+'</a>';
+					k=k+'<p class=\"abstract\">'+this.outline+'...</p><div class=\"meta\"><a class=\"nickname\" target=\"_blank\" href=\"\">作者'+this.user.userName+'</a>';
+					k=k+'<a target=\"_blank\" href=\"#\"> <i class=\"iconfont ic-list-comments\"></i> 浏览量:'+this.article.articleViews +'</a>';
+					k=k+'<span> <i class=\"iconfont ic-list-like\"></i> 点赞数:'+this.likeNumber+'</span>';
+					k=k+'<span>发表时间：'+this.article.articleModifytime+'</span></div></div></li>';
+					$("#article").append(k); 
+					});
+				}, "json");
 		}
-		function myfun() {
-			var va2 = "${message}";
-			if (va2 == "noSession") {
-				toastr.error("没有Session")
-			}
-			if (va2 == "ok") {
-				toastr.success("注册成功！")
-			}
-		}
-		window.onload = myfun;
 	</script>
 
 </body>
