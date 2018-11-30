@@ -61,7 +61,7 @@
 										<!---->
 										<div class="content">
 											<a href="${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id=${A.articleId}" target="_blank" class="title">${A.articleTitle}</a>
-											<p class="abstract">...</p>
+											<p class="abstract">${A.outline}...</p>
 											<div class="meta">
 												<!---->
 												<iclass ="iconfontic-list-read">

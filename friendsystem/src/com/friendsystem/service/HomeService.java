@@ -37,6 +37,7 @@ import com.friendsystem.pojo.RecommendedExample;
 import com.friendsystem.pojo.User;
 import com.friendsystem.pojo.UserExample;
 import com.friendsystem.util.BuildUuid;
+import com.friendsystem.util.JiebaSegmenterUtil;
 import com.friendsystem.util.RemoveHTML;
 import com.friendsystem.util.TimeUtil;;
 
@@ -368,39 +369,68 @@ public class HomeService {
 				keyword2.setKeywordCreatetime(TimeUtil.getStringSecond());
 				keywordMapper.insert(keyword2);
 			}
+			List<String> list = JiebaSegmenterUtil.testDemo(search);
 
 			KeywordDTO kDto = new KeywordDTO();
 			List<UserAttentionDTO> listU = new ArrayList<>();// 用户
 			List<Article_DetailsDTO> listA = new ArrayList<>();// 相关文章
-			UserExample userExample = new UserExample();
-			com.friendsystem.pojo.UserExample.Criteria criteriaU = userExample.createCriteria();
-			criteriaU.andUserNameLike("%" + search + "%");
-			List<User> listUser = userMapper.selectByExample(userExample);
+
+			List<User> listUser = new ArrayList<>();
+			for (String string : list) {
+				List<User> listUser2 = new ArrayList<>();
+				UserExample userExample = new UserExample();
+				com.friendsystem.pojo.UserExample.Criteria criteriaU = userExample.createCriteria();
+				criteriaU.andUserNameLike("%" + string + "%");
+				listUser2 = userMapper.selectByExample(userExample);
+				listUser.addAll(listUser2);
+			}
 			if (listUser.size() > 0) {
-				for (User user : listUser) {
+				gg: for (User user : listUser) {
 					UserAttentionDTO userDTO = new UserAttentionDTO();
 					AttentionPeopleExample attentionPeopleExample = new AttentionPeopleExample();
 					com.friendsystem.pojo.AttentionPeopleExample.Criteria criteriaAttrntionPeople = attentionPeopleExample
 							.createCriteria();
-					user.setUserName(user.getUserName().replaceAll(search,
-							"<em class=\"search-result-highlight\">" + search + "</em>"));// 变色
+					for (String string : list) {
+						user.setUserName(user.getUserName().replaceAll(string,
+								"<em class=\"search-result-highlight\">" + string + "</em>"));// 变色
+					}
 					criteriaAttrntionPeople.andAttentionPeopleUserOneEqualTo(user.getUserId());
 					userDTO.setFans(attentionPeopleMapper.countByExample(attentionPeopleExample));
+					for (UserAttentionDTO DTO : listU) {
+						System.out.println("MMMMMM:DTO.getUser().getUserId()"
+								+ DTO.getUser().getUserId().equals(user.getUserId()));
+						if (DTO.getUser().getUserId().equals(user.getUserId()))
+							continue gg;
+					}
 					userDTO.setUser(user);
 					listU.add(userDTO);
+
 				}
 
 			}
-			ArticleExample articleExample = new ArticleExample();
-			com.friendsystem.pojo.ArticleExample.Criteria criteriaArticle = articleExample.createCriteria();
-			/* criteriaArticle.andArticleTitleLike("%" + search + "%"); */
-			criteriaArticle.andArticleContentLike("%" + search + "%");
-			List<Article> listArticle = articleMapper.selectByExample(articleExample);
-			for (Article article : listArticle) {
+			List<Article> listArticle = new ArrayList<>();
+			for (String string : list) {
+				List<Article> listArticle2 = new ArrayList<>();
+				ArticleExample articleExample = new ArticleExample();
+				com.friendsystem.pojo.ArticleExample.Criteria criteriaArticle = articleExample.createCriteria();
+				criteriaArticle.andArticleContentLike("%" + string + "%");
+				listArticle2 = articleMapper.selectByExample(articleExample);
+				listArticle.addAll(listArticle2);
+			}
+			mm: for (Article article : listArticle) {
 				String outline = "";
-				outline = RemoveHTML.Html2Text(article.getArticleContent(), 200).replaceAll(search,
-						"<em class=\"search-result-highlight\">" + search + "</em>");
+				for (String string : list) {
+					outline = RemoveHTML.Html2Text(article.getArticleContent(), 200).replaceAll(string,
+							"<em class=\"search-result-highlight\">" + string + "</em>");
+					article.setArticleTitle(article.getArticleTitle().replaceAll(string,
+							"<em class=\"search-result-highlight\">" + string + "</em>"));
+				}
+				article.setOutline(outline);
 				Article_DetailsDTO article_DetailsDTO = new Article_DetailsDTO();
+				for (Article_DetailsDTO DTO : listA) {
+					if (DTO.getArticle().getArticleId().equals(article.getArticleId()))
+						continue mm;
+				}
 				article_DetailsDTO.setArticle(article);
 				listA.add(article_DetailsDTO);
 			}
@@ -445,11 +475,6 @@ public class HomeService {
 		return listK;
 	}
 
-	public void test(String string) {
-		List<Article> listA = articleMapper.selectLike(string);
-		System.out.println("??" + listA.size());
-
-	}
 
 	/**
 	 * 查所有
@@ -457,7 +482,10 @@ public class HomeService {
 	 * @return
 	 */
 	public List<Article> getAll() {
-		List<Article> list = articleMapper.selectByExample(null);
+		ArticleExample articleExample = new ArticleExample();
+		com.friendsystem.pojo.ArticleExample.Criteria criteria = articleExample.createCriteria();
+		criteria.andArticleContentLike("%java%");
+		List<Article> list = articleMapper.selectByExample(articleExample);
 		return list;
 	}
 
@@ -468,6 +496,7 @@ public class HomeService {
 	}
 
 	public List<User> getAllUser() {
+	
 		List<User> list = userMapper.selectByExample(null);
 		return list;
 	}

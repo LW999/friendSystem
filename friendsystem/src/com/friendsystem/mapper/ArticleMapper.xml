@@ -384,16 +384,4 @@
 		=#{userID,jdbcType=VARCHAR} and article_is_release ='1' and
 		article_is_delete ='0' ORDER BY article_createtime DESC LIMIT 2
 	</select>
-	<select id="selectLike" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
-		SELECT
-		*
-		FROM
-		article
-		WHERE
-		article_content LIKE
-		'%${value}%'
-		OR article_title LIKE
-		'%${value}%'
-	</select>
 </mapper>

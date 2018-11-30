@@ -1,6 +1,7 @@
 package com.friendsystem.test;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ import javax.mail.internet.MimeMessage.RecipientType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.omg.CORBA.portable.InputStream;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -38,9 +40,14 @@ import com.friendsystem.service.UserService;
 import com.friendsystem.util.BuildUuid;
 import com.friendsystem.util.Difference;
 import com.friendsystem.util.GenerateAccount;
+import com.friendsystem.util.JiebaSegmenterUtil;
 import com.friendsystem.util.RemoveHTML;
 import com.friendsystem.util.TimeUtil;
 import com.friendsystem.util.ValidationMail;
+import com.huaban.analysis.jieba.JiebaSegmenter;
+import com.huaban.analysis.jieba.JiebaSegmenter.SegMode;
+import com.huaban.analysis.jieba.SegToken;
+import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/applicationContext-dao.xml",
@@ -255,11 +262,6 @@ public class TestWeiWei {
 		System.out.println("ddd:" + listK.size());
 	}
 
-	@Test
-	public void dsahu() {
-		homeService.test("保存");
-
-	}
 
 	@Test
 	public void hdisah() {
@@ -276,17 +278,21 @@ public class TestWeiWei {
 		 * list.add("16233b98-0053-4288-98bb-fe11803985bf");
 		 */
 		List<Article> lista = homeService.getAll();
-		System.out.println("KKK:" + lista.size());
-		int i = 1;
-		ArrayList<String> listFileName = new ArrayList<String>();
-		getAllFileName("C:\\img\\friends", listFileName);
+		/*
+		 * System.out.println("KKK:" + lista.size()); int i = 1; ArrayList<String>
+		 * listFileName = new ArrayList<String>(); getAllFileName("C:\\img\\friends",
+		 * listFileName);
+		 */
 		for (Article article : lista) {
-			article.setArticleByUser(list.get(random.nextInt(list.size())).getUserId());
-			article.setArticleModifytime(TimeUtil.getStringSecond());
-			article.setArticleImg(listFileName.get(random.nextInt(listFileName.size())));
-			int s = homeService.update(article);
-			System.out.println("LLL:" + s + i);
-			i = i + s;
+			/*
+			 * article.setArticleByUser(list.get(random.nextInt(list.size())).getUserId());
+			 * article.setArticleModifytime(TimeUtil.getStringSecond());
+			 * article.setArticleImg(listFileName.get(random.nextInt(listFileName.size())));
+			 * int s = homeService.update(article); System.out.println("LLL:" + s + i); i =
+			 * i + s;
+			 */
+			RemoveHTML.Html2Text(article.getArticleContent(), 99999999);
+			System.out.println(lista.size()+"LLL:" + article.getArticleId());
 		}
 
 	}
@@ -373,5 +379,23 @@ public class TestWeiWei {
 
 	}
 
+	@Test
+	public void testDemo() {
+		JiebaSegmenter segmenter = new JiebaSegmenter();
+		String[] sentences = new String[] { "的哥" };
+		List<String> list = new ArrayList<>();
+		for (String sentence : sentences) {
+			for (SegToken words : segmenter.process(sentence, SegMode.INDEX)) {
+				list.add(words.word);
+			}
+		}
+		for (String string : list) {
+			System.out.println(string);
+		}
+	}
+
+	static {
+
+	}
 
 }

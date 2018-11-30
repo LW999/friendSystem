@@ -490,8 +490,9 @@
 		AND user_type = 'user'
 		AND
 		user_is_activation = '1'
-		AND user_id 
-		<foreach item="userId" collection="list" open="not in(" close=")" separator=",">
+		AND user_id
+		<foreach item="userId" collection="list" open="not in("
+			close=")" separator=",">
 			#{userId}
 		</foreach>
 		<!-- NOT IN (#{userId,jdbcType=VARCHAR}) -->
@@ -499,4 +500,5 @@
 		RAND()
 		LIMIT 5
 	</select>
+
 </mapper>

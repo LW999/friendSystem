@@ -170,7 +170,7 @@ public class UserService {
 						int like = likesMapper.countByExample(likesExample);
 						allUserArticleDTO.setUser(user);
 						allUserArticleDTO.setArticle(listA.get(0));
-						String outline = RemoveHTML.Html2Text(listA.get(0).getArticleContent(), 20);
+						String outline = RemoveHTML.Html2Text(listA.get(0).getArticleContent(), 80);
 						allUserArticleDTO.setOutLine(outline);
 						allUserArticleDTO.setLike(like);
 						listAllUserArticleDTO.add(allUserArticleDTO);

@@ -199,7 +199,7 @@ public class HomePageController {
 	 */
 	@RequestMapping("userAttention")
 	public ModelAndView userAttention(@ModelAttribute("session") User userSession, Model model, String user_Id,
-			@RequestParam(value = "start", required = false) Integer start) {
+			@RequestParam(value = "start", required = false, defaultValue = "0") Integer start) {
 		ModelAndView modelAndView = new ModelAndView();
 		if (user_Id != null && user_Id.trim().length() > 0) {
 			String isAttention = userService.getIsAttention(userSession, user_Id);
@@ -235,7 +235,6 @@ public class HomePageController {
 		KeywordDTO keywordDTO = homeService.getSearch(search);
 		modelAndView.addObject("keywordDTO", keywordDTO);
 		modelAndView.addObject("search", search);
-
 		modelAndView.setViewName("search/serchAll");
 		return modelAndView;
 	}

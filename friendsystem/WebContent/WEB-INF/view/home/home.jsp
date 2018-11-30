@@ -16,7 +16,7 @@
 	<!-- 全局顶部导航栏 -->
 	<jsp:include page="head.jsp"></jsp:include>
 	<!-- 中间内容 -->
-	<div class="container index">
+	<div id="tabTop"  class="container index">
 		<div class="row">
 			<div class="col-xs-16 main">
 				<!-- Banner -->
@@ -80,7 +80,7 @@
 					</ul>
 
 				</div>
-				<a data-page="3" href="#" class="load-more">阅读更多</a>
+				<a data-page="3" onclick="resetCountAndGetData()" href="javascript:;" class="load-more">阅读更多</a>
 			</div>
 			<!-- 右边的导航 -->
 			<jsp:include page="right.jsp"></jsp:include>
@@ -90,7 +90,7 @@
 	</div>
 	<div class="side-tool">
 		<ul>
-			<li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style=""><a class="function-button"> <i class="iconfont ic-backtop"></i>
+			<li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style=""><a class="function-button" href="#tabTop"> <i class="iconfont ic-backtop"></i>
 			</a></li>
 			<!---->
 			<!---->
@@ -104,22 +104,24 @@
 	<!-- 底部 -->
 	<jsp:include page="bottom.jsp"></jsp:include>
 
-
+<%-- 
 	<script type="application/json" data-name="page-data">
 		{}
 	</script>
 	<script src="${pageContext.request.contextPath }/js/two.js"></script>
-	<script src="${pageContext.request.contextPath }/js/there.js"></script>
-
+	<script src="${pageContext.request.contextPath }/js/there.js"></script> --%>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-2.11.min.js"></script>
 
 	<script type="text/javascript">
-	article();
-	function article() {
-			$.post("${pageContext.request.contextPath}/homePage/more.do",{
+			var loading = false;
+			var count = 1;
+			article();
+			bindScroll();
+			function article() {
+				$.post("${pageContext.request.contextPath}/homePage/more.do",{
 				"start" : '5'
-			},
+				},
 				function(date) {
-				 $("#article").children().remove(); 
 					$.each(date,function() {
 					var k = '<li class=\"have-img\"><a class=\"wrap-img\" href=\"${pageContext.request.contextPath}/homePage/articleDetail.do?article_Id='+this.article.articleId+'\" target="_blank\">'
 					k=k+'<img class=\"img-blur-don\" src=\"${pageContext.request.contextPath}/img/user.do?fileFileName='+this.article.articleImg+'\" alt=\"暂无\"></a>';
@@ -129,10 +131,34 @@
 					k=k+'<a target=\"_blank\" href=\"#\"> <i class=\"iconfont ic-list-comments\"></i> 浏览量:'+this.article.articleViews +'</a>';
 					k=k+'<span> <i class=\"iconfont ic-list-like\"></i> 点赞数:'+this.likeNumber+'</span>';
 					k=k+'<span>发表时间：'+this.article.articleModifytime+'</span></div></div></li>';
-					$("#article").append(k); 
+					$("#article").append(k);
+					loading = false;
 					});
+					count++;
 				}, "json");
 		}
+			function getData(){
+				if(loading || count > 3){
+					return;
+				}else{
+					loading = true;
+				}
+				article();
+			}
+	function bindScroll(){
+		$(window).scroll(function(){
+			var docHeight = $(document).height();
+			var winHeight = $(window).height();
+			var winScrollHeight = $(window).scrollTop();
+			if(docHeight-30 <= winHeight + winScrollHeight){
+				getData();
+			}
+		});
+	}
+	function resetCountAndGetData(){
+		count = 1;
+		article();
+	}
 	</script>
 
 </body>

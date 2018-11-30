@@ -35,16 +35,7 @@ public class TimeUtil {
 
 	}
 	
-	@Test
-	public void testDemo() {
-	    JiebaSegmenter segmenter = new JiebaSegmenter();
-	    String[] sentences =
-	        new String[] {"java是世界上最好的语言"};
-	    for (String sentence : sentences) {
-	    	String[] fd = new String[3];
-	    	System.out.println(segmenter.process(sentence, SegMode.INDEX));
-	    }
-	}
+
 	
 	
 	
