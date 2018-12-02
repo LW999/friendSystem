@@ -1,5 +1,6 @@
 package com.friendsystem.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -226,15 +228,27 @@ public class HomePageController {
 	 * 关键字搜索,最多只查5条
 	 * 
 	 * @return KeywordDTO
+	 * @throws UnsupportedEncodingException 
 	 */
-	@RequestMapping("keyword")
-
-	public ModelAndView keyword(String search) {
+	@RequestMapping(value = "keyword")
+	public ModelAndView keyword(@ModelAttribute("session") User userSession, Model map,HttpServletRequest request, HttpServletResponse response,String search) throws UnsupportedEncodingException {
 		System.out.println("hahah:" + search);
 		ModelAndView modelAndView = new ModelAndView();
 		KeywordDTO keywordDTO = homeService.getSearch(search);
 		modelAndView.addObject("keywordDTO", keywordDTO);
 		modelAndView.addObject("search", search);
+		modelAndView.setViewName("search/serchAll");
+		return modelAndView;
+	}
+	@RequestMapping(value = "keyword2")
+	public ModelAndView keyword2(@ModelAttribute("session") User userSession, Model map,HttpServletRequest request, HttpServletResponse response,String search) throws UnsupportedEncodingException {
+		System.out.println("hahah:" + search);
+		String dataformat = new String(search.getBytes("iso8859-1"),"utf8");
+		System.out.println("DDDDD:"+dataformat);
+		ModelAndView modelAndView = new ModelAndView();
+		KeywordDTO keywordDTO = homeService.getSearch(dataformat);
+		modelAndView.addObject("keywordDTO", keywordDTO);
+		modelAndView.addObject("search", dataformat);
 		modelAndView.setViewName("search/serchAll");
 		return modelAndView;
 	}

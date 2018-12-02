@@ -34,7 +34,7 @@ public class JiebaSegmenterUtil {
 		List<String> list = new ArrayList<>();
 		for (String sentence : sentences) {
 			for (SegToken words : segmenter.process(sentence, SegMode.INDEX)) {
-				if (notWords.contains(words.word) || list.contains(words.word))
+				if (notWords.contains(words.word) || list.contains(words.word) || "".equals(words.word.trim()))
 					continue;
 				list.add(words.word);
 			}
@@ -44,7 +44,7 @@ public class JiebaSegmenterUtil {
 
 	@Test
 	public void test() {
-		for (String string : testDemo("Python 学习线路图 PyCharm教程 Pycharm介绍 Pycharm安装")) {
+		for (String string : testDemo("Python	学习线路图PyCharm教程 Pycharm介绍 Pycharm安装")) {
 			System.out.println(string);
 		}
 	}

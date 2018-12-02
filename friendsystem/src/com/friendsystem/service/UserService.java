@@ -190,10 +190,6 @@ public class UserService {
 	 */
 	public User_AllArticlesAndLikeDTO getUALDTO(String user_Id, int startRow2) {
 		if (user_Id != null && user_Id.trim().length() > 0) {
-			if (startRow2 > 0) {
-			} else {
-				startRow2 = 1;
-			}
 			User_AllArticlesAndLikeDTO UADTO = new User_AllArticlesAndLikeDTO();
 			User user = userMapper.selectByPrimaryKey(user_Id);
 			ArticleExample aExample = new ArticleExample();
@@ -530,6 +526,20 @@ public class UserService {
 			}
 
 		}
+	}
+
+	/**
+	 * 得到作者所有文章数
+	 * 
+	 * @param user_Id
+	 * @return
+	 */
+	public int getSrticlesNumber(String user_Id) {
+		ArticleExample articleExample = new ArticleExample();
+		com.friendsystem.pojo.ArticleExample.Criteria criteria = articleExample.createCriteria();
+		criteria.andArticleByUserEqualTo(user_Id);
+		int number = articleMapper.countByExample(articleExample);
+		return number;
 	}
 
 }

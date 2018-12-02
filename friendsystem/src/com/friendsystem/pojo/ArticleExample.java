@@ -326,6 +326,10 @@ public class ArticleExample {
 			addCriterion("article_content like", value, "articleContent");
 			return (Criteria) this;
 		}
+		public Criteria andOutlineLike(String value) {
+			addCriterion("outline like", value, "outline");
+			return (Criteria) this;
+		}
 
 		public Criteria andArticleContentNotLike(String value) {
 			addCriterion("article_content not like", value, "articleContent");

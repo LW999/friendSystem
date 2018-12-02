@@ -377,6 +377,8 @@ public class HomeService {
 
 			List<User> listUser = new ArrayList<>();
 			for (String string : list) {
+				if (string.trim().length() < 0)
+					continue;
 				List<User> listUser2 = new ArrayList<>();
 				UserExample userExample = new UserExample();
 				com.friendsystem.pojo.UserExample.Criteria criteriaU = userExample.createCriteria();
@@ -412,25 +414,31 @@ public class HomeService {
 			for (String string : list) {
 				List<Article> listArticle2 = new ArrayList<>();
 				ArticleExample articleExample = new ArticleExample();
+				articleExample.setPageSize(2);
 				com.friendsystem.pojo.ArticleExample.Criteria criteriaArticle = articleExample.createCriteria();
-				criteriaArticle.andArticleContentLike("%" + string + "%");
+				// criteriaArticle.andArticleContentLike("%" + string + "%");
+				criteriaArticle.andArticleTitleLike("%" + string + "%");
 				listArticle2 = articleMapper.selectByExample(articleExample);
 				listArticle.addAll(listArticle2);
 			}
 			mm: for (Article article : listArticle) {
-				String outline = "";
+
 				for (String string : list) {
-					outline = RemoveHTML.Html2Text(article.getArticleContent(), 200).replaceAll(string,
-							"<em class=\"search-result-highlight\">" + string + "</em>");
-					article.setArticleTitle(article.getArticleTitle().replaceAll(string,
-							"<em class=\"search-result-highlight\">" + string + "</em>"));
+					article.setOutline(((article.getOutline()).toLowerCase()).replaceAll(string,
+							"<span style=\"color: #ea6f5a\">" + string + "</span>"));
+					article.setArticleTitle(((article.getArticleTitle()).toLowerCase()).replaceAll(string,
+							"<span style=\"color: #ea6f5a\">" + string + "</span>"));
+					System.out.println("KddKK:" + article.getArticleTitle());
 				}
-				article.setOutline(outline);
+				System.out.println("KKK:" + article.getArticleTitle());
 				Article_DetailsDTO article_DetailsDTO = new Article_DetailsDTO();
 				for (Article_DetailsDTO DTO : listA) {
 					if (DTO.getArticle().getArticleId().equals(article.getArticleId()))
 						continue mm;
 				}
+				User user = new User();
+				user = userMapper.selectByPrimaryKey(article.getArticleByUser());
+				article_DetailsDTO.setUser(user);
 				article_DetailsDTO.setArticle(article);
 				listA.add(article_DetailsDTO);
 			}
@@ -475,7 +483,6 @@ public class HomeService {
 		return listK;
 	}
 
-
 	/**
 	 * 查所有
 	 * 
@@ -496,7 +503,7 @@ public class HomeService {
 	}
 
 	public List<User> getAllUser() {
-	
+
 		List<User> list = userMapper.selectByExample(null);
 		return list;
 	}

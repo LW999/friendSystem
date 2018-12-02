@@ -60,7 +60,7 @@ public class Article {
 	}
 
 	public void setOutline(String outline) {
-		this.outline = outline;
+		this.outline = outline == null ? null : outline.trim();
 	}
 
 	public String getArticleId() {

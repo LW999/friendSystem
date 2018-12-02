@@ -23,7 +23,7 @@
 			<li class="router-link-exact-active active">
 				<a href="${pageContext.request.contextPath}/user/myAttention.do" class="wrap">
 					<div class="avatar">
-						<img src="//upload.jianshu.io/users/upload_avatars/13213889/7314c5cc-ca7f-4542-b914-2c8dffaf324d.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120">
+						<img src="${pageContext.request.contextPath}/img/user.do?fileFileName=bb38223dcca747baa7a10b4850a6f049.png">
 					</div>
 					<div class="name">friends</div>
 					<!---->

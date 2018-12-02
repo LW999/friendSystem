@@ -24,6 +24,7 @@
 			property="articleModifytime" jdbcType="VARCHAR" />
 		<result column="article_project" property="articleProject"
 			jdbcType="VARCHAR" />
+		<result column="outline" property="outline" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -97,7 +98,8 @@
 		article_is_delete, article_views,
 		article_img, article_createtime,
 		article_modifytime,
-		article_project
+		article_project,
+		outline
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.friendsystem.pojo.ArticleExample">
@@ -144,7 +146,7 @@
 		article_by_user, article_is_release,
 		article_is_delete,
 		article_views, article_img, article_createtime,
-		article_modifytime, article_project)
+		article_modifytime, article_project,outline)
 		values
 		(#{articleId,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR},
 		#{articleContent,jdbcType=VARCHAR},
@@ -155,7 +157,8 @@
 		#{articleImg,jdbcType=VARCHAR},
 		#{articleCreatetime,jdbcType=VARCHAR},
 		#{articleModifytime,jdbcType=VARCHAR},
-		#{articleProject,jdbcType=VARCHAR})
+		#{articleProject,jdbcType=VARCHAR},
+		#{outline,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective"
 		parameterType="com.friendsystem.pojo.Article">
@@ -194,6 +197,9 @@
 			<if test="articleProject != null">
 				article_project,
 			</if>
+			<if test="outline != null">
+				outline,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="articleId != null">
@@ -228,6 +234,9 @@
 			</if>
 			<if test="articleProject != null">
 				#{articleProject,jdbcType=VARCHAR},
+			</if>
+			<if test="outline != null">
+				#{outline,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -282,6 +291,10 @@
 				article_project =
 				#{record.articleProject,jdbcType=VARCHAR},
 			</if>
+			<if test="record.outline != null">
+				outline =
+				#{record.outline,jdbcType=VARCHAR},
+			</if>
 		</set>
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
@@ -304,6 +317,8 @@
 		#{record.articleModifytime,jdbcType=VARCHAR},
 		article_project =
 		#{record.articleProject,jdbcType=VARCHAR}
+		outline =
+		#{record.outline,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -345,6 +360,9 @@
 			<if test="articleProject != null">
 				article_project = #{articleProject,jdbcType=VARCHAR},
 			</if>
+			<if test="outline != null">
+				outline = #{outline,jdbcType=VARCHAR},
+			</if>
 		</set>
 		where article_id = #{articleId,jdbcType=VARCHAR}
 	</update>
@@ -370,7 +388,9 @@
 		article_modifytime =
 		#{articleModifytime,jdbcType=VARCHAR},
 		article_project =
-		#{articleProject,jdbcType=VARCHAR}
+		#{articleProject,jdbcType=VARCHAR},
+		outline =
+		#{outline,jdbcType=VARCHAR}
 		where article_id =
 		#{articleId,jdbcType=VARCHAR}
 	</update>

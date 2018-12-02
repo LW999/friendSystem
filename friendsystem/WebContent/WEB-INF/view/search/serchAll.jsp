@@ -107,21 +107,21 @@
 							<li>
 								<div class="content">
 									<div class="author">
-										<a href="/u/a234cae11e43" target="_blank" class="avatar"> <img src="//upload.jianshu.io/users/upload_avatars/13753996/865fe6a8-79e1-4d72-9849-61759c5d0501.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp">
+										<a href="#" target="_blank" class="avatar"> <img src="${pageContext.request.contextPath}/img/user.do?fileFileName=${A.user.userPortrait}">
 										</a>
 										<div class="info">
-											<a href="/u/a234cae11e43" class="nickname"> 火币 <em class="search-result-highlight">区块</em> <em class="search-result-highlight">链</em> 研究院
-											</a> <span class="time"> 3 个月前 </span>
+											<a href="#" class="nickname">${A.user.userName}
+											</a> <span class="time"> ${A.article.articleModifytime } </span>
 										</div>
 									</div>
 									<a href="#" target="_blank" class="title">${A.article.articleTitle }</a>
 									<p class="abstract">${A.article.outline }</p>
 									<div class="meta">
-										<a href="/p/0bb81e00404a" target="_blank"> <i class="iconfont ic-list-read"></i> 7234
-										</a> <a href="/p/0bb81e00404a#comments" target="_blank"> <i class="iconfont ic-list-comments"></i> 13
+										<a href="#" target="_blank"> <i class="iconfont ic-list-read"></i> 7234
+										</a> <a href="#" target="_blank"> <i class="iconfont ic-list-comments"></i> 13
 										</a> <span> <i class="iconfont ic-list-like"></i> 26
 										</span>
-										<!---->
+
 									</div>
 								</div>
 							</li>

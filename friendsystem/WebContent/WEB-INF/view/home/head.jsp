@@ -218,7 +218,7 @@
 			function(data) {
 				
 				$.each(data, function() {
-					var k = '<li><a href=\"#\" target=\"_blank\">'+ this.keywordContent + '</a></li>'
+					var k = '<li><a href=\"${pageContext.request.contextPath }/homePage/keyword.do?search='+this.keywordContent+'\" target=\"_blank\">'+ this.keywordContent + '</a></li>'
 					$("#search").append(k);
 				});
 			}, "json");
@@ -229,7 +229,7 @@
 					function(data) {
 					
 						$.each(data, function() {
-							var k = '<li><a href=\"#\" target=\"_blank\">'+ this.keywordContent + '</a></li>'
+							var k = '<li><a href=\"${pageContext.request.contextPath }/homePage/keyword2.do?search='+this.keywordContent+'\" target=\"_blank\">'+ this.keywordContent + '</a></li>'
 							$("#search").append(k);
 						});
 					}, "json");
