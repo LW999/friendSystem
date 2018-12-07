@@ -180,7 +180,7 @@
 						</c:choose>
 						<li class="search">
 							<form target="_blank" action="${pageContext.request.contextPath }/homePage/keyword.do" accept-charset="UTF-8" method="POST" id="searchForm">
-								<input type="text" name="search" placeholder="搜索" class="search-input" autocomplete="off" value="${search }">
+								<input type="text" name="search" placeholder="搜索" class="search-input" autocomplete="off" value="${search}">
 								<a class="search-btn" onclick="document:searchForm.submit()">
 									<i class="iconfont ic-search"></i>
 								</a>
@@ -224,10 +224,10 @@
 			}, "json");
 }
 		function change() {
-			clearUl2()
+			
 			$.post("${pageContext.request.contextPath}/homePage/change.do",
 					function(data) {
-					
+					clearUl2();
 						$.each(data, function() {
 							var k = '<li><a href=\"${pageContext.request.contextPath }/homePage/keyword2.do?search='+this.keywordContent+'\" target=\"_blank\">'+ this.keywordContent + '</a></li>'
 							$("#search").append(k);

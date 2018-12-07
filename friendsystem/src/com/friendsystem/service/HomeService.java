@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.friendsystem.DTO.Article_DetailsDTO;
 import com.friendsystem.DTO.Article_Like_CollectionDTO;
+import com.friendsystem.DTO.CommentDTO;
 import com.friendsystem.DTO.KeywordDTO;
 import com.friendsystem.DTO.LikeDTO;
 import com.friendsystem.DTO.UserAttentionDTO;
@@ -15,6 +16,7 @@ import com.friendsystem.DTO.User_LikeDTO;
 import com.friendsystem.mapper.ArticleMapper;
 import com.friendsystem.mapper.AttentionPeopleMapper;
 import com.friendsystem.mapper.CollectionMapper;
+import com.friendsystem.mapper.CommentMapper;
 import com.friendsystem.mapper.KeywordMapper;
 import com.friendsystem.mapper.LikesMapper;
 import com.friendsystem.mapper.ProjectMapper;
@@ -25,6 +27,8 @@ import com.friendsystem.pojo.ArticleExample;
 import com.friendsystem.pojo.AttentionPeople;
 import com.friendsystem.pojo.AttentionPeopleExample;
 import com.friendsystem.pojo.CollectionExample;
+import com.friendsystem.pojo.Comment;
+import com.friendsystem.pojo.CommentExample;
 import com.friendsystem.pojo.Keyword;
 import com.friendsystem.pojo.KeywordExample;
 import com.friendsystem.pojo.KeywordExample.Criteria;
@@ -59,6 +63,8 @@ public class HomeService {
 	private AttentionPeopleMapper attentionPeopleMapper;// 关注DAO
 	@Resource
 	private KeywordMapper keywordMapper;// 关键字DAO
+	@Resource
+	private CommentMapper commentMapper;// 添加评论字DAO
 
 	/**
 	 * 查询所有专题
@@ -516,4 +522,118 @@ public class HomeService {
 	public void addUser20(User user) {
 		userMapper.insert(user);
 	}
+
+	/**
+	 * 添加一级评论
+	 * 
+	 * @param userSession
+	 * @param not_id
+	 * @param userTwo_id
+	 * @param parent_id
+	 */
+	public CommentDTO addCommnet(User userSession, String not_id, String content) {
+		CommentDTO commentDTO = new CommentDTO();
+		CommentExample cExample = new CommentExample();
+		com.friendsystem.pojo.CommentExample.Criteria criteria = cExample.createCriteria();
+		criteria.andCommentNoteIdEqualTo(not_id);
+		Comment comment = new Comment();
+		comment.setCommentId(BuildUuid.getUuid());
+		comment.setCommentContent(content);
+		comment.setCommentUseroneId(userSession.getUserId());
+		comment.setCommentNoteId(not_id);
+		comment.setCommentParentId(not_id);
+		comment.setCommentCreateAt(TimeUtil.getStringSecond());
+		comment.setCommentIsGrade(1);
+		int floor = commentMapper.countByExample(cExample);
+		if (floor == 0) {
+			comment.setCommentFloor(1);
+		} else {
+			comment.setCommentFloor(floor + 1);
+		}
+		commentMapper.insert(comment);
+		commentDTO.setComment(comment);
+		commentDTO.setUserOne(userSession);
+		return commentDTO;
+	}
+
+	/**
+	 * 添加二级评论
+	 * 
+	 * @param userSession
+	 * @param not_id
+	 * @param parent_id
+	 * @param content
+	 * @param userTwo_id
+	 */
+	public CommentDTO addCommnetTwo(User userSession, String not_id, String parent_id, String content,
+			String userTwo_id, Integer floor) {
+		CommentDTO commentDTO = new CommentDTO();
+		Comment comment = new Comment();
+		comment.setCommentId(BuildUuid.getUuid());
+		comment.setCommentFloor(floor);
+		comment.setCommentNoteId(not_id);
+		comment.setCommentUseroneId(userSession.getUserId());
+		comment.setCommentIsGrade(2);
+		comment.setCommentCreateAt(TimeUtil.getStringSecond());
+		comment.setCommentParentId(parent_id);
+		comment.setCommentUsertwoId(userTwo_id);
+		comment.setCommentContent(content);
+		commentMapper.insert(comment);
+		commentDTO.setComment(comment);
+		commentDTO.setUserOne(userSession);
+		commentDTO.setUserTWo(userMapper.selectByPrimaryKey(userTwo_id));
+		return commentDTO;
+	}
+
+	/**
+	 * 拿到文章的所有评论
+	 * 
+	 * @param not_id
+	 * @return
+	 */
+	public List<CommentDTO> getComment(String not_id) {
+		List<CommentDTO> listCommentOneDTO = new ArrayList<>();
+		CommentExample commentExample = new CommentExample();
+		com.friendsystem.pojo.CommentExample.Criteria criteriaOne = commentExample.createCriteria();
+		criteriaOne.andCommentIsGradeEqualTo(1);
+		criteriaOne.andCommentNoteIdEqualTo(not_id);
+		commentExample.setOrderByClause("comment_floor desc");
+		List<Comment> listCommentOne = new ArrayList<>();// 获取一级评论
+		listCommentOne = commentMapper.selectByExample(commentExample);
+		for (Comment comment : listCommentOne) {
+			CommentDTO commentDTO = new CommentDTO();
+			User userOne = new User();
+			userOne = userMapper.selectByPrimaryKey(comment.getCommentUseroneId());
+			commentDTO.setComment(comment);
+			commentDTO.setUserOne(userOne);
+			CommentExample commentExampleTwo = new CommentExample();
+			com.friendsystem.pojo.CommentExample.Criteria criteriaTwo = commentExampleTwo.createCriteria();
+			criteriaTwo.andCommentIsGradeEqualTo(2);
+			criteriaTwo.andCommentNoteIdEqualTo(not_id);
+			criteriaTwo.andCommentParentIdEqualTo(comment.getCommentId());
+			commentExampleTwo.setOrderByClause("comment_create_at desc");
+			List<Comment> listCommentTwo = new ArrayList<>();// 获取二级级评论
+			listCommentTwo = commentMapper.selectByExample(commentExampleTwo);
+			if (listCommentTwo.size() > 0) {
+				commentDTO.setComment_exist(1);
+				List<CommentDTO> listCommentTwoDTO = new ArrayList<>();
+				for (Comment comment2 : listCommentTwo) {
+					CommentDTO commentDTO2 = new CommentDTO();
+					User user1 = new User();// 二级评论里面的第一个人
+					User user2 = new User();// 二级评论里面的第二个人
+					user1 = userMapper.selectByPrimaryKey(comment2.getCommentUseroneId());
+					user2 = userMapper.selectByPrimaryKey(comment2.getCommentUsertwoId());
+					commentDTO2.setComment(comment2);
+					commentDTO2.setComment_exist(0);
+					commentDTO2.setUserOne(user1);
+					commentDTO2.setUserTWo(user2);
+					listCommentTwoDTO.add(commentDTO2);
+				}
+				commentDTO.setListCommentDTO(listCommentTwoDTO);
+			}
+			listCommentOneDTO.add(commentDTO);
+		}
+		return listCommentOneDTO;
+	}
+
 }

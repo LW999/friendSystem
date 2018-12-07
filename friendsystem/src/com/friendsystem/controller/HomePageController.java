@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.friendsystem.DTO.Article_DetailsDTO;
 import com.friendsystem.DTO.Article_Like_CollectionDTO;
+import com.friendsystem.DTO.CommentDTO;
 import com.friendsystem.DTO.KeywordDTO;
 import com.friendsystem.DTO.LikeDTO;
 import com.friendsystem.DTO.UserAttentionDTO;
@@ -228,23 +230,23 @@ public class HomePageController {
 	 * 关键字搜索,最多只查5条
 	 * 
 	 * @return KeywordDTO
-	 * @throws UnsupportedEncodingException 
+	 * @throws UnsupportedEncodingException
 	 */
 	@RequestMapping(value = "keyword")
-	public ModelAndView keyword(@ModelAttribute("session") User userSession, Model map,HttpServletRequest request, HttpServletResponse response,String search) throws UnsupportedEncodingException {
-		System.out.println("hahah:" + search);
+	public ModelAndView keyword(@ModelAttribute("session") User userSession, Model map, HttpServletRequest request,
+			HttpServletResponse response, String search) throws UnsupportedEncodingException {
 		ModelAndView modelAndView = new ModelAndView();
 		KeywordDTO keywordDTO = homeService.getSearch(search);
-		modelAndView.addObject("keywordDTO", keywordDTO);
 		modelAndView.addObject("search", search);
+		modelAndView.addObject("keywordDTO", keywordDTO);
 		modelAndView.setViewName("search/serchAll");
 		return modelAndView;
 	}
+
 	@RequestMapping(value = "keyword2")
-	public ModelAndView keyword2(@ModelAttribute("session") User userSession, Model map,HttpServletRequest request, HttpServletResponse response,String search) throws UnsupportedEncodingException {
-		System.out.println("hahah:" + search);
-		String dataformat = new String(search.getBytes("iso8859-1"),"utf8");
-		System.out.println("DDDDD:"+dataformat);
+	public ModelAndView keyword2(@ModelAttribute("session") User userSession, Model map, HttpServletRequest request,
+			HttpServletResponse response, String search) throws UnsupportedEncodingException {
+		String dataformat = new String(search.getBytes("iso8859-1"), "utf8");
 		ModelAndView modelAndView = new ModelAndView();
 		KeywordDTO keywordDTO = homeService.getSearch(dataformat);
 		modelAndView.addObject("keywordDTO", keywordDTO);
@@ -273,5 +275,50 @@ public class HomePageController {
 		List<Keyword> listK = homeService.getChange();
 
 		return listK;
+	}
+
+	/**
+	 * 添加一级评论
+	 */
+	@RequestMapping("commentOne")
+	@ResponseBody
+	private CommentDTO commentOne(@ModelAttribute("session") User userSession, Model map, String not_id,
+			String content) {
+		/**
+		 * 添加一级评论
+		 */
+		System.out.println("hi");
+		CommentDTO commentDTO = new CommentDTO();
+		commentDTO = homeService.addCommnet(userSession, not_id, content);
+		return commentDTO;
+
+	}
+
+	/**
+	 * 添加二级评论
+	 */
+	@RequestMapping("commentTwo")
+	@ResponseBody
+	private CommentDTO commentTwo(@ModelAttribute("session") User userSession, Model map, String not_id, String content,
+			String parent_id, String userTwo_id, Integer floor) {
+		/**
+		 * 添加二级评论
+		 */
+		CommentDTO commentDTO = new CommentDTO();
+		commentDTO = homeService.addCommnetTwo(userSession, not_id, parent_id, content, userTwo_id, floor);
+		return commentDTO;
+
+	}
+	/**
+	 * 获取评论
+	 */
+	@RequestMapping("getComment")
+	@ResponseBody
+	private List<CommentDTO> getComment(String not_id) {
+		System.out.println("ID:" + not_id);
+		List<CommentDTO> listCommentDTO = new ArrayList<>();
+		listCommentDTO = homeService.getComment(not_id);
+		return listCommentDTO;
+
 	}
 }
