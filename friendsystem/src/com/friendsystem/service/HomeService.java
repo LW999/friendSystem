@@ -430,13 +430,12 @@ public class HomeService {
 			mm: for (Article article : listArticle) {
 
 				for (String string : list) {
-					article.setOutline(((article.getOutline()).toLowerCase()).replaceAll(string,
-							"<span style=\"color: #ea6f5a\">" + string + "</span>"));
+					/*article.setOutline(((article.getOutline()).toLowerCase()).replaceAll(string,
+							"<span style=\"color: #ea6f5a\">" + string + "</span>"));*/
 					article.setArticleTitle(((article.getArticleTitle()).toLowerCase()).replaceAll(string,
 							"<span style=\"color: #ea6f5a\">" + string + "</span>"));
-					System.out.println("KddKK:" + article.getArticleTitle());
+				
 				}
-				System.out.println("KKK:" + article.getArticleTitle());
 				Article_DetailsDTO article_DetailsDTO = new Article_DetailsDTO();
 				for (Article_DetailsDTO DTO : listA) {
 					if (DTO.getArticle().getArticleId().equals(article.getArticleId()))

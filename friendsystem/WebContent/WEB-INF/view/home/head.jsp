@@ -57,13 +57,13 @@
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="javascript:kk2(2)">
 								<i class="iconfont ic-navigation-mark"></i>
 								<span>收藏的文章</span>
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="javascript:kk2(2)">
 								<i class="iconfont ic-navigation-like"></i>
 								<span>喜欢的文章</span>
 							</a>
@@ -75,7 +75,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="javascript:kk2(2)">
 								<i class="iconfont ic-navigation-feedback"></i>
 								<span>帮助与反馈</span>
 							</a>
@@ -129,7 +129,7 @@
 									</a>
 									<ul class="dropdown-menu">
 										<li>
-											<a href="#">
+											<a href="javascript:kk2(1);">
 												<i class="iconfont ic-comments"></i>
 												<span>
 													<span class="badge pull-left">8</span>
@@ -139,7 +139,7 @@
 											</a>
 										</li>
 										<li>
-											<a href="3">
+											<a href="javascript:kk2(1);">
 												<i class="iconfont ic-chats"></i>
 												<span>
 													<span>
@@ -151,7 +151,7 @@
 										</li>
 
 										<li>
-											<a href="#">
+											<a href="javascript:kk2(1);">
 												<i class="iconfont ic-likes"></i>
 												<span>
 													<span>
@@ -162,7 +162,7 @@
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="javascript:kk2(1);">
 												<i class="iconfont ic-follows"></i>
 												<span>
 													<span>
@@ -178,9 +178,9 @@
 
 							</c:otherwise>
 						</c:choose>
-						<li class="search">
+						<li>
 							<form target="_blank" action="${pageContext.request.contextPath }/homePage/keyword.do" accept-charset="UTF-8" method="POST" id="searchForm">
-								<input type="text" name="search" placeholder="搜索" class="search-input" autocomplete="off" value="${search}">
+								<input type="text" name="search" placeholder="搜索${search}" class="search-input" autocomplete="off">
 								<a class="search-btn" onclick="document:searchForm.submit()">
 									<i class="iconfont ic-search"></i>
 								</a>
@@ -211,23 +211,24 @@
 	<script src="${pageContext.request.contextPath }/js/two.js"></script>
 	<script src="${pageContext.request.contextPath }/js/there.js"></script>
 	<script type="text/javascript">
+	function clearUl2() {
+	
+		$("#search").children().remove();
+	}
 		se();
 		function se() {
-			
 			$.post("${pageContext.request.contextPath}/homePage/getKeyword.do",
 			function(data) {
-				
 				$.each(data, function() {
-					var k = '<li><a href=\"${pageContext.request.contextPath }/homePage/keyword.do?search='+this.keywordContent+'\" target=\"_blank\">'+ this.keywordContent + '</a></li>'
+					var k = '<li><a href=\"${pageContext.request.contextPath }/homePage/keyword2.do?search='+this.keywordContent+'\" target=\"_blank\">'+ this.keywordContent + '</a></li>'
 					$("#search").append(k);
 				});
 			}, "json");
 }
 		function change() {
-			
+			clearUl2();
 			$.post("${pageContext.request.contextPath}/homePage/change.do",
 					function(data) {
-					clearUl2();
 						$.each(data, function() {
 							var k = '<li><a href=\"${pageContext.request.contextPath }/homePage/keyword2.do?search='+this.keywordContent+'\" target=\"_blank\">'+ this.keywordContent + '</a></li>'
 							$("#search").append(k);
@@ -237,9 +238,16 @@
 		function clearUl() {
 			$("#search").children().remove();
 		}
-		function clearUl2() {
-			$("#search").children().remove();
+		
+	</script>
+	<script type="text/javascript">
+	function kk2(a) {
+		if (a == 1) {
+			toastr.info("还差消息提示还有分类没搞好");
+		} else {
+			toastr.info("只有头像和设置有用");
 		}
+	}
 	</script>
 </body>
 </html>

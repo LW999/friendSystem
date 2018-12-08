@@ -591,6 +591,7 @@ right
 	<!-- 评论 -->
 	<script type="text/javascript">
 		function addCommentOne() {
+			cacle();
 			var a = document.getElementById("contentRRR").value;
 			$.post("${pageContext.request.contextPath}/homePage/commentOne.do",
 					{
@@ -617,8 +618,7 @@ right
 							skr=skr+'			<div class="comment-wrap">'
 							skr=skr+'				<p>'+data.comment.commentContent+'</p>'
 							skr=skr+'				<div class="tool-group">'
-							skr=skr+'				 <a class=""> <i class="iconfont ic-comment"></i> <span>回复</span>'
-							skr=skr+'				</a>'
+							skr=skr+'				  <a class="" onclick="subCommentBottom(this)"><i class="iconfont ic-comment"></i> <span>回复</span></a> <a class="report"><span>举报</span></a>'
 							skr=skr+'				</div>'
 							skr=skr+'			</div>'
 							skr=skr+'		</div>'
@@ -631,12 +631,13 @@ right
 							skr=skr+'					<a data-v-b36e9416="" class="emoji"><i data-v-b36e9416="" class="iconfont ic-comment-emotions"></i></a>'
 							skr=skr+'				</div>'
 							skr=skr+'				<div class="hint">Ctrl+Enter 发表</div>'
-							skr=skr+'				<a class="btn btn-send" onclick="javascript:addCommentTwo(\''+data.userOne.userId+'\',\''+data.comment.commentFloor+'\',\''+data.comment.commentId+'\',1);">发送</a> <a class="cancel">取消</a>'
+							skr=skr+'				<a class="btn btn-send" onclick="javascript:addCommentTwo(\''+data.userOne.userId+'\',\''+data.comment.commentFloor+'\',\''+data.comment.commentId+'\',1);">发送</a> <a class="cancel" onclick="cacle(this)">取消</a>'
 							skr=skr+'			</div>'
 							skr=skr+'		</div>'
 							skr=skr+'		</div>'
 							skr=skr+'	</div>'
 							$("#addComment").append(skr);
+							
 					}, "json");
 		}
 		function addCommentTwo(s,f,c,m){
@@ -646,9 +647,6 @@ right
 			else{
 				var a = document.getElementById("two"+m).value;
 			}
-			alert('评论谁'+s);
-			alert('内容'+a);
-			alert('一级ID'+f);
 			$.post("${pageContext.request.contextPath}/homePage/commentTwo.do",
 			{
 				"not_id" : '${article_DetailsDTO.article.articleId }',
@@ -683,6 +681,7 @@ right
 					skr=skr+'			</div>'
 					skr=skr+'		</div>'
 					$("#list"+c).append(skr);
+					subComment(a);
 				},"json");
 		}
 	</script>

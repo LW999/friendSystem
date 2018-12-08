@@ -115,7 +115,7 @@
 										</div>
 									</div>
 									<a href="#" target="_blank" class="title">${A.article.articleTitle }</a>
-									<p class="abstract">${A.article.outline }</p>
+									<%-- <p class="abstract">${A.article.outline }</p> --%>
 									<div class="meta">
 										<a href="#" target="_blank"> <i class="iconfont ic-list-read"></i> 7234
 										</a> <a href="#" target="_blank"> <i class="iconfont ic-list-comments"></i> 13

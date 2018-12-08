@@ -235,6 +235,11 @@ public class HomePageController {
 	@RequestMapping(value = "keyword")
 	public ModelAndView keyword(@ModelAttribute("session") User userSession, Model map, HttpServletRequest request,
 			HttpServletResponse response, String search) throws UnsupportedEncodingException {
+		/*
+		 * System.out.println("d:"+search); String dataformat = new
+		 * String(search.getBytes("iso8859-1"), "utf8");
+		 * System.out.println("ds:"+dataformat);
+		 */
 		ModelAndView modelAndView = new ModelAndView();
 		KeywordDTO keywordDTO = homeService.getSearch(search);
 		modelAndView.addObject("search", search);
@@ -246,7 +251,9 @@ public class HomePageController {
 	@RequestMapping(value = "keyword2")
 	public ModelAndView keyword2(@ModelAttribute("session") User userSession, Model map, HttpServletRequest request,
 			HttpServletResponse response, String search) throws UnsupportedEncodingException {
+		System.out.println("d:"+search);
 		String dataformat = new String(search.getBytes("iso8859-1"), "utf8");
+		System.out.println("ds:" + dataformat);
 		ModelAndView modelAndView = new ModelAndView();
 		KeywordDTO keywordDTO = homeService.getSearch(dataformat);
 		modelAndView.addObject("keywordDTO", keywordDTO);
@@ -309,6 +316,7 @@ public class HomePageController {
 		return commentDTO;
 
 	}
+
 	/**
 	 * 获取评论
 	 */

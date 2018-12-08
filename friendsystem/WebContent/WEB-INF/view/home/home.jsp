@@ -25,19 +25,19 @@
 					<div class="carousel-inner">
 						<div class="item active">
 							<div class="banner">
-								<a target="_blank" href="#"> <img src="${pageContext.request.contextPath }/img/timg.jpg" alt="1">
+								<a target="_blank" href="#"> <img src="${pageContext.request.contextPath }/img/5656.png" alt="1">
 								</a>
 							</div>
 						</div>
 						<div class="item">
 							<div class="banner" data-banner-name="赛末点02">
-								<a target="_blank" href="#"> <img src="${pageContext.request.contextPath }/img/59c8621b2b5f2.png" alt="540">
+								<a target="_blank" href="#"> <img src="${pageContext.request.contextPath }/img/7878.png" alt="540">
 								</a>
 							</div>
 						</div>
 						<div class="item">
 							<div class="banner" data-banner-name="赛末点02">
-								<a target="_blank" href="#"> <img src="${pageContext.request.contextPath }/img/59c8621b2b5f2.png" alt="540">
+								<a target="_blank" href="#"> <img src="${pageContext.request.contextPath }/img/14d959ff757f21616baa933fd3bdbfcf52fd512a.jpg" alt="540">
 								</a>
 							</div>
 						</div>
@@ -55,9 +55,9 @@
 				<!--专题分类需要遍历-->
 				<%@include file="project.jsp"%>
 					<div class="split-line">
-						<a class="page-change" onclick="article()" style=" margin-left: 88%;">
+						<!-- <a class="page-change" onclick="article()" style=" margin-left: 88%;">
 							<i class="iconfont ic-search-change" style="transform: rotate(5deg);"></i>换一批 
-						</a>
+						</a> -->
 					</div>
 				<div id="list-container">
 
