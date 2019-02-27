@@ -65,7 +65,6 @@
 		function myfun() {
 			var val = "${check}";
 			console.log(val)
-			alert(val)
 			if (val == "reg") {
 				toastr.success("注册")
 			}

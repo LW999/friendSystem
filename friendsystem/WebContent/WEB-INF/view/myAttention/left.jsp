@@ -11,11 +11,11 @@
 </head>
 <body>
 	<div class="aside">
-		<span class="change-type">
+		<span class="change-type"style="margin-left: 0px;">
 			我的所有关注
-			<i class="iconfont ic-list-like" style="margin-left: 10px; color: #ea6f5a"></i>
+			<i class="iconfont ic-list-like" style="margin-left: 8px; color: #ea6f5a"></i>
 			<a href="${pageContext.request.contextPath }/jump/recommend.do">
-				<i class="iconfont ic-addpeople" style="margin-left: 62px"></i>
+				<i class="iconfont ic-addpeople" style="margin-left: 52px"></i>
 				<span>添加关注</span>
 			</a>
 		</span>
